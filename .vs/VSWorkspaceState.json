@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\include"
+    "\\include",
+    "\\src"
   ],
-  "SelectedNode": "\\include\\AbsObject.h",
+  "SelectedNode": "\\include\\WeaponsGift.h",
   "PreviewInSolutionExplorer": false
 }
