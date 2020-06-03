@@ -1,1 +1,1 @@
-﻿target_sources (Digger PRIVATE "main.cpp")
+﻿target_sources (Worms PRIVATE "main.cpp")

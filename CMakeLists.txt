@@ -9,7 +9,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     add_compile_options (/permissive-)
 endif ()
 
-add_executable (Digger WIN32 "")
+add_executable (Worms WIN32 "")
 
 add_subdirectory (include)
 add_subdirectory (src)
@@ -21,8 +21,8 @@ set (SFML_DIR "C:/SFML/SFML-2.5.1/lib/cmake/SFML")
 find_package (SFML 2.5 COMPONENTS audio graphics REQUIRED)
 
 
-target_link_libraries (Digger sfml-graphics sfml-main)
-target_link_libraries (Digger sfml-graphics sfml-audio sfml-main)
+target_link_libraries (Worms sfml-graphics sfml-main)
+target_link_libraries (Worms sfml-graphics sfml-audio sfml-main)
 
 set_target_properties (sfml-main sfml-system sfml-window sfml-graphics sfml-audio sfml-network PROPERTIES MAP_IMPORTED_CONFIG_RELWITHDEBINFO RELEASE)
 
