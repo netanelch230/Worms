@@ -115,21 +115,13 @@ sf::Color Menu::getColor(int colorNum)
 	switch(colorNum)
 	{
 		case 0:
-		{
 			return sf::Color::Red;
-		}
 		case 1:
-		{
 			return sf::Color::Red+sf::Color::Blue;
-		}
 		case 2:
-		{
 			return sf::Color::Blue;
-		}
 		case 3:
-		{
 			return sf::Color::Green;
-		}
 	}
 }
 

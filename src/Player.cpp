@@ -12,3 +12,23 @@ Player::Player(std::string name, sf::Vector2f location, sf::Color color):
 		j+=10;
 	}
 }
+
+void Player::run(sf::RenderWindow& window, sf::Event& event)
+{
+	for (; window.pollEvent(event); )
+	{
+		if (sf::Event::MouseButtonPressed)
+		{
+			if (sf::Mouse::Button::Left)
+			{
+				auto location = window.mapPixelToCoords(
+					{ event.mouseButton.x, event.mouseButton.y });
+				for (auto& i : m_worms)
+					i->touch(location);
+			}
+
+		}
+			
+
+	}
+}
