@@ -9,6 +9,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     add_compile_options (/permissive-)
 endif ()
 
+
 add_executable (Worms WIN32 "")
 
 add_subdirectory (include)

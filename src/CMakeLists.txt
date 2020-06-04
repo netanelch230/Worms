@@ -1,1 +1,7 @@
-﻿target_sources (Worms PRIVATE "main.cpp")
+
+﻿target_sources (Digger PRIVATE "main.cpp"
+"Controller.cpp"
+"Player.cpp"
+"AbsObject.cpp"
+"Menu.cpp"
+"Resources.cpp")

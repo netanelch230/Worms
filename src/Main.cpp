@@ -1,4 +1,8 @@
+#pragma once
+#include "Controller.h"
+
 int main()
 {
-	return 0;
+	Controller r;
+	r.run();
 }
