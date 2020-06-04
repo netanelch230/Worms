@@ -7,7 +7,6 @@
 
 Menu::Menu()
 {
-	
 	initializeColors();
 }
 void Menu::run(sf::Texture& menuScreen, sf::RenderWindow& window)
@@ -40,7 +39,7 @@ void Menu::run(sf::Texture& menuScreen, sf::RenderWindow& window)
 					{
 						while (sf::Event::TextEntered)
 						{
-							m_playerInput += event.text.unicode;
+							m_playerInput += static_cast<char>(event.text.unicode);
 							m_playerText.setString(m_playerInput);
 							window.draw(m_playerText);
 							window.display();

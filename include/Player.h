@@ -20,4 +20,5 @@ private:
 	std::string m_name; // will be read from sfml
 	sf::Vector2f m_location;
 	sf::Color m_color;
+	sf::Clock m_wormsTime;
 };

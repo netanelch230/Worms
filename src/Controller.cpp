@@ -27,7 +27,7 @@ void Controller::run()
 			}
 		}
 		for (auto& i : m_player)
-			i->run(m_window);
+			i->run(m_window,m_event);
 
 	}
 
