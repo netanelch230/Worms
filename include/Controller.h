@@ -17,6 +17,9 @@ private:
 	sf::Event m_event;
 	Resources m_resources;
 	Menu m_menu;
+	sf::RectangleShape m_background;
+	void restartPlayers();
+	void restartBackground();
 	
 };
 

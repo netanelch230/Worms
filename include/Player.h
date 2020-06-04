@@ -13,7 +13,7 @@ public:
 	Player(std::string name, sf::Vector2f location, sf::Color color);
 	std::string getName() { return m_name; };
 	//~Player();
-
+	void run(sf::RenderWindow& window, sf::Event& event);
 private:
 	std::vector<std::unique_ptr<Worm>> m_worms; // initialize the size of the vector
 	std::vector < std::unique_ptr<Attack>> m_weapons;
