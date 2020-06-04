@@ -15,6 +15,8 @@ Player::Player(std::string name, sf::Vector2f location, sf::Color color):
 
 void Player::run(sf::RenderWindow& window, sf::Event& event)
 {
+	
+	int place = rand() % wormsLimit;
 	for (; window.pollEvent(event); )
 	{
 		if (sf::Event::MouseButtonPressed)
@@ -23,11 +25,24 @@ void Player::run(sf::RenderWindow& window, sf::Event& event)
 			{
 				auto location = window.mapPixelToCoords(
 					{ event.mouseButton.x, event.mouseButton.y });
+				int j = 0;
 				for (auto& i : m_worms)
-					i->touch(location);
+				{
+					if (i->touch(location))
+						place = j;
+					j++;
+				}
 			}
+			if (sf::Mouse::Button::Left);//weapons menu
 
 		}
+		if (sf::Event::KeyPressed)
+		{
+			float time = m_wormsTime.restart().asSeconds();
+			m_worms[place]->move(time);
+
+		}
+
 			
 
 	}

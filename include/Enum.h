@@ -20,3 +20,11 @@ enum menuOption
 	gameFormat
 };
 
+enum sides
+{
+	jump,
+	down,
+	left,
+	right,
+	stand
+};
