@@ -6,6 +6,7 @@ class Features:public AbsObject
 public:
 	Features() {};
 	//~Features();
+	
 
 private:
 };

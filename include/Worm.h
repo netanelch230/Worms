@@ -6,7 +6,6 @@ class Worm: public AbsObject
 {
 public:
 	Worm(sf::Vector2f location) :AbsObject(location) {};
-	bool touch(sf::Vector2f location);
 	void move(float time);
 	//~Worm();
 

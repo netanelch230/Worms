@@ -9,7 +9,6 @@ public:
 	Controller();
 	~Controller() {};
 	void run();                   //main function
-	void menu();
 	
 private:
 	sf::RenderWindow m_window = sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Worms");
@@ -18,9 +17,12 @@ private:
 	Resources m_resources;
 	Menu m_menu;
 	sf::RectangleShape m_background;
-	void restartPlayers();
-	void restartBackground();
 	
+	void restartPlayers();        //build the player from menuInput
+	void restartBackground();     //define the background from menuInput
+	void drawPlayer();
+	void exitGame();
 
 };
+
 

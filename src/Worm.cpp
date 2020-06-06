@@ -1,13 +1,9 @@
 #include "Worm.h"
 
-bool Worm::touch(sf::Vector2f location)
-{
-    return m_sprite.getGlobalBounds().contains(location);
-}
 
 void Worm::move(float time)
 {
-	m_sprite.move(calculateDirection(time,direction())
+	m_sprite.move(calculateDirection(time, direction()));
 }
 
 int Worm::direction()
