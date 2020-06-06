@@ -15,46 +15,53 @@ void Controller::run()
 	{
 		m_window.clear();
 		m_window.draw(m_background);
+		drawPlayer();
 		m_window.display();
-
-		for (; m_window.pollEvent(m_event); )
-		{
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) ||
-				m_event.type == sf::Event::Closed)
-			{
-				m_window.close();
-				break;
-			}
-		}
+		exitGame();
 		for (auto& i : m_player)
 			i->run(m_window,m_event);
-
 	}
 
 }
 
-void Controller::restartPlayers()
+void Controller::restartPlayers()   
 {
 	int numOfPlayer = m_menu.getInput().m_numOfPlayers;
 	int j = 0;
-	auto name = m_menu.getInput().m_playerName.begin();
+	auto name = m_menu.getInput().m_playerName;
 	m_player.resize(numOfPlayer);
 	for (auto& it : m_player)
 	{
-		float widthRatio = 1200 / numOfPlayer;
-		float heightRatio = 700 / numOfPlayer;
-		auto i = std::make_unique<Player>(name,
+		float widthRatio = WIDTH / numOfPlayer;
+		float heightRatio = HEIGHT / numOfPlayer;
+		auto i = std::make_unique<Player>(name[j],
 			sf::Vector2f{ (float)widthRatio * j,heightRatio },
 			m_menu.getColor(m_menu.getInput().m_color));
 		it.swap(i);
 		j++;
-		name++;
 	}
-
 }
 
-void Controller::restartBackground()
+void Controller::restartBackground()   
 {
-	m_background.setTexture(&m_resources.getTexture(m_menu.getInput().m_background));
-	m_background.setSize({ 1200,700 });
+	m_background.setTexture(&m_resources.getTexture(0));
+	m_background.setSize({ WIDTH,HEIGHT });
 }
+
+void Controller::drawPlayer()
+{
+	for (auto& i : m_player)
+		i->draw(m_window);
+}
+
+void Controller::exitGame()
+{
+	for (; m_window.pollEvent(m_event); )
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) ||
+			m_event.type == sf::Event::Closed)
+		{
+			m_window.close();
+			break;
+		}
+}
+

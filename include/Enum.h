@@ -28,3 +28,4 @@ enum sides
 	right,
 	stand
 };
+

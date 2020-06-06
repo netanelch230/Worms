@@ -13,7 +13,7 @@ struct Input
 	bool m_gameFormat; // with copmuter or not
 	unsigned int m_background;
 	unsigned int m_color;
-	std::string m_playerName;
+	std::vector<std::string> m_playerName;
 };
 
 class Menu 
