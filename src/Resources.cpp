@@ -1,5 +1,5 @@
 #include "Resources.h"
-#include "Enum.h"
+
 void Resources::loadPicture()
 {
 	m_picture[menuPic].loadFromFile("menuBackground.png");

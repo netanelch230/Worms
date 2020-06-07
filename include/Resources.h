@@ -22,12 +22,12 @@ public:
 	void loadSound();
 	sf::Texture& getTexture(const int& i) { return m_picture[i]; };
 	sf::Font& getfont(const int& i) { return m_messege[i]; };
-	sf::Music& getMusic(int i);
+	//sf::Music& getMusic(int i);
 
 private:
 	std::vector<sf::RectangleShape> m_rectangle;
 	sf::Texture m_picture[16];
 	sf::Font m_messege[5];
-	sf::Music m_sound[3];
+	//sf::Music m_sound[3];
 };
 
