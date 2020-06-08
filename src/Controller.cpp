@@ -3,6 +3,7 @@
 
 Controller::Controller()
 {
+	int temp;
 	restartBackground();
 	restartPlayers();
 	m_menu.setFont(m_resources.getfont(0));
