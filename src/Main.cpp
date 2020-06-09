@@ -1,4 +1,9 @@
+#pragma once
+#include "Controller.h"
+#include "Menu.h"
+
 int main()
 {
-	return 0;
+	Controller r;
+	r.run();
 }
