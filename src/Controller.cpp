@@ -3,6 +3,7 @@
 
 Controller::Controller()
 {
+	int temp;
 	restartBackground();
 	restartPlayers();
 	restartFeature();
