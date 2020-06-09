@@ -11,21 +11,16 @@ endif ()
 
 add_executable (Worms WIN32 "")
 
+add_subdirectory (Box2D/include)
+add_subdirectory (Box2D/src)
+add_subdirectory (include)
+add_subdirectory (src)
+add_subdirectory (resources)
 
-	add_subdirectory (Box2D/include)
-	add_subdirectory (Box2D/src)
-	add_subdirectory (include)
-	add_subdirectory (src)
-	add_subdirectory (resources)
+set (SFML_STATIC_LIBRARIES TRUE)
+set (SFML_DIR "C:/SFML/SFML-2.5.1/lib/cmake/SFML")
 
-	set (SFML_STATIC_LIBRARIES TRUE)
-	set (SFML_DIR "C:/SFML/SFML-2.5.1/lib/cmake/SFML")
-
-	find_package (SFML 2.5 COMPONENTS graphics REQUIRED)
-
-	set_target_properties (sfml-main sfml-system sfml-window sfml-graphics sfml-audio sfml-network PROPERTIES MAP_IMPORTED_CONFIG_RELWITHDEBINFO RELEASE)
-
-
+find_package (SFML 2.5 COMPONENTS graphics REQUIRED)
 target_link_libraries (Worms box2d)
 target_link_libraries (Worms sfml-graphics sfml-audio sfml-main)
 set_target_properties (sfml-main sfml-system sfml-window sfml-graphics sfml-audio sfml-network PROPERTIES MAP_IMPORTED_CONFIG_RELWITHDEBINFO RELEASE)

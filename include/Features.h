@@ -4,7 +4,8 @@
 class Features:public AbsObject
 {
 public:
-	Features() {};
+	Features(const sf::Texture& texture, const sf::Vector2f& pos) :
+		AbsObject({ pos,{20,30},texture }) {};
 	//~Features();
 	
 

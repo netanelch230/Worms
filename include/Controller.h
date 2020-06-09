@@ -3,6 +3,8 @@
 #include <Resources.h>
 #include "Player.h"
 #include "Menu.h"
+#include"Enum.h"
+
 class Controller
 {
 public:
@@ -22,7 +24,7 @@ private:
 	void restartBackground();     //define the background from menuInput
 	void drawPlayer();
 	void exitGame();
-
+	void restartFeature();
 };
 
 

@@ -5,7 +5,8 @@
 class Worm: public AbsObject
 {
 public:
-	Worm(sf::Vector2f location) :AbsObject(location) {};
+	Worm(const sf::Vector2f& location, const sf::Texture& tex)
+		:AbsObject({ location,sizeOfWorm,tex }) {};
 	void move(float time);
 	//~Worm();
 

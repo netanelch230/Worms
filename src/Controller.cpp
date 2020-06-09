@@ -5,6 +5,7 @@ Controller::Controller()
 {
 	restartBackground();
 	restartPlayers();
+	restartFeature();
 	m_menu.setFont(m_resources.getfont(0));
 	m_menu.run(m_resources.getTexture(menuPic), m_window);
 }
@@ -63,5 +64,20 @@ void Controller::exitGame()
 			m_window.close();
 			break;
 		}
+}
+
+void Controller::restartFeature()
+{
+	auto startHieght = 100.f;
+	auto Width = 1000.f;
+	for (auto& i : m_player)
+	{
+		i->loadFeatures(m_resources.getTexture(flik), { startHieght, Width });
+		i->loadFeatures(m_resources.getTexture(grenade), { startHieght+30, Width });
+		i->loadFeatures(m_resources.getTexture(pass), { startHieght+60, Width });
+		i->loadFeatures(m_resources.getTexture(sheep), { startHieght+90, Width });
+		i->loadFeatures(m_resources.getTexture(whiteflag), { startHieght+120, Width });
+	}
+
 }
 

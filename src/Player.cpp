@@ -7,8 +7,8 @@ Player::Player(std::string name, sf::Vector2f location, sf::Color color):
 	int j = 0;
 	for (auto &it : m_worms)
 	{
-		auto i = std::make_unique<Worm>(sf::Vector2f{ (float)(location.x + j),(float)location.y});
-		it.swap(i);
+		//auto i = std::make_unique<Worm>(sf::Vector2f{ (float)(location.x + j),(float)location.y});
+		//it.swap(i);
 		j+=10;
 	}
 }
@@ -24,7 +24,7 @@ void Player::run(sf::RenderWindow& window, sf::Event& event)
 			chooseWorm(window, event, place);
 			break;
 		case (sf::Mouse::Button::Right)://weapons menu
-			for (auto& i : m_weapons)
+			for (auto& i : m_features)
 				i->draw(window);
 			chooseWeapone(window, event);
 			break;
@@ -45,7 +45,7 @@ void Player::chooseWeapone(sf::RenderWindow& window, sf::Event& event)
 	{
 	case(sf::Mouse::Button::Left):
 		auto location = locatin(window, event);
-		for (auto& i : m_weapons)
+		for (auto& i : m_features)
 			if(i->touch(location))
 				//the player choose this weapon, do someting.				
 		break;
@@ -80,4 +80,10 @@ sf::Vector2f Player::locatin(sf::RenderWindow& window, sf::Event& event)
 {
 	return window.mapPixelToCoords(
 		{ event.mouseButton.x, event.mouseButton.y });
+}
+
+void Player::loadFeatures(const sf::Texture& tex, const sf::Vector2f& pos)
+{
+	//auto i = std::make_unique<Features>(tex, pos);
+	//m_features.emplace_back(i);
 }

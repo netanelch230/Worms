@@ -15,10 +15,12 @@ public:
 	//~Player();
 	void run(sf::RenderWindow& window, sf::Event& event);
 	void draw(sf::RenderWindow& window);					//draw all the worms
+	void loadFeatures(const sf::Texture& tex, const sf::Vector2f& pos);
+
 	
 private:
 	std::vector<std::unique_ptr<Worm>> m_worms; // initialize the size of the vector
-	std::vector < std::unique_ptr<Attack>> m_weapons;
+	std::vector < std::unique_ptr<Features>> m_features;
 	std::string m_name; // will be read from sfml
 	sf::Vector2f m_location;
 	sf::Color m_color;
