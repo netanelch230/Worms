@@ -5,4 +5,6 @@
 "Menu.cpp"
 "Resources.cpp"
 "worm.cpp"
-"Attack.cpp")
+"Attack.cpp"
+"animation.cpp"
+"animationobject.cpp")

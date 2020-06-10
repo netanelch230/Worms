@@ -1,14 +1,17 @@
 #include "Player.h"
 
-Player::Player(std::string name, sf::Vector2f location, sf::Color color):
-	m_name(name), m_location(location),m_color(color)
+Player::Player(std::string name, sf::Vector2f location, sf::Color color,
+	animArray animat):
+	m_name(name), m_location(location),m_color(color),m_animat(animat)
 {
+	
 	m_worms.resize(wormsLimit);
 	int j = 0;
 	for (auto &it : m_worms)
 	{
-		//auto i = std::make_unique<Worm>(sf::Vector2f{ (float)(location.x + j),(float)location.y});
-		//it.swap(i);
+		auto loc = m_location + sf::Vector2f{ (float)j, 0 };
+		auto i = std::make_unique<Worm>(loc,m_animat[worm]);
+		it.swap(i);
 		j+=10;
 	}
 }
@@ -86,4 +89,9 @@ void Player::loadFeatures(const sf::Texture& tex, const sf::Vector2f& pos)
 {
 	//auto i = std::make_unique<Features>(tex, pos);
 	//m_features.emplace_back(i);
+}
+
+sf::Vector2f operator+(sf::Vector2f v1, sf::Vector2f v2)
+{
+	return v1+=v2;
 }

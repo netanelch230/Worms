@@ -16,3 +16,4 @@ bool AbsObject::touch(sf::Vector2f location)
 {
 	return m_sprite.getGlobalBounds().contains(location);
 }
+

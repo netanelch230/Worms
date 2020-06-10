@@ -1,12 +1,12 @@
 #pragma once
-#include"AbsObject.h"
+#include"AnimationObject.h"
 #include"Enum.h"
 
-class Worm: public AbsObject
+class Worm: public AnimationObject
 {
 public:
 	Worm(const sf::Vector2f& location, const sf::Texture& tex)
-		:AbsObject({ location,sizeOfWorm,tex }) {};
+		:AnimationObject(spriteSetting{ location,sizeOfWorm,tex },sf::Vector2u{ 1,36 }) {};
 	void move(float time);
 	//~Worm();
 
