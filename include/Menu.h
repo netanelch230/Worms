@@ -11,32 +11,31 @@ struct Input
 {
 	unsigned int m_numOfPlayers;
 	bool m_gameFormat; // with copmuter or not
-	unsigned int m_background=0;
-	unsigned int m_color;
+	unsigned int m_background = 0;
 	std::vector<std::string> m_playerName;
+	std::vector<sf::Color> m_playersColor;
 };
 
-class Menu 
+class Menu
 {
 public:
 	Menu();
-	void run(sf::RenderWindow& window);
+	bool run(sf::RenderWindow& window);
 	Input getInput() { return m_input; };
 	sf::Color getColor(int colorNum);
 	void setResources(sf::Font& font, sf::Texture& backGround, sf::Texture& headLine,
-		std::vector<sf::Texture>& players);
-	void initializeBackground();
-	
-
+		std::vector<sf::Texture>& players,
+		sf::Texture& playWithFriends, sf::Texture& playWithComputer,
+		sf::Texture& backGround1, sf::Texture& backGround2);
 
 private:
-	void setHeadLine(const int index, std::string headLine, float x, float y);
+	void setHeadLine(const int index, std::string headLine);
 	void drawMenu(sf::RenderWindow& window);
 	void setPlayerTextField();
 	sf::RectangleShape createRectangleShape(int row);
 	void setTextFieldsHeadlines();
 	void initializeColors();
-	void initializeGameFormat();
+	void setMenuParameters();
 	//===================================================================================
 	//used for the player input 
 	std::vector<sf::Text> m_playerText;
@@ -56,13 +55,11 @@ private:
 	int m_groupAmount = 0;
 	//for the headlines of menu fields
 	std::vector<sf::Text> m_headLines;
-	Input values;
-	void updatePress(sf::Vector2f location);
+	Input m_menuParameters;
+	int updatePress(sf::Vector2f location);
 	sf::Sprite m_background1;
 	sf::Sprite m_background2;
 	sf::Sprite m_playWithComp;
 	sf::Sprite m_playWithFriend;
-	void LoadImages();
-	void setOptions();
 	std::vector<sf::Texture> m_MenuTextures;
 };

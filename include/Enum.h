@@ -28,18 +28,9 @@ const int countOfMusic = 5;
 const auto sizeOfIcon = sf::Vector2f{ 20,30 };
 const auto sizeOfWorm = sf::Vector2f { 20,20 };
 
-enum color
-{
-	yellow,
-	blue,
-	red,
-	green
-};
-
 enum menuOption
 {
-	menuPic,
-	gameFormat
+	arrbackground
 };
 
 enum sides
@@ -67,10 +58,14 @@ enum Icon
 	whiteflag
 };
 
+enum Anomation
+{
+	worm,
+};
 
 enum font
 {
-	menu_font
+	menu_font,
 };
 enum color
 {
@@ -80,13 +75,6 @@ enum color
 	green
 };
 
-enum Pictures
-{
-	menuPic,
-	menuHeadline,
-	maxTextures
-};
-
 enum menuFields
 {
 	gameFormat,
@@ -94,4 +82,21 @@ enum menuFields
 	numberOfPlayers,
 	groupColor,
 	groupName
+};
+
+enum menuPress
+{
+	t_update,
+	t_end,
+	t_startPlay
+};
+
+enum Pictures
+{
+	menuPic,
+	menuHeadline,
+	playWithFriendsPic,
+	playWithComputerPic,
+	backGround1pic,
+	backGround2pic
 };

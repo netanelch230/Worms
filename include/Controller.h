@@ -21,7 +21,7 @@ private:
 	sf::RectangleShape m_background;
 	
 	void restartPlayers();        //build the player from menuInput
-	void restartBackground();     //define the background from menuInput
+	void restartBackground();     //define the arrbackground from menuInput
 	void drawPlayer();
 	void exitGame();
 	void restartFeature();
