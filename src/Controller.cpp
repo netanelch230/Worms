@@ -7,6 +7,7 @@ Controller::Controller()
 		m_resources.getMenuTexture(menuHeadline), m_resources.getPlayersTextures(), m_resources.getMenuTexture(playWithFriendsPic),
 		m_resources.getMenuTexture(playWithComputerPic), m_resources.getMenuTexture(backGround1pic),
 		m_resources.getMenuTexture(backGround2pic),m_resources.getMenuTexture(statPlay));
+
 	if (m_menu.run(m_window))
 	{
 		restartBackground();
@@ -40,9 +41,7 @@ void Controller::restartPlayers()
 	{
 		float widthRatio = 300;
 		float heightRatio = 400;
-		auto i = std::make_unique<Player>(name[j],
-			sf::Vector2f{ (float)widthRatio * j,heightRatio },
-			m_menu.getInput().m_playersColor[j],m_resources.getAnimations());
+		auto i = std::make_unique<Player>(name[j], m_menu.getInput().m_playersColor[j],m_resources.getAnimations());
 		it.swap(i);
 		j++;
 	}

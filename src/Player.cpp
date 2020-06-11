@@ -1,25 +1,27 @@
 #include "Player.h"
 
-Player::Player(std::string name, sf::Vector2f location, sf::Color color,
-	animArray animat):
-	m_name(name), m_location(location),m_color(color),m_animat(animat)
+Player::Player(std::string name, sf::Color color,animArray animat):
+	m_name(name),m_color(color),m_animat(animat)
 {
 	m_worms.resize(wormsLimit);
-	int j = 0;
 	for (auto &it : m_worms)
 	{
-		auto loc = m_location + sf::Vector2f{ (float)j, 0 };
+		auto loc = randomLocation();
 		auto i = std::make_unique<Worm>(loc,m_animat[worm]);
 		it.swap(i);
-		j+=10;
 	}
 }
+
+
 
 void Player::run(sf::RenderWindow& window, sf::Event& event)
 {
 	int place = rand() % wormsLimit;
 	for (; window.pollEvent(event); )
 	{
+		update();
+		wormMove(place);
+
 		switch (sf::Event::MouseButtonPressed)
 		{
 		case (sf::Mouse::Button::Left):
@@ -31,8 +33,8 @@ void Player::run(sf::RenderWindow& window, sf::Event& event)
 			chooseWeapone(window, event);
 			break;
 		}
-		wormMove(place);
-		update();
+		
+		draw(window);
 	}
 }
 
@@ -90,6 +92,14 @@ void Player::update()
 	float time = m_wormsTime.restart().asSeconds();
 	for (auto& i : m_worms)
 		i->update(time);
+}
+
+sf::Vector2f Player::randomLocation()
+{
+	float randPlaceX = rand() % HEIGHT;
+	float randPlaceY = rand() % WIDTH;
+	 
+	return sf::Vector2f{ randPlaceX, randPlaceY };
 }
 
 void Player::loadFeatures(const sf::Texture& tex, const sf::Vector2f& pos)

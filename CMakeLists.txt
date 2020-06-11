@@ -9,7 +9,7 @@ if (MSVC)
     add_compile_options (/permissive-)
 endif ()
 
-add_executable (Worms WIN32 "")
+add_executable (Worms "")
 
 add_subdirectory (Box2D/include)
 add_subdirectory (Box2D/src)
