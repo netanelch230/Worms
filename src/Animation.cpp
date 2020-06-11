@@ -1,11 +1,11 @@
 #include "Animation.h"
 
-Animation::Animation(sf::Texture tex, sf::Vector2u imageCount, float switchtime):
+Animation::Animation(sf::Texture* tex, sf::Vector2u imageCount, float switchtime):
 m_imageCount(imageCount), m_switchtime(switchtime), m_totaltime(0.f)
 {
 	currentImage.x = 0;
-	m_rect.width = tex.getSize().x / float(m_imageCount.x);
-	m_rect.height = tex.getSize().y / float(m_imageCount.y);
+	m_rect.width = tex->getSize().x / float(m_imageCount.x);
+	m_rect.height = tex->getSize().y / float(m_imageCount.y);
 }
 
 void Animation::update(int row, float deltaTime)

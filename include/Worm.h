@@ -5,7 +5,7 @@
 class Worm: public AnimationObject
 {
 public:
-	Worm(const sf::Vector2f& location, const sf::Texture& tex)
+	Worm(sf::Vector2f& location, sf::Texture& tex)
 		:AnimationObject(spriteSetting{ location,sizeOfWorm,tex },sf::Vector2u{ 1,36 }) {};
 	void move(float time);
 	//~Worm();

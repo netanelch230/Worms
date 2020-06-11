@@ -1,7 +1,7 @@
 #include"AnimationObject.h"
 
-AnimationObject::AnimationObject(const spriteSetting& sset, sf::Vector2u imageCount) :
-	m_animation(sset.picture, imageCount, 0.03f), m_row(0),
+AnimationObject::AnimationObject(spriteSetting sset, sf::Vector2u imageCount) :
+	m_animation(&sset.picture, imageCount, 0.03f), m_row(0),
 	AbsObject(sset)
 {
 }

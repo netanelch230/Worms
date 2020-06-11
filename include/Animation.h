@@ -2,7 +2,7 @@
 
 class Animation {
 public:
-	Animation(sf::Texture tex, sf::Vector2u imageCount, float switchtime);
+	Animation(sf::Texture* tex, sf::Vector2u imageCount, float switchtime);
 	void update(int row, float deltaTime);
 	sf::IntRect getrect() { return m_rect; };
 private:

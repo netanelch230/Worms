@@ -10,8 +10,8 @@
 struct Input
 {
 	unsigned int m_numOfPlayers;
-	bool m_gameFormat; // with copmuter or not
-	unsigned int m_background = 0;
+	bool m_gameFormat = true;			 // with copmuter or not
+	unsigned int m_background = backGround1pic;
 	std::vector<std::string> m_playerName;
 	std::vector<sf::Color> m_playersColor;
 };
@@ -21,7 +21,7 @@ class Menu
 public:
 	Menu();
 	bool run(sf::RenderWindow& window);
-	Input getInput() { return m_input; };
+	Input getInput() { return m_menuParameters; };
 	sf::Color getColor(int colorNum);
 	void setResources(sf::Font& font, sf::Texture& backGround, sf::Texture& headLine,
 		std::vector<sf::Texture>& players,
@@ -49,7 +49,6 @@ private:
 	sf::Sprite m_spriteHeadline;
 	sf::Sprite m_spriteBackGround;
 	std::vector<sf::Sprite> m_playersSprite;
-	Input m_input;
 	std::vector<sf::RectangleShape> m_textFields;
 	//this index will be the index of the curr group which enter the name of the group
 	int m_currGroup = 0;
@@ -58,7 +57,7 @@ private:
 	std::vector<sf::Text> m_headLines;
 	Input m_menuParameters;
 	int updatePress(sf::Vector2f location);
-	sf::Sprite m_background1;
+	sf::RectangleShape m_background1;
 	sf::Sprite m_background2;
 	sf::Sprite m_playWithComp;
 	sf::Sprite m_playWithFriend;
