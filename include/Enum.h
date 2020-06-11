@@ -98,5 +98,6 @@ enum Pictures
 	playWithFriendsPic,
 	playWithComputerPic,
 	backGround1pic,
-	backGround2pic
+	backGround2pic,
+	statPlay
 };
