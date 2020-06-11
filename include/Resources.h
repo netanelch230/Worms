@@ -16,7 +16,7 @@ public:
 	~Resources() = default;
 	sf::Texture& getTexture(const int& i) { return m_picture[i]; };
 	sf::Texture& getMenuTexture(const int& i) { return m_Menupictures[i]; };
-	animArray getAnimations() { return m_animations; };
+	animArray& getAnimations() { return m_animations; };
 	sf::Font& getfont(const int& i) { return m_font[i]; };
 	sf::Music& getMusic(int i);
 	std::vector<sf::Texture>& getPlayersTextures() { return m_playersBottonsTextures; }

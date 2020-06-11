@@ -1,6 +1,6 @@
 #include "AbsObject.h"
 
-AbsObject::AbsObject(const spriteSetting& sset)
+AbsObject::AbsObject(spriteSetting sset)
 {
 	m_sprite.setPosition(sset.position);
 	m_sprite.setTexture(&sset.picture);
@@ -9,6 +9,7 @@ AbsObject::AbsObject(const spriteSetting& sset)
 
 void AbsObject::draw(sf::RenderWindow& window)
 {
+	//m_sprite	
 	window.draw(m_sprite);
 }
 

@@ -23,6 +23,7 @@ public:
 
 	
 private:
+
 	std::vector<std::unique_ptr<Worm>> m_worms; // initialize the size of the vector
 	std::vector < std::unique_ptr<Features>> m_features;
 	std::string m_name; // will be read from sfml
@@ -30,10 +31,12 @@ private:
 	sf::Color m_color;
 	sf::Clock m_wormsTime;
 	animArray m_animat;
+
 	void chooseWeapone(sf::RenderWindow& window, sf::Event& event);				//check if some of weapone choose
 	void chooseWorm(sf::RenderWindow& window, sf::Event& event, int& place);	//check if some of worm choose, if not the computer choose one randomalic
 	void wormMove(int i);
 	sf::Vector2f locatin(sf::RenderWindow&, sf::Event&);
+	void update();
 };
 
 sf::Vector2f operator+(sf::Vector2f v1, sf::Vector2f v2);

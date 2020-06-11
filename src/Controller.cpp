@@ -38,8 +38,8 @@ void Controller::restartPlayers()
 	m_player.resize(numOfPlayer);
 	for (auto& it : m_player)
 	{
-		float widthRatio = WIDTH / numOfPlayer;
-		float heightRatio = HEIGHT / numOfPlayer;
+		float widthRatio = 300;
+		float heightRatio = 400;
 		auto i = std::make_unique<Player>(name[j],
 			sf::Vector2f{ (float)widthRatio * j,heightRatio },
 			m_menu.getInput().m_playersColor[j],m_resources.getAnimations());
@@ -50,7 +50,7 @@ void Controller::restartPlayers()
 
 void Controller::restartBackground()   
 {
-	m_background.setTexture(&m_resources.getTexture(arrbackground));
+	m_background.setTexture(&m_resources.getMenuTexture(m_menu.getInput().m_background));
 	m_background.setSize({ WIDTH,HEIGHT });
 }
 

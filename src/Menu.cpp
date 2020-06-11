@@ -76,7 +76,7 @@ int Menu::updatePress(sf::Vector2f location)
 		if (m_playersSprite[i].getGlobalBounds().contains(location.x, location.y))
 		{
 			initializeColors();
-			m_groupAmount = i;
+			m_groupAmount = i+1;
 			for (int j = 0; j <= i; j++)
 			{
 				m_textFields[j].setFillColor(sf::Color::White);
@@ -87,10 +87,10 @@ int Menu::updatePress(sf::Vector2f location)
 	}
 
 	if (m_background1.getGlobalBounds().contains(location.x, location.y))
-		m_menuParameters.m_background = 1;
+		m_menuParameters.m_background = backGround1pic;
 
 	if (m_background2.getGlobalBounds().contains(location.x, location.y))
-		m_menuParameters.m_background = 2;
+		m_menuParameters.m_background = backGround2pic;
 
 
 	if (m_playWithComp.getGlobalBounds().contains(location.x, location.y))
@@ -108,7 +108,7 @@ int Menu::updatePress(sf::Vector2f location)
 		return t_startPlay;
 
 	
-	//return t_update;
+	return t_update;
 }
 
 void Menu::setMenuParameters()
@@ -232,8 +232,9 @@ void Menu::setResources(sf::Font& font, sf::Texture& backGround, sf::Texture& he
 	m_playWithComp.setPosition(10, 200);
 	m_playWithFriend.setTexture(playWithFriends);
 	m_playWithFriend.setPosition(10, 400);
-	m_background1.setTexture(backGround1);
+	m_background1.setTexture(&backGround1);
 	m_background1.setPosition(900, 200);
+	m_background1.setSize({ 250,200 });
 	m_background2.setTexture(backGround2);
 	m_background2.setPosition(900, 400);
 	m_startPlay.setSize({ 100, 70 });
@@ -265,7 +266,6 @@ void Menu::setTextFieldsHeadlines()
 	setHeadLine(currHeadLine++, "Enter group name");
 	m_headLines[groupName].setPosition(470, 350);
 }
-
 
 void Menu::setHeadLine(const int index, std::string headLine)
 {

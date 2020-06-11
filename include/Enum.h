@@ -26,7 +26,7 @@ const int countOfPicture = 16;
 const int countOfFont = 3;
 const int countOfMusic = 5;
 const auto sizeOfIcon = sf::Vector2f{ 20,30 };
-const auto sizeOfWorm = sf::Vector2f { 20,20 };
+const auto sizeOfWorm = sf::Vector2f { 100,100 };
 
 enum menuOption
 {

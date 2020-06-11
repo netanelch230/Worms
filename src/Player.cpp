@@ -4,7 +4,6 @@ Player::Player(std::string name, sf::Vector2f location, sf::Color color,
 	animArray animat):
 	m_name(name), m_location(location),m_color(color),m_animat(animat)
 {
-	
 	m_worms.resize(wormsLimit);
 	int j = 0;
 	for (auto &it : m_worms)
@@ -33,6 +32,7 @@ void Player::run(sf::RenderWindow& window, sf::Event& event)
 			break;
 		}
 		wormMove(place);
+		update();
 	}
 }
 
@@ -83,6 +83,13 @@ sf::Vector2f Player::locatin(sf::RenderWindow& window, sf::Event& event)
 {
 	return window.mapPixelToCoords(
 		{ event.mouseButton.x, event.mouseButton.y });
+}
+
+void Player::update()
+{
+	float time = m_wormsTime.restart().asSeconds();
+	for (auto& i : m_worms)
+		i->update(time);
 }
 
 void Player::loadFeatures(const sf::Texture& tex, const sf::Vector2f& pos)
