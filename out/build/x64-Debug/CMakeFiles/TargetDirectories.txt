@@ -1,0 +1,14 @@
+C:/Users/lenovo/Desktop/wormsProject/Worms/out/build/x64-Debug/CMakeFiles/Worms.dir
+C:/Users/lenovo/Desktop/wormsProject/Worms/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+C:/Users/lenovo/Desktop/wormsProject/Worms/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/lenovo/Desktop/wormsProject/Worms/out/build/x64-Debug/Box2D/include/CMakeFiles/edit_cache.dir
+C:/Users/lenovo/Desktop/wormsProject/Worms/out/build/x64-Debug/Box2D/include/CMakeFiles/rebuild_cache.dir
+C:/Users/lenovo/Desktop/wormsProject/Worms/out/build/x64-Debug/Box2D/src/CMakeFiles/box2d.dir
+C:/Users/lenovo/Desktop/wormsProject/Worms/out/build/x64-Debug/Box2D/src/CMakeFiles/edit_cache.dir
+C:/Users/lenovo/Desktop/wormsProject/Worms/out/build/x64-Debug/Box2D/src/CMakeFiles/rebuild_cache.dir
+C:/Users/lenovo/Desktop/wormsProject/Worms/out/build/x64-Debug/include/CMakeFiles/edit_cache.dir
+C:/Users/lenovo/Desktop/wormsProject/Worms/out/build/x64-Debug/include/CMakeFiles/rebuild_cache.dir
+C:/Users/lenovo/Desktop/wormsProject/Worms/out/build/x64-Debug/src/CMakeFiles/edit_cache.dir
+C:/Users/lenovo/Desktop/wormsProject/Worms/out/build/x64-Debug/src/CMakeFiles/rebuild_cache.dir
+C:/Users/lenovo/Desktop/wormsProject/Worms/out/build/x64-Debug/resources/CMakeFiles/edit_cache.dir
+C:/Users/lenovo/Desktop/wormsProject/Worms/out/build/x64-Debug/resources/CMakeFiles/rebuild_cache.dir
