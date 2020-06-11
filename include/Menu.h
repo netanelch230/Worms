@@ -26,7 +26,8 @@ public:
 	void setResources(sf::Font& font, sf::Texture& backGround, sf::Texture& headLine,
 		std::vector<sf::Texture>& players,
 		sf::Texture& playWithFriends, sf::Texture& playWithComputer,
-		sf::Texture& backGround1, sf::Texture& backGround2);
+		sf::Texture& backGround1, sf::Texture& backGround2,
+		sf::Texture& startplay);
 
 private:
 	void setHeadLine(const int index, std::string headLine);
@@ -61,5 +62,6 @@ private:
 	sf::Sprite m_background2;
 	sf::Sprite m_playWithComp;
 	sf::Sprite m_playWithFriend;
+	sf::RectangleShape m_startPlay;
 	std::vector<sf::Texture> m_MenuTextures;
 };

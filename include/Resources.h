@@ -22,9 +22,8 @@ public:
 	std::vector<sf::Texture>& getPlayersTextures() { return m_playersBottonsTextures; }
 
 private:
-	std::vector<sf::Texture> m_Menupictures;
+	std::array<sf::Texture,10> m_Menupictures;
 	std::vector<sf::Texture> m_playersBottonsTextures;
-
 	std::array<sf::Texture, countOfPicture> m_picture;
 	animArray m_animations;
 	std::array<sf::Font, countOfFont> m_font;

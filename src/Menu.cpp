@@ -45,7 +45,6 @@ bool Menu::run(sf::RenderWindow& window)
 				return false;
 				break;
 			case sf::Event::MouseButtonReleased:
-			{
 				auto location = window.mapPixelToCoords(
 					{ event.mouseButton.x, event.mouseButton.y });
 				switch (event.mouseButton.button)
@@ -57,14 +56,17 @@ bool Menu::run(sf::RenderWindow& window)
 						window.close();
 					}
 					if (pressed == t_startPlay)
+					{
+						setMenuParameters();
+						return true;
+					}
 						break;
 				}
-			}
+			
 			}
 		}
 	}
-	setMenuParameters();
-	return true;
+	
 }
 
 int Menu::updatePress(sf::Vector2f location)
@@ -97,16 +99,16 @@ int Menu::updatePress(sf::Vector2f location)
 
 	if (m_playWithFriend.getGlobalBounds().contains(location.x, location.y))
 		m_menuParameters.m_gameFormat = false;
-	/*
+	
 
-	if (m_playWithFriend.getGlobalBounds().contains(location.x, location.y))
-		return t_end;
+	//if (m_playWithFriend.getGlobalBounds().contains(location.x, location.y))
+	//	return t_end;
 
-	if (m_playWithFriend.getGlobalBounds().contains(location.x, location.y))
+	if (m_startPlay.getGlobalBounds().contains(location.x, location.y))
 		return t_startPlay;
 
-	*/
-	return t_update;
+	
+	//return t_update;
 }
 
 void Menu::setMenuParameters()
@@ -192,6 +194,7 @@ void Menu::drawMenu(sf::RenderWindow& window)
 	//draw all head lines!
 	for (auto i : m_headLines)
 		window.draw(i);
+	window.draw(m_startPlay);
 
 }
 
@@ -214,7 +217,7 @@ sf::Color Menu::getColor(int colorNum)
 void Menu::setResources(sf::Font& font, sf::Texture& backGround, sf::Texture& headLine,
 	std::vector<sf::Texture>& players,
 	sf::Texture& playWithFriends, sf::Texture& playWithComputer,
-	sf::Texture& backGround1, sf::Texture& backGround2)
+	sf::Texture& backGround1, sf::Texture& backGround2, sf::Texture& startplay)
 {
 	for (auto i = 0; i < m_headLines.size(); i++)
 		m_headLines[i].setFont(font);
@@ -233,6 +236,10 @@ void Menu::setResources(sf::Font& font, sf::Texture& backGround, sf::Texture& he
 	m_background1.setPosition(900, 200);
 	m_background2.setTexture(backGround2);
 	m_background2.setPosition(900, 400);
+	m_startPlay.setSize({ 100, 70 });
+	m_startPlay.setTexture(&startplay);
+	m_startPlay.setPosition(750, 600);
+
 
 	sf::Sprite s;
 	m_playersSprite.resize(players.size());

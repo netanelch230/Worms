@@ -5,7 +5,8 @@ Controller::Controller()
 {
 	m_menu.setResources(m_resources.getfont(menu_font), m_resources.getMenuTexture(menuPic),
 		m_resources.getMenuTexture(menuHeadline), m_resources.getPlayersTextures(), m_resources.getMenuTexture(playWithFriendsPic),
-		m_resources.getMenuTexture(playWithComputerPic), m_resources.getMenuTexture(backGround1pic), m_resources.getMenuTexture(backGround2pic));
+		m_resources.getMenuTexture(playWithComputerPic), m_resources.getMenuTexture(backGround1pic),
+		m_resources.getMenuTexture(backGround2pic),m_resources.getMenuTexture(statPlay));
 	if (m_menu.run(m_window))
 	{
 		restartBackground();

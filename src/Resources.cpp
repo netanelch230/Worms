@@ -10,22 +10,16 @@ void Resources::loadPicture()
 	m_picture[sheep].loadFromFile("sheep.1.png");
 	m_picture[whiteflag].loadFromFile("surender.1.png");
 	m_animations[worm].loadFromFile("waccuse.png");
+		
+	m_Menupictures[menuPic].loadFromFile("menuBackground.png");
+	m_Menupictures[menuHeadline].loadFromFile("wormsHeadline.png");
+	m_Menupictures[playWithFriendsPic].loadFromFile("PlayWithFriends.png");
+	m_Menupictures[playWithComputerPic].loadFromFile("PlayWithComputer.png");
+	m_Menupictures[backGround1pic].loadFromFile("background1.PNG");
+	m_Menupictures[backGround2pic].loadFromFile("background2.png");
+	m_Menupictures[statPlay].loadFromFile("playgame.png");
 
 	sf::Texture t;
-	t.loadFromFile("menuBackground.png");
-	m_Menupictures.push_back(t);
-	t.loadFromFile("wormsHeadline.png");
-	m_Menupictures.push_back(t);
-	t.loadFromFile("PlayWithFriends.png");
-	m_Menupictures.push_back(t);
-	t.loadFromFile("PlayWithComputer.png");
-	m_Menupictures.push_back(t);
-	t.loadFromFile("background1.PNG");
-	m_Menupictures.push_back(t);
-	t.loadFromFile("background2.png");
-
-
-	m_Menupictures.push_back(t);
 	t.loadFromFile("p1.png");
 	m_playersBottonsTextures.push_back(t);
 	t.loadFromFile("p2.png");
