@@ -8,12 +8,13 @@
 #include "Attack.h"
 #include <array>
 
+
 using animArray = std::array<sf::Texture, countOfPicture>;
 
 class Player
 {
 public:
-	Player(std::string name, sf::Vector2f location, sf::Color color,
+	Player(std::string name, sf::Color color,
 		animArray animat);
 	std::string getName() { return m_name; };
 	//~Player();
@@ -37,6 +38,7 @@ private:
 	void wormMove(int i);
 	sf::Vector2f locatin(sf::RenderWindow&, sf::Event&);
 	void update();
+	sf::Vector2f randomLocation();
 };
 
 sf::Vector2f operator+(sf::Vector2f v1, sf::Vector2f v2);
