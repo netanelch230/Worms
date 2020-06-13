@@ -11,7 +11,6 @@ m_imageCount(imageCount), m_switchtime(switchtime), m_totaltime(0.f)
 
 void Animation::update(int row, float deltaTime)
 {
-	std::cout << deltaTime << std::endl;
 	currentImage.x = row;
 	m_totaltime += deltaTime;  
 	if (m_totaltime >= m_switchtime)

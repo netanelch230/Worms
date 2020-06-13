@@ -1,4 +1,5 @@
 ﻿configure_file ("startscreen.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("tahoma.ttf" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("PlayMeGames-Demo.otf" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("sriwedari.ttf" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Herist.otf" ${CMAKE_BINARY_DIR} COPYONLY)

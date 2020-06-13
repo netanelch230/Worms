@@ -1,4 +1,6 @@
 #pragma once
+#include<SFML/Graphics.hpp>
+
 const int colorAmount = 4;
 const int recSize = 50;
 const int maxTextFields = 4;
@@ -12,6 +14,7 @@ const int gameFormatOptions = 2;
 const int colorsOptions = 4;
 const int backgroundOptions = 2;
 
+const int timeOfRound = 45;
 //=======================================locations on menu=========================================
 const float playersBottonX = 300;
 const float playersBottonXRatio = 150;
@@ -61,11 +64,13 @@ enum Icon
 enum Anomation
 {
 	worm,
+	axe
 };
 
 enum font
 {
 	menu_font,
+	name_font
 };
 enum color
 {
@@ -99,5 +104,6 @@ enum Pictures
 	playWithComputerPic,
 	backGround1pic,
 	backGround2pic,
-	statPlay
+	startPlay
 };
+

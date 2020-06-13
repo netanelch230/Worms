@@ -23,16 +23,12 @@ public:
 	bool run(sf::RenderWindow& window);
 	Input getInput() { return m_menuParameters; };
 	sf::Color getColor(int colorNum);
-	void setResources(sf::Font& font, sf::Texture& backGround, sf::Texture& headLine,
-		std::vector<sf::Texture>& players,
-		sf::Texture& playWithFriends, sf::Texture& playWithComputer,
-		sf::Texture& backGround1, sf::Texture& backGround2,
-		sf::Texture& startplay);
 
 private:
 	void setHeadLine(const int index, std::string headLine);
 	void drawMenu(sf::RenderWindow& window);
 	void setPlayerTextField();
+	void setResources();
 	sf::RectangleShape createRectangleShape(int row);
 	void setTextFieldsHeadlines();
 	void initializeColors();
