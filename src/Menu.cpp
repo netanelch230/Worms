@@ -12,6 +12,7 @@ Menu::Menu()
 	setTextFieldsHeadlines();
 	m_groupColors.resize(colorsOptions);
 	initializeColors();
+	setResources();
 }
 bool Menu::run(sf::RenderWindow& window)
 {
@@ -28,16 +29,17 @@ bool Menu::run(sf::RenderWindow& window)
 			{
 			case sf::Event::TextEntered:
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-				{
 					m_currGroup++;
-				}
-				else
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
 				{
-					if (m_currGroup <= m_groupAmount)
-					{
-						m_playerInput[m_currGroup] += event.text.unicode;
-						m_playerText[m_currGroup].setString(m_playerInput[m_currGroup]);
-					}
+					m_playerInput[m_currGroup].erase(m_playerInput[m_currGroup].getSize() - 1,
+						m_playerInput[m_currGroup].getSize());
+					m_playerText[m_currGroup].setString(m_playerInput[m_currGroup]);
+				}
+				else if (m_currGroup <= m_groupAmount)
+				{
+					m_playerInput[m_currGroup] += event.text.unicode;
+					m_playerText[m_currGroup].setString(m_playerInput[m_currGroup]);
 				}
 				break;
 			case sf::Event::Closed:
@@ -214,39 +216,36 @@ sf::Color Menu::getColor(int colorNum)
 	}
 }
 
-void Menu::setResources(sf::Font& font, sf::Texture& backGround, sf::Texture& headLine,
-	std::vector<sf::Texture>& players,
-	sf::Texture& playWithFriends, sf::Texture& playWithComputer,
-	sf::Texture& backGround1, sf::Texture& backGround2, sf::Texture& startplay)
+void Menu::setResources()
 {
 	for (auto i = 0; i < m_headLines.size(); i++)
-		m_headLines[i].setFont(font);
+		m_headLines[i].setFont(Resources::instance().getfont(menu_font));
 
 	for (auto i = 0; i < m_playerText.size(); ++i)
-		m_playerText[i].setFont(font);
+		m_playerText[i].setFont(Resources::instance().getfont(menu_font));
 
-	m_spriteBackGround.setTexture(backGround);
-	m_spriteHeadline.setTexture(headLine);
+	m_spriteBackGround.setTexture(Resources::instance().getMenuTexture(menuPic));
+	m_spriteHeadline.setTexture(Resources::instance().getMenuTexture(menuHeadline));
 	m_spriteHeadline.setPosition(250, 0);
-	m_playWithComp.setTexture(playWithComputer);
+	m_playWithComp.setTexture(Resources::instance().getMenuTexture(playWithComputerPic));
 	m_playWithComp.setPosition(10, 200);
-	m_playWithFriend.setTexture(playWithFriends);
+	m_playWithFriend.setTexture(Resources::instance().getMenuTexture(playWithFriendsPic));
 	m_playWithFriend.setPosition(10, 400);
-	m_background1.setTexture(&backGround1);
+	m_background1.setTexture(&Resources::instance().getMenuTexture(backGround1pic));
 	m_background1.setPosition(900, 200);
 	m_background1.setSize({ 250,200 });
-	m_background2.setTexture(backGround2);
+	m_background2.setTexture(Resources::instance().getMenuTexture(backGround2pic));
 	m_background2.setPosition(900, 400);
 	m_startPlay.setSize({ 100, 70 });
-	m_startPlay.setTexture(&startplay);
+	m_startPlay.setTexture(&Resources::instance().getMenuTexture(startPlay));
 	m_startPlay.setPosition(750, 600);
 
 
 	sf::Sprite s;
-	m_playersSprite.resize(players.size());
-	for (auto i = 0; i < players.size(); i++)
+	m_playersSprite.resize(Resources::instance().sizeOfPlayers());
+	for (auto i = 0; i < m_playersSprite.size(); i++)
 	{
-		m_playersSprite[i].setTexture(players[i]);
+		m_playersSprite[i].setTexture(Resources::instance().getPlayersTextures(i));
 		m_playersSprite[i].setPosition(playersBottonX + (i * playersBottonXRatio), playersBottonY);
 	}
 

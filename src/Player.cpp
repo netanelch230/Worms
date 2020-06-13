@@ -1,47 +1,52 @@
 #include "Player.h"
+#include <iostream>
 
-Player::Player(std::string name, sf::Color color,animArray animat):
-	m_name(name),m_color(color),m_animat(animat)
+Player::Player(std::string name, sf::Color color, int background):
+	m_name(name),m_color(color)
 {
-	m_worms.resize(wormsLimit);
-	for (auto &it : m_worms)
-	{
-		auto loc = randomLocation();
-		auto i = std::make_unique<Worm>(loc,m_animat[worm]);
-		it.swap(i);
-	}
+	creatWorms();
+	loadTimer();
+	restartBackground(background);
 }
-
-
 
 void Player::run(sf::RenderWindow& window, sf::Event& event)
 {
-	int place = rand() % wormsLimit;
-	for (; window.pollEvent(event); )
+	Timer::setTime(timeOfRound);
+	int place =	rand() % wormsLimit;
+	while (!timesUp())
 	{
+		for (; window.pollEvent(event); )
+		{
+			switch (sf::Event::MouseButtonReleased)
+			{
+			case (sf::Mouse::Button::Left):
+				chooseWorm(window, event, place);
+				break;
+			case (sf::Mouse::Button::Right)://weapons menu
+				chooseWeapone(window, event);
+				break;
+			}
+			if (event.type == sf::Event::Closed)
+			{
+				window.close();
+				break;
+			}
+		}
 		update();
 		wormMove(place);
-
-		switch (sf::Event::MouseButtonPressed)
-		{
-		case (sf::Mouse::Button::Left):
-			chooseWorm(window, event, place);
-			break;
-		case (sf::Mouse::Button::Right)://weapons menu
-			for (auto& i : m_features)
-				i->draw(window);
-			chooseWeapone(window, event);
-			break;
-		}
-		
+		window.clear();
+		window.draw(m_background);
 		draw(window);
+		window.display();
 	}
+	
 }
 
 void Player::draw(sf::RenderWindow& window)
 {
 	for (auto& i : m_worms)
 		i->draw(window);
+	window.draw(m_timeForRound);
 }
 
 void Player::chooseWeapone(sf::RenderWindow& window, sf::Event& event)
@@ -74,11 +79,9 @@ void Player::chooseWorm(sf::RenderWindow& window, sf::Event& event, int& place)
 
 void Player::wormMove(int i)
 {
-	if (sf::Event::KeyPressed)
-	{
-		float time = m_wormsTime.restart().asSeconds();
-		m_worms[i]->move(time);
-	}
+	float time = m_wormsTime.restart().asSeconds();
+	std::cout << i;
+	m_worms[i]->move(time);
 }
 
 sf::Vector2f Player::locatin(sf::RenderWindow& window, sf::Event& event)
@@ -89,7 +92,7 @@ sf::Vector2f Player::locatin(sf::RenderWindow& window, sf::Event& event)
 
 void Player::update()
 {
-	float time = m_wormsTime.restart().asSeconds();
+	float time = m_wormsTimeAnimation.restart().asSeconds();
 	for (auto& i : m_worms)
 		i->update(time);
 }
@@ -102,13 +105,46 @@ sf::Vector2f Player::randomLocation()
 	return sf::Vector2f{ randPlaceX, randPlaceY };
 }
 
-void Player::loadFeatures(const sf::Texture& tex, const sf::Vector2f& pos)
+bool Player::timesUp()
 {
-	//auto i = std::make_unique<Features>(tex, pos);
-	//m_features.emplace_back(i);
+	if (Timer::getTime() != -1)
+	{
+		if (m_roundTimer.getElapsedTime().asSeconds() >= 1.f)
+		{
+			Timer::decTime();
+			m_roundTimer.restart();
+			m_timeForRound.setString(std::to_string(Timer::getTime()));
+		}
+		if (Timer::getTime() == 0)
+			return true;
+	}
+	return false;
 }
 
-sf::Vector2f operator+(sf::Vector2f v1, sf::Vector2f v2)
+void Player::loadTimer()
 {
-	return v1+=v2;
+	m_timeForRound.setFont(Resources::instance().getfont(font::name_font));
+	m_timeForRound.setColor(sf::Color::Yellow);
+	m_timeForRound.setPosition(50, 650);
+	m_timeForRound.setCharacterSize(20);
+	m_roundTimer.restart();
 }
+
+void Player::creatWorms()
+{
+	m_worms.resize(wormsLimit);
+	for (auto& it : m_worms)
+	{
+		auto loc = randomLocation();
+		auto i = std::make_unique<Worm>(loc, m_name, m_color);
+		it.swap(i);
+	}
+}
+
+void Player::restartBackground(int i)
+{
+	m_background.setTexture(&Resources::instance().getMenuTexture(i));
+	m_background.setSize({ WIDTH,HEIGHT });
+
+}
+

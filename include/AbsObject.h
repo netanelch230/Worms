@@ -14,7 +14,7 @@ class AbsObject
 public:
 	//AbsObject() {};
 	AbsObject(spriteSetting);
-	void draw(sf::RenderWindow& window);
+	virtual void draw(sf::RenderWindow& window);
 	virtual bool touch(sf::Vector2f location);
 	//void update(float deltaTime);
 
