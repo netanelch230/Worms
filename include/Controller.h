@@ -14,15 +14,18 @@ public:
 	
 private:
 	sf::RenderWindow m_window = sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Worms");
+	sf::RectangleShape m_featuresMenu;
+	std::vector<sf::Vector2f> m_featuresLocation;
 	std::vector<std::unique_ptr<Player>> m_player;
 	sf::Event m_event;
 	Menu m_menu;
 	sf::RectangleShape m_background;
-
+	void restartFeaturesMenu();
 	void restartPlayers();        //build the player from menuInput
 	void restartBackground();     //define the arrbackground from menuInput
 	void drawPlayer();
 	void exitGame();
+	void restartFeaturesLocation();
 };
 
 
