@@ -8,22 +8,27 @@
 #include "Attack.h"
 #include"Resources.h"
 #include "Timer.h"
+#include "Ground.h"
+
+#define TIMESTEP 1.0f/60.0f     // Refresh time
+#define VELITER 10             // Number of iterations per tick to calculate speed
+#define POSITER 10              // Number tick iterations to calculate the position
 
 class Player
 {
 	//using playerVector = std::vector<std::unique_ptr<Player>>;
 public:
-	Player(std::string name, sf::Color color, int background);
+	Player(std::string name, sf::Color color, int background,std::shared_ptr<b2World> m_world);
 	std::string getName() { return m_name; };
 	//~Player();
 	void run(sf::RenderWindow& window, sf::Event& event, std::vector<std::unique_ptr<Player>>& groupPlayers,
-			sf::RectangleShape &featuresMenu);
+			sf::RectangleShape &featuresMenu, Ground& ground);
 	void draw(sf::RenderWindow& window);					//draw all the worms
 	void loadFeatures(const sf::Texture& tex, const sf::Vector2f& pos);
 	
 private:
 	void checkClick(sf::Vector2f clickLocation);
-
+	std::shared_ptr<b2World> m_world;
 	std::vector<std::unique_ptr<Worm>> m_worms; // initialize the size of the vector
 	std::vector < std::unique_ptr<Features>> m_features;
 	std::string m_name; // will be read from sfml
