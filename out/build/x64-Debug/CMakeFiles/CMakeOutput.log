@@ -50,32 +50,32 @@ The CXX compiler identification is MSVC, found in "C:/Users/karin/OneDrive/שו�
 Determining if the C compiler works passed with the following output:
 Change Dir: C:/Users/karin/OneDrive/שולחן העבודה/מדמח/מדמח שנה ב/סמסטר ב/OOP2/פרויקט/Worms/out/build/x64-Debug/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_2147d && [1/2] Building C object CMakeFiles\cmTC_2147d.dir\testCCompiler.c.obj
-[2/2] Linking C executable cmTC_2147d.exe
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_72313 && [1/2] Building C object CMakeFiles\cmTC_72313.dir\testCCompiler.c.obj
+[2/2] Linking C executable cmTC_72313.exe
 
 
 
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: C:/Users/karin/OneDrive/שולחן העבודה/מדמח/מדמח שנה ב/סמסטר ב/OOP2/פרויקט/Worms/out/build/x64-Debug/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_23684 && [1/2] Building C object CMakeFiles\cmTC_23684.dir\CMakeCCompilerABI.c.obj
-[2/2] Linking C executable cmTC_23684.exe
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_dc2cd && [1/2] Building C object CMakeFiles\cmTC_dc2cd.dir\CMakeCCompilerABI.c.obj
+[2/2] Linking C executable cmTC_dc2cd.exe
 
 
 
 Determining if the CXX compiler works passed with the following output:
 Change Dir: C:/Users/karin/OneDrive/שולחן העבודה/מדמח/מדמח שנה ב/סמסטר ב/OOP2/פרויקט/Worms/out/build/x64-Debug/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_4649c && [1/2] Building CXX object CMakeFiles\cmTC_4649c.dir\testCXXCompiler.cxx.obj
-[2/2] Linking CXX executable cmTC_4649c.exe
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_7e9d3 && [1/2] Building CXX object CMakeFiles\cmTC_7e9d3.dir\testCXXCompiler.cxx.obj
+[2/2] Linking CXX executable cmTC_7e9d3.exe
 
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: C:/Users/karin/OneDrive/שולחן העבודה/מדמח/מדמח שנה ב/סמסטר ב/OOP2/פרויקט/Worms/out/build/x64-Debug/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_07f36 && [1/2] Building CXX object CMakeFiles\cmTC_07f36.dir\CMakeCXXCompilerABI.cpp.obj
-[2/2] Linking CXX executable cmTC_07f36.exe
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_9a105 && [1/2] Building CXX object CMakeFiles\cmTC_9a105.dir\CMakeCXXCompilerABI.cpp.obj
+[2/2] Linking CXX executable cmTC_9a105.exe
 
 
 

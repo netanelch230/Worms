@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\include",
-    "\\src"
+    "\\Box2D",
+    "\\Box2D\\include"
   ],
+  "SelectedNode": "\\Box2D\\include\\CMakeLists.txt",
   "PreviewInSolutionExplorer": false
 }
