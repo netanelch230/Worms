@@ -8,4 +8,5 @@
 "Attack.cpp"
 "animation.cpp"
 "animationobject.cpp"
-"Timer.cpp")
+"Timer.cpp"
+)

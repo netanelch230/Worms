@@ -41,6 +41,27 @@ const int rowsInTable = 2;
 const int colsInTable = 4;
 const int squareSize = 50;
 
+//=======================const of image count of features==============================
+const auto flickImageCount = sf::Vector2u{ 1,17 };
+const auto whiteFlagImageCount = sf::Vector2u{ 1,10 };
+const auto axeImageCount = sf::Vector2u{ 1,15 };
+const auto stinkyImageCount = sf::Vector2u{ 1,10 };
+const auto GreenGrenadeImageCount = sf::Vector2u{ 1,32 };
+//sf::Vector2u sheepImageCount = { 1,36 };
+
+
+enum featuresMenu
+{
+	f_sheep,
+	f_grenade,
+	f_flick,
+	f_axe,
+	f_move,
+	f_whiteFlag,
+	f_stinky,
+	f_skip
+};
+
 
 enum menuOption
 {

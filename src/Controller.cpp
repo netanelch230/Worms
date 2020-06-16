@@ -30,7 +30,7 @@ void Controller::run()
 		m_window.display();
 		exitGame();
 		for (auto& i : m_player)
-			i->run(m_window, m_event, m_player, m_featuresMenu, m_ground);
+			i->run(m_window, m_event, m_player, m_featuresMenu, m_ground,m_featuresLocation);
 	}
 
 }
@@ -56,15 +56,12 @@ void Controller::restartFeaturesLocation()
 	int j = 0;// the rows of the table
 	for (auto i = 0; i < rowsInTable * colsInTable; i++)
 	{
-		std::cout <<"j:" << j << std::endl;
-		std::cout <<"i:" << i << std::endl;
-		m_featuresLocation[i].x = 984 + (i % colsInTable) * squareSize;
-		m_featuresLocation[i].y = j * squareSize;
-		if (i % colsInTable == 0)
+		if (i % colsInTable == 0 && i > 0)
 		{
 			j++;
-			std::cout << j << std::endl;
 		}
+		m_featuresLocation[i].x = 984 + (i % colsInTable) * squareSize;
+		m_featuresLocation[i].y = j * squareSize;
 	}
 
 	for (auto i = 0; i < m_featuresLocation.size(); i++)
@@ -77,11 +74,9 @@ void Controller::restartBackground()
 {
 	m_background.setTexture(&Resources::instance().getTexture(0));
 	m_background.setSize({ WIDTH,HEIGHT });
-
 	b2Vec2 m_gravity(0.0f, 1.2f);
 	m_world = std::make_unique<b2World>(m_gravity);
-	
-	
+
 }
 
 void Controller::drawPlayer()
