@@ -6,6 +6,7 @@ Controller::Controller()
 	if (m_menu.run(m_window))
 	{
 		restartBackground();
+		m_ground = Ground(*m_world.get());
 		restartPlayers();
 		restartFeaturesMenu();
 		restartFeaturesLocation();
@@ -29,7 +30,7 @@ void Controller::run()
 		m_window.display();
 		exitGame();
 		for (auto& i : m_player)
-			i->run(m_window,m_event,m_player, m_featuresMenu);
+			i->run(m_window, m_event, m_player, m_featuresMenu, m_ground);
 	}
 
 }
@@ -43,7 +44,7 @@ void Controller::restartPlayers()
 	for (auto& it : m_player)
 	{
 		auto i = std::make_unique<Player>(name[j], m_menu.getInput().m_playersColor[j],
-			m_menu.getInput().m_background);
+			m_menu.getInput().m_background,m_world);
 		it.swap(i);
 		j++;
 	}
@@ -74,8 +75,13 @@ void Controller::restartFeaturesLocation()
 
 void Controller::restartBackground()   
 {
-	m_background.setTexture(&Resources::instance().getMenuTexture(m_menu.getInput().m_background));
+	m_background.setTexture(&Resources::instance().getTexture(0));
 	m_background.setSize({ WIDTH,HEIGHT });
+
+	b2Vec2 m_gravity(0.0f, 1.2f);
+	m_world = std::make_unique<b2World>(m_gravity);
+	
+	
 }
 
 void Controller::drawPlayer()

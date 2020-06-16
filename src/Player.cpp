@@ -1,24 +1,24 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player(std::string name, sf::Color color, int background):
-	m_name(name),m_color(color)
+Player::Player(std::string name, sf::Color color, int background, std::shared_ptr<b2World> world):
+	m_name(name),m_color(color),m_world(world)
 {
 	creatWorms();
 	loadTimer();
-	restartBackground(background);
+	restartBackground(0);
 }
 
 void Player::run(sf::RenderWindow& window,
 	sf::Event& event,
 	std::vector<std::unique_ptr<Player>> &groupPlayers,
-	sf::RectangleShape& featuresMenu)
+	sf::RectangleShape& featuresMenu,
+	Ground& ground)
 {
 	Timer::setTime(timeOfRound);
 	int place =	rand() % wormsLimit;
 	while (!timesUp())
 	{
-		
 		if (window.pollEvent(event))
 		{
 			if (sf::Mouse::isButtonPressed)
@@ -26,7 +26,7 @@ void Player::run(sf::RenderWindow& window,
 				if (sf::Mouse::Button::Right) //weapons menu
 					chooseWeapon(window, event, featuresMenu);
 
-				if(sf::Mouse::Button::Left)
+				if (sf::Mouse::Button::Left)
 					chooseWorm(window, event, place);
 			}
 			//switch (sf::Mouse::isButtonPressed)
@@ -44,14 +44,41 @@ void Player::run(sf::RenderWindow& window,
 				window.close();
 				break;
 			}
+			/*if ((event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::Space))
+			{
+				b2Vec2 force(100, 200);
+				for (b2Body* BodyIterator = m_world->GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext())
+				{
+					auto i = BodyIterator->GetWorldCenter();
+					BodyIterator->ApplyForce(force, BodyIterator->GetWorldCenter(), true);
+				}
+
+			}
+			if ((event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::Right))
+			{
+				for (b2Body* BodyIterator = m_world->GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext())
+				{
+					b2Vec2 move = b2Vec2(0, 0);
+                    b2Vec2 pos = BodyIterator->GetWorldCenter();
+
+                    if ((event.key.code == sf::Keyboard::Right)) {
+                        move.x += 10;
+                    }
+                    BodyIterator->ApplyForce(move, pos, true);
+                }
+			}*/
 		}
 		wormMove(place);
 		window.clear();
-		window.draw(m_background);
+		
+		 m_world->Step(TIMESTEP, VELITER, POSITER);
+		 window.draw(m_background);
+
 		for (auto& group : groupPlayers) {
 			group->update();
 			group->draw(window);
 		}
+		ground.draw(window);
 		window.display();
 	}
 	
@@ -71,13 +98,14 @@ void Player::chooseWeapon(sf::RenderWindow& window, sf::Event& event, sf::Rectan
 	if (window.pollEvent(event))
 	{
 		if (sf::Mouse::isButtonPressed)
+		{
+			if (sf::Mouse::Button::Left)
 			{
-				if(sf::Mouse::Button::Left)
-				{
-					auto location = locatin(window, event); //will return where pressed on board
-					checkClick(location);
-				}
+				auto location = locatin(window, event); //will return where pressed on board
+				checkClick(location);
 			}
+		}
+	
 	}
 }
 
@@ -158,14 +186,14 @@ void Player::creatWorms()
 	for (auto& it : m_worms)
 	{
 		auto loc = randomLocation();
-		auto i = std::make_unique<Worm>(loc, m_name, m_color);
+		auto i = std::make_unique<Worm>(loc, m_name, m_color,*m_world.get());
 		it.swap(i);
 	}
 }
 
 void Player::restartBackground(int i)
 {
-	m_background.setTexture(&Resources::instance().getMenuTexture(i));
+	m_background.setTexture(&Resources::instance().getTexture(i));
 	m_background.setSize({ WIDTH,HEIGHT });
 
 }

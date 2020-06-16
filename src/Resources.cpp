@@ -9,14 +9,14 @@ Resources& Resources::instance()
 
 void Resources::loadPicture()
 {
-	m_picture[arrbackground].loadFromFile("Background.png");
+	m_picture[arrbackground].loadFromFile("Background3.jpg");
 	m_picture[flik].loadFromFile("firepnch.1.png");
 	m_picture[grenade].loadFromFile("grenade.1.png");
 	m_picture[pass].loadFromFile("skipgo.2.png");
 	m_picture[sheep].loadFromFile("sheep.1.png");
 	m_picture[whiteflag].loadFromFile("surender.1.png");
 	m_picture[featuresMenu].loadFromFile("featuresMenu.png");
-	m_animations[worm].loadFromFile("waccuse.png");
+	m_animations[worm].loadFromFile("worm.png");
 	m_animations[axe].loadFromFile("axe.png");
 		
 	m_Menupictures[menuPic].loadFromFile("menuBackground.png");
