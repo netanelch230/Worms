@@ -223,7 +223,7 @@ void Menu::setResources()
 
 	for (auto i = 0; i < m_playerText.size(); ++i)
 		m_playerText[i].setFont(Resources::instance().getfont(menu_font));
-
+	
 	m_spriteBackGround.setTexture(Resources::instance().getMenuTexture(menuPic));
 	m_spriteHeadline.setTexture(Resources::instance().getMenuTexture(menuHeadline));
 	m_spriteHeadline.setPosition(250, 0);

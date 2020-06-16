@@ -7,8 +7,8 @@ struct spriteSetting
 	sf::Vector2f position;
 	sf::Vector2f size;
 	sf::Texture& picture;
-	
 };
+
 class AbsObject
 {
 public:

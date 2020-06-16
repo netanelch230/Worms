@@ -10,4 +10,5 @@ public:
 	
 
 private:
+	sf::Vector2f m_featureLocation;
 };

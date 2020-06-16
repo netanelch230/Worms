@@ -9,34 +9,49 @@ Player::Player(std::string name, sf::Color color, int background):
 	restartBackground(background);
 }
 
-void Player::run(sf::RenderWindow& window, sf::Event& event)
+void Player::run(sf::RenderWindow& window,
+	sf::Event& event,
+	std::vector<std::unique_ptr<Player>> &groupPlayers,
+	sf::RectangleShape& featuresMenu)
 {
 	Timer::setTime(timeOfRound);
 	int place =	rand() % wormsLimit;
 	while (!timesUp())
 	{
-		for (; window.pollEvent(event); )
+		
+		if (window.pollEvent(event))
 		{
-			switch (sf::Event::MouseButtonReleased)
+			if (sf::Mouse::isButtonPressed)
 			{
-			case (sf::Mouse::Button::Left):
-				chooseWorm(window, event, place);
-				break;
-			case (sf::Mouse::Button::Right)://weapons menu
-				chooseWeapone(window, event);
-				break;
+				if (sf::Mouse::Button::Right) //weapons menu
+					chooseWeapon(window, event, featuresMenu);
+
+				if(sf::Mouse::Button::Left)
+					chooseWorm(window, event, place);
 			}
+			//switch (sf::Mouse::isButtonPressed)
+			//{
+			//case (sf::Mouse::Button::Left):
+			//	chooseWorm(window, event, place);
+			//	break;
+			//case (sf::Mouse::Button::Right)://weapons menu
+			//	std::cout << "wow";
+			//	chooseWeapon(window, event, featuresMenu);
+			//	break;
+			//}
 			if (event.type == sf::Event::Closed)
 			{
 				window.close();
 				break;
 			}
 		}
-		update();
 		wormMove(place);
 		window.clear();
 		window.draw(m_background);
-		draw(window);
+		for (auto& group : groupPlayers) {
+			group->update();
+			group->draw(window);
+		}
 		window.display();
 	}
 	
@@ -49,19 +64,27 @@ void Player::draw(sf::RenderWindow& window)
 	window.draw(m_timeForRound);
 }
 
-void Player::chooseWeapone(sf::RenderWindow& window, sf::Event& event)
+void Player::chooseWeapon(sf::RenderWindow& window, sf::Event& event, sf::RectangleShape& featuresMenu)
 {
-	switch (event.MouseButtonPressed)
+	window.draw(featuresMenu);//now after choosing weapon we'll check which weapon the worm chose
+	window.display();
+	if (window.pollEvent(event))
 	{
-	case(sf::Mouse::Button::Left):
-		auto location = locatin(window, event);
-		for (auto& i : m_features)
-			if(i->touch(location))
-				//the player choose this weapon, do someting.				
-		break;
+		if (sf::Mouse::isButtonPressed)
+			{
+				if(sf::Mouse::Button::Left)
+				{
+					auto location = locatin(window, event); //will return where pressed on board
+					checkClick(location);
+				}
+			}
 	}
 }
 
+void Player::checkClick(sf::Vector2f clickLocation)
+{
+
+}
 void Player::chooseWorm(sf::RenderWindow& window, sf::Event& event, int& place)
 {
 	auto location = locatin(window, event);
@@ -80,7 +103,6 @@ void Player::chooseWorm(sf::RenderWindow& window, sf::Event& event, int& place)
 void Player::wormMove(int i)
 {
 	float time = m_wormsTime.restart().asSeconds();
-	std::cout << i;
 	m_worms[i]->move(time);
 }
 

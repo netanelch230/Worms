@@ -1,4 +1,10 @@
 #pragma once
 #include"Attack.h"
 
-class Axe :public Attack {};
+class Axe :public Attack
+{
+public:
+
+private:
+
+}
