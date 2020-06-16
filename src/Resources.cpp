@@ -15,6 +15,7 @@ void Resources::loadPicture()
 	m_picture[pass].loadFromFile("skipgo.2.png");
 	m_picture[sheep].loadFromFile("sheep.1.png");
 	m_picture[whiteflag].loadFromFile("surender.1.png");
+	m_picture[featuresMenu].loadFromFile("featuresMenu.png");
 	m_animations[worm].loadFromFile("waccuse.png");
 	m_animations[axe].loadFromFile("axe.png");
 		

@@ -29,7 +29,18 @@ const int countOfPicture = 16;
 const int countOfFont = 3;
 const int countOfMusic = 5;
 const auto sizeOfIcon = sf::Vector2f{ 20,30 };
-const auto sizeOfWorm = sf::Vector2f { 100,100 };
+const auto sizeOfWorm = sf::Vector2f { 70,70 };
+
+//=======================================locations on Board=========================================
+
+const auto featuresCoordinates = sf::Vector2f{ 216, 104 };
+
+//=======================================locations on Board=========================================
+
+const int rowsInTable = 2;
+const int colsInTable = 4;
+const int squareSize = 50;
+
 
 enum menuOption
 {
@@ -104,6 +115,7 @@ enum Pictures
 	playWithComputerPic,
 	backGround1pic,
 	backGround2pic,
-	startPlay
+	startPlay,
+	featuresMenu
 };
 

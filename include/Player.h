@@ -11,15 +11,18 @@
 
 class Player
 {
+	//using playerVector = std::vector<std::unique_ptr<Player>>;
 public:
 	Player(std::string name, sf::Color color, int background);
 	std::string getName() { return m_name; };
 	//~Player();
-	void run(sf::RenderWindow& window, sf::Event& event);
+	void run(sf::RenderWindow& window, sf::Event& event, std::vector<std::unique_ptr<Player>>& groupPlayers,
+			sf::RectangleShape &featuresMenu);
 	void draw(sf::RenderWindow& window);					//draw all the worms
 	void loadFeatures(const sf::Texture& tex, const sf::Vector2f& pos);
 	
 private:
+	void checkClick(sf::Vector2f clickLocation);
 
 	std::vector<std::unique_ptr<Worm>> m_worms; // initialize the size of the vector
 	std::vector < std::unique_ptr<Features>> m_features;
@@ -31,7 +34,7 @@ private:
 	sf::Clock m_roundTimer;
 	sf::Text m_timeForRound;
 	
-	void chooseWeapone(sf::RenderWindow& window, sf::Event& event);				//check if some of weapone choose
+	void chooseWeapon(sf::RenderWindow& window, sf::Event& event, sf::RectangleShape& featuresMenu);				//check if some of weapone choose
 	void chooseWorm(sf::RenderWindow& window, sf::Event& event, int& place);	//check if some of worm choose, if not the computer choose one randomalic
 	void wormMove(int i);
 	void update();
