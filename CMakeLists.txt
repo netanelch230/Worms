@@ -9,7 +9,8 @@ if (MSVC)
     add_compile_options (/permissive-)
 endif ()
 
-	add_executable (Worms WIN32 "")
+add_executable (Worms WIN32 "")
+
 
 	add_subdirectory (Box2D/include)
 	add_subdirectory (Box2D/src)
@@ -24,7 +25,10 @@ endif ()
 
 	set_target_properties (sfml-main sfml-system sfml-window sfml-graphics sfml-audio sfml-network PROPERTIES MAP_IMPORTED_CONFIG_RELWITHDEBINFO RELEASE)
 
-	target_link_libraries (Worms sfml-graphics sfml-main)
-	target_link_libraries (Worms box2d)
+
+target_link_libraries (Worms box2d)
+target_link_libraries (Worms sfml-graphics sfml-audio sfml-main)
+set_target_properties (sfml-main sfml-system sfml-window sfml-graphics sfml-audio sfml-network PROPERTIES MAP_IMPORTED_CONFIG_RELWITHDEBINFO RELEASE)
+
 
  

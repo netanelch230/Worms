@@ -4,16 +4,9 @@
 class Features:public AbsObject
 {
 public:
-	Features();
-	~Features();
+	Features() {};
+	//~Features();
+	
 
 private:
 };
-
-Features::Features()
-{
-}
-
-Features::~Features()
-{
-}
