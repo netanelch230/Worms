@@ -17,7 +17,7 @@ void Resources::loadPicture()
 	m_picture[sheep].loadFromFile("sheep.1.png");
 	m_picture[whiteflag].loadFromFile("surender.1.png");
 	m_picture[featuresMenu].loadFromFile("featuresMenu.png");
-	m_animations[worm].loadFromFile("waccuse.png");
+	m_animations[worm].loadFromFile("worm.jpg");
 	m_animations[axe].loadFromFile("axe.png");
 		
 	m_Menupictures[menuPic].loadFromFile("menuBackground.png");
