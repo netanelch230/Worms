@@ -21,13 +21,14 @@ public:
 	Player(std::string name, sf::Color color, int background,std::shared_ptr<b2World> m_world);
 	std::string getName() { return m_name; };
 	//~Player();
-	void run(sf::RenderWindow& window, sf::Event& event, std::vector<std::unique_ptr<Player>>& groupPlayers,
-			sf::RectangleShape &featuresMenu, Ground& ground);
+	void run(sf::RenderWindow& window, sf::Event& event, 
+		std::vector<std::unique_ptr<Player>>& groupPlayers,
+			sf::RectangleShape &featuresMenu, Ground& ground,
+		std::vector<sf::Vector2f> featuresLocation);
 	void draw(sf::RenderWindow& window);					//draw all the worms
-	void loadFeatures(const sf::Texture& tex, const sf::Vector2f& pos);
+	//void loadFeatures(const sf::Texture& tex, const sf::Vector2f& pos);
 	
 private:
-	void checkClick(sf::Vector2f clickLocation);
 	std::shared_ptr<b2World> m_world;
 	std::vector<std::unique_ptr<Worm>> m_worms; // initialize the size of the vector
 	std::vector < std::unique_ptr<Features>> m_features;
@@ -39,8 +40,13 @@ private:
 	sf::Clock m_roundTimer;
 	sf::Text m_timeForRound;
 	
-	void chooseWeapon(sf::RenderWindow& window, sf::Event& event, sf::RectangleShape& featuresMenu);				//check if some of weapone choose
+		bool m_drawWeaponMenu = false; //if pressed right click we'll update to true and we'll print the weapon menu
+	void chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& featuresMenu,
+		std::vector<sf::Vector2f> featuresLocation, int currWorm);
+	int checkClick(sf::Vector2f clickLocation, std::vector<sf::Vector2f> featuresLocation);
+	int getFeatureName(int index);
 	void chooseWorm(sf::RenderWindow& window, sf::Event& event, int& place);	//check if some of worm choose, if not the computer choose one randomalic
+
 	void wormMove(int i);
 	void update();
 	void loadTimer();

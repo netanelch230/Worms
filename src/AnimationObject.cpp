@@ -6,8 +6,15 @@ AnimationObject::AnimationObject(spriteSetting sset, sf::Vector2u imageCount,b2W
 {
 }
 
+void AnimationObject::setAnimation(sf::Texture& photo, sf::Vector2u imageCount, float switchTime)
+{
+	Animation animation(&photo, imageCount, switchTime);
+	m_animation = animation;
+}
+
 void AnimationObject::update(float deltaTime)
 {
 	m_animation.update(m_row, deltaTime);
 	m_sprite.setTextureRect(m_animation.getrect());
+
 }

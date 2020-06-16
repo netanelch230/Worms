@@ -13,7 +13,8 @@ void Player::run(sf::RenderWindow& window,
 	sf::Event& event,
 	std::vector<std::unique_ptr<Player>> &groupPlayers,
 	sf::RectangleShape& featuresMenu,
-	Ground& ground)
+	Ground& ground,
+	std::vector<sf::Vector2f> featuresLocation)
 {
 	Timer::setTime(timeOfRound);
 	int place =	rand() % wormsLimit;
@@ -24,49 +25,17 @@ void Player::run(sf::RenderWindow& window,
 			if (sf::Mouse::isButtonPressed)
 			{
 				if (sf::Mouse::Button::Right) //weapons menu
-					chooseWeapon(window, event, featuresMenu);
+					chooseWeapon(window, featuresMenu,featuresLocation,place);
 
 				if (sf::Mouse::Button::Left)
 					chooseWorm(window, event, place);
 			}
-			//switch (sf::Mouse::isButtonPressed)
-			//{
-			//case (sf::Mouse::Button::Left):
-			//	chooseWorm(window, event, place);
-			//	break;
-			//case (sf::Mouse::Button::Right)://weapons menu
-			//	std::cout << "wow";
-			//	chooseWeapon(window, event, featuresMenu);
-			//	break;
-			//}
+			
 			if (event.type == sf::Event::Closed)
 			{
 				window.close();
 				break;
 			}
-			/*if ((event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::Space))
-			{
-				b2Vec2 force(100, 200);
-				for (b2Body* BodyIterator = m_world->GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext())
-				{
-					auto i = BodyIterator->GetWorldCenter();
-					BodyIterator->ApplyForce(force, BodyIterator->GetWorldCenter(), true);
-				}
-
-			}
-			if ((event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::Right))
-			{
-				for (b2Body* BodyIterator = m_world->GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext())
-				{
-					b2Vec2 move = b2Vec2(0, 0);
-                    b2Vec2 pos = BodyIterator->GetWorldCenter();
-
-                    if ((event.key.code == sf::Keyboard::Right)) {
-                        move.x += 10;
-                    }
-                    BodyIterator->ApplyForce(move, pos, true);
-                }
-			}*/
 		}
 		wormMove(place);
 		window.clear();
@@ -79,7 +48,10 @@ void Player::run(sf::RenderWindow& window,
 			group->draw(window);
 		}
 		ground.draw(window);
-		window.display();
+		if (m_drawWeaponMenu)
+			chooseWeapon(window, featuresMenu, featuresLocation, place);
+		else
+			window.display();
 	}
 	
 }
@@ -91,28 +63,51 @@ void Player::draw(sf::RenderWindow& window)
 	window.draw(m_timeForRound);
 }
 
-void Player::chooseWeapon(sf::RenderWindow& window, sf::Event& event, sf::RectangleShape& featuresMenu)
+
+void Player::chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& featuresMenu,
+	std::vector<sf::Vector2f> featuresLocation, int currWorm)
 {
 	window.draw(featuresMenu);//now after choosing weapon we'll check which weapon the worm chose
 	window.display();
-	if (window.pollEvent(event))
+	while (m_drawWeaponMenu) // while we still want to use the weapon Menu
 	{
-		if (sf::Mouse::isButtonPressed)
+		if (auto event = sf::Event{}; window.pollEvent(event))
 		{
-			if (sf::Mouse::Button::Left)
+			if (event.type == sf::Event::MouseButtonPressed)
 			{
-				auto location = locatin(window, event); //will return where pressed on board
-				checkClick(location);
+				std::cout << "in pressed button";
+				if (event.mouseButton.button == sf::Mouse::Right)
+				{
+					m_drawWeaponMenu = false;
+					break;
+				}
+				else if (event.mouseButton.button == sf::Mouse::Left)
+				{
+					std::cout << "in left click!!!!";
+					auto location = locatin(window, event); //will return where pressed on board
+					int featureToCreate = checkClick(location, featuresLocation);
+					//m_worms[currWorm]->setAnimation(&Resources::instance().getAnimations(featureToCreate), );
+					m_drawWeaponMenu = false;
+					break;
+				}
 			}
 		}
-	
-	}
+	}	
 }
-
-void Player::checkClick(sf::Vector2f clickLocation)
+int Player::checkClick(sf::Vector2f clickLocation, std::vector<sf::Vector2f> featuresLocation)
 {
+	int currLocationModuluRows = 0;
+	for (auto i = featuresLocation.begin(); i != featuresLocation.end(); ++i)
+	{
+		if (abs(clickLocation.x - i->x) < squareSize && abs(clickLocation.y - i->y) < squareSize)
+		{
+			return getFeatureName(std::distance(featuresLocation.begin(), i));
+		}
+	}
 
+	return -1;
 }
+
 void Player::chooseWorm(sf::RenderWindow& window, sf::Event& event, int& place)
 {
 	auto location = locatin(window, event);
@@ -198,3 +193,25 @@ void Player::restartBackground(int i)
 
 }
 
+int Player::getFeatureName(int index)
+{
+	switch (index)
+	{
+	case f_sheep:
+		return f_sheep;
+	case f_grenade:
+		return f_grenade;
+	case f_flick:
+		return f_flick;
+	case f_axe:
+		return f_axe;
+	case f_move:
+		return f_move;
+	case f_whiteFlag:
+		return f_whiteFlag;
+	case f_stinky:
+		return f_stinky;
+	case f_skip:
+		return f_skip;
+	}
+}
