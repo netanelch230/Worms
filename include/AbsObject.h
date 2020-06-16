@@ -1,16 +1,24 @@
-
 #pragma once
 #include <SFML/Graphics.hpp>
+#include"Animation.h"
 
+struct spriteSetting
+{
+	sf::Vector2f position;
+	sf::Vector2f size;
+	sf::Texture& picture;
+	
+};
 class AbsObject
 {
 public:
-	AbsObject() {};
-	AbsObject(sf::Vector2f);
-	void setLocation(sf::Vector2f location);
-	void draw(sf::RenderWindow& window);
+	//AbsObject() {};
+	AbsObject(spriteSetting);
+	virtual void draw(sf::RenderWindow& window);
 	virtual bool touch(sf::Vector2f location);
+	//void update(float deltaTime);
 
 protected:
-	sf::Sprite m_sprite;
+	sf::RectangleShape m_sprite;
+
 };

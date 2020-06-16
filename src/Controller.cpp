@@ -3,10 +3,11 @@
 
 Controller::Controller()
 {
-	restartBackground();
-	restartPlayers();
-	m_menu.setFont(m_resources.getfont(0));
-	m_menu.run(m_resources.getTexture(menuPic), m_window);
+	if (m_menu.run(m_window))
+	{
+		restartBackground();
+		restartPlayers();
+	}
 }
 
 void Controller::run()
@@ -32,11 +33,9 @@ void Controller::restartPlayers()
 	m_player.resize(numOfPlayer);
 	for (auto& it : m_player)
 	{
-		float widthRatio = WIDTH / numOfPlayer;
-		float heightRatio = HEIGHT / numOfPlayer;
-		auto i = std::make_unique<Player>(name[j],
-			sf::Vector2f{ (float)widthRatio * j,heightRatio },
-			m_menu.getColor(m_menu.getInput().m_color));
+		float widthRatio = 300;
+		float heightRatio = 400;
+		auto i = std::make_unique<Player>(name[j], m_menu.getInput().m_playersColor[j],m_menu.getInput().m_background);
 		it.swap(i);
 		j++;
 	}
@@ -44,7 +43,7 @@ void Controller::restartPlayers()
 
 void Controller::restartBackground()   
 {
-	m_background.setTexture(&m_resources.getTexture(0));
+	m_background.setTexture(&Resources::instance().getMenuTexture(m_menu.getInput().m_background));
 	m_background.setSize({ WIDTH,HEIGHT });
 }
 
@@ -64,4 +63,6 @@ void Controller::exitGame()
 			break;
 		}
 }
+
+
 

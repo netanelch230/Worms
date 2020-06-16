@@ -9,6 +9,7 @@ if (MSVC)
     add_compile_options (/permissive-)
 endif ()
 
+
 	add_executable (Worms WIN32 "")
 
 	add_subdirectory (Box2D/include)
@@ -26,5 +27,3 @@ endif ()
 
 	target_link_libraries (Worms sfml-graphics sfml-main)
 	target_link_libraries (Worms box2d)
-
- 
