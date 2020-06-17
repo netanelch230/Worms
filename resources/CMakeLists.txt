@@ -3,9 +3,6 @@ configure_file ("PlayMeGames-Demo.otf" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("sriwedari.ttf" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Herist.otf" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("endgamesuccess.png" ${CMAKE_BINARY_DIR} COPYONLY)
-<<<<<<< karin
-configure_file ("menuBackground.png" ${CMAKE_BINARY_DIR} COPYONLY)
-=======
 configure_file ("menuBackground.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("axe.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("background.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
@@ -28,5 +25,5 @@ configure_file ("featuresMenu.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("wood.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("stone.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
 
->>>>>>> local
+
 configure_file (C:/SFML/SFML-2.5.1/bin/openal32.dll ${CMAKE_BINARY_DIR} COPYONLY)
