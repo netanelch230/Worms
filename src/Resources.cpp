@@ -21,14 +21,14 @@ void Resources::loadPicture()
 	m_animations[worm].loadFromFile("worm.png");
 	m_animations[axe].loadFromFile("axe.png");
 		
-	m_Menupictures[menuPic].loadFromFile("menuBackground.png");
 	m_Menupictures[menuHeadline].loadFromFile("wormsHeadline.png");
 	m_Menupictures[playWithFriendsPic].loadFromFile("PlayWithFriends.png");
 	m_Menupictures[playWithComputerPic].loadFromFile("PlayWithComputer.png");
 	m_Menupictures[backGround1pic].loadFromFile("background1.PNG");
 	m_Menupictures[backGround2pic].loadFromFile("background2.png");
 	m_Menupictures[startPlay].loadFromFile("playgame.png");
-
+	m_Menupictures[menuPic].loadFromFile("menuBackground.jpg");
+	
 	m_playersBottonsTextures[0].loadFromFile("p1.png");
 	m_playersBottonsTextures[1].loadFromFile("p2.png");
 	m_playersBottonsTextures[2].loadFromFile("p3.png");
