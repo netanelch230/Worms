@@ -49,6 +49,9 @@ const auto stinkyImageCount = sf::Vector2u{ 1,10 };
 const auto GreenGrenadeImageCount = sf::Vector2u{ 1,32 };
 //sf::Vector2u sheepImageCount = { 1,36 };
 
+const auto sizeOfShelf = sf::Vector2f{ 70,50 };
+const auto sizeOfStone = sf::Vector2f{ 50,50 };
+
 
 enum featuresMenu
 {
@@ -137,6 +140,8 @@ enum Pictures
 	backGround1pic,
 	backGround2pic,
 	startPlay,
-	featuresMenu
+	featuresMenu,
+	shelf, 
+	stone
 };
 

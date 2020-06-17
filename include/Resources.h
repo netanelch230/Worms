@@ -3,6 +3,9 @@
 #include <SFML/Audio.hpp>
 #include"Enum.h"
 #include <array>
+#include <stdlib.h>
+#include <time.h>
+#include <stdio.h>
 
 using animArray = std::array<sf::Texture, countOfPicture>;
 
@@ -49,4 +52,5 @@ private:
 };
 
 sf::Vector2f operator+(sf::Vector2f v1, sf::Vector2f v2);
+sf::Vector2f randomLocation(int height, int width);
 

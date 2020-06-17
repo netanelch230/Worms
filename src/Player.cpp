@@ -13,7 +13,7 @@ void Player::run(sf::RenderWindow& window,
 	sf::Event& event,
 	std::vector<std::unique_ptr<Player>> &groupPlayers,
 	sf::RectangleShape& featuresMenu,
-	Ground& ground,
+	staticObjVec& m_staticObject,
 	std::vector<sf::Vector2f> featuresLocation)
 {
 	Timer::setTime(timeOfRound);
@@ -42,12 +42,13 @@ void Player::run(sf::RenderWindow& window,
 		
 		 m_world->Step(TIMESTEP, VELITER, POSITER);
 		 window.draw(m_background);
+		for (auto& i : m_staticObject)
+			i->draw(window);
 
 		for (auto& group : groupPlayers) {
 			group->update();
 			group->draw(window);
 		}
-		ground.draw(window);
 		if (m_drawWeaponMenu)
 			chooseWeapon(window, featuresMenu, featuresLocation, place);
 		else
@@ -142,13 +143,7 @@ void Player::update()
 		i->update(time);
 }
 
-sf::Vector2f Player::randomLocation()
-{
-	float randPlaceX = rand() % HEIGHT;
-	float randPlaceY = rand() % WIDTH;
-	 
-	return sf::Vector2f{ randPlaceX, randPlaceY };
-}
+
 
 bool Player::timesUp()
 {
@@ -180,7 +175,7 @@ void Player::creatWorms()
 	m_worms.resize(wormsLimit);
 	for (auto& it : m_worms)
 	{
-		auto loc = randomLocation();
+		auto loc = randomLocation(HEIGHT,WIDTH);
 		auto i = std::make_unique<Worm>(loc, m_name, m_color,*m_world.get());
 		it.swap(i);
 	}
