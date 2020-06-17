@@ -1,44 +1,36 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player(std::string name, sf::Color color, int background):
-	m_name(name),m_color(color)
+Player::Player(std::string name, sf::Color color, int background, std::shared_ptr<b2World> world):
+	m_name(name),m_color(color),m_world(world)
 {
 	creatWorms();
 	loadTimer();
-	restartBackground(background);
+	restartBackground(0);
 }
 
 void Player::run(sf::RenderWindow& window,
 	sf::Event& event,
 	std::vector<std::unique_ptr<Player>> &groupPlayers,
-	sf::RectangleShape& featuresMenu)
+	sf::RectangleShape& featuresMenu,
+	staticObjVec& m_staticObject,
+	std::vector<sf::Vector2f> featuresLocation)
 {
 	Timer::setTime(timeOfRound);
 	int place =	rand() % wormsLimit;
 	while (!timesUp())
 	{
-		
 		if (window.pollEvent(event))
 		{
 			if (sf::Mouse::isButtonPressed)
 			{
 				if (sf::Mouse::Button::Right) //weapons menu
-					chooseWeapon(window, event, featuresMenu);
+					chooseWeapon(window, featuresMenu,featuresLocation,place);
 
-				if(sf::Mouse::Button::Left)
+				if (sf::Mouse::Button::Left)
 					chooseWorm(window, event, place);
 			}
-			//switch (sf::Mouse::isButtonPressed)
-			//{
-			//case (sf::Mouse::Button::Left):
-			//	chooseWorm(window, event, place);
-			//	break;
-			//case (sf::Mouse::Button::Right)://weapons menu
-			//	std::cout << "wow";
-			//	chooseWeapon(window, event, featuresMenu);
-			//	break;
-			//}
+			
 			if (event.type == sf::Event::Closed)
 			{
 				window.close();
@@ -47,12 +39,20 @@ void Player::run(sf::RenderWindow& window,
 		}
 		wormMove(place);
 		window.clear();
-		window.draw(m_background);
+		
+		 m_world->Step(TIMESTEP, VELITER, POSITER);
+		 window.draw(m_background);
+		for (auto& i : m_staticObject)
+			i->draw(window);
+
 		for (auto& group : groupPlayers) {
 			group->update();
 			group->draw(window);
 		}
-		window.display();
+		if (m_drawWeaponMenu)
+			chooseWeapon(window, featuresMenu, featuresLocation, place);
+		else
+			window.display();
 	}
 	
 }
@@ -64,27 +64,51 @@ void Player::draw(sf::RenderWindow& window)
 	window.draw(m_timeForRound);
 }
 
-void Player::chooseWeapon(sf::RenderWindow& window, sf::Event& event, sf::RectangleShape& featuresMenu)
+
+void Player::chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& featuresMenu,
+	std::vector<sf::Vector2f> featuresLocation, int currWorm)
 {
 	window.draw(featuresMenu);//now after choosing weapon we'll check which weapon the worm chose
 	window.display();
-	if (window.pollEvent(event))
+	while (m_drawWeaponMenu) // while we still want to use the weapon Menu
 	{
-		if (sf::Mouse::isButtonPressed)
+		if (auto event = sf::Event{}; window.pollEvent(event))
+		{
+			if (event.type == sf::Event::MouseButtonPressed)
 			{
-				if(sf::Mouse::Button::Left)
+				std::cout << "in pressed button";
+				if (event.mouseButton.button == sf::Mouse::Right)
 				{
+					m_drawWeaponMenu = false;
+					break;
+				}
+				else if (event.mouseButton.button == sf::Mouse::Left)
+				{
+					std::cout << "in left click!!!!";
 					auto location = locatin(window, event); //will return where pressed on board
-					checkClick(location);
+					int featureToCreate = checkClick(location, featuresLocation);
+					//m_worms[currWorm]->setAnimation(&Resources::instance().getAnimations(featureToCreate), );
+					m_drawWeaponMenu = false;
+					break;
 				}
 			}
-	}
+		}
+	}	
 }
-
-void Player::checkClick(sf::Vector2f clickLocation)
+int Player::checkClick(sf::Vector2f clickLocation, std::vector<sf::Vector2f> featuresLocation)
 {
+	int currLocationModuluRows = 0;
+	for (auto i = featuresLocation.begin(); i != featuresLocation.end(); ++i)
+	{
+		if (abs(clickLocation.x - i->x) < squareSize && abs(clickLocation.y - i->y) < squareSize)
+		{
+			return getFeatureName(std::distance(featuresLocation.begin(), i));
+		}
+	}
 
+	return -1;
 }
+
 void Player::chooseWorm(sf::RenderWindow& window, sf::Event& event, int& place)
 {
 	auto location = locatin(window, event);
@@ -119,13 +143,7 @@ void Player::update()
 		i->update(time);
 }
 
-sf::Vector2f Player::randomLocation()
-{
-	float randPlaceX = rand() % HEIGHT;
-	float randPlaceY = rand() % WIDTH;
-	 
-	return sf::Vector2f{ randPlaceX, randPlaceY };
-}
+
 
 bool Player::timesUp()
 {
@@ -157,16 +175,38 @@ void Player::creatWorms()
 	m_worms.resize(wormsLimit);
 	for (auto& it : m_worms)
 	{
-		auto loc = randomLocation();
-		auto i = std::make_unique<Worm>(loc, m_name, m_color);
+		auto loc = randomLocation(HEIGHT,WIDTH);
+		auto i = std::make_unique<Worm>(loc, m_name, m_color,*m_world.get());
 		it.swap(i);
 	}
 }
 
 void Player::restartBackground(int i)
 {
-	m_background.setTexture(&Resources::instance().getMenuTexture(i));
+	m_background.setTexture(&Resources::instance().getTexture(i));
 	m_background.setSize({ WIDTH,HEIGHT });
 
 }
 
+int Player::getFeatureName(int index)
+{
+	switch (index)
+	{
+	case f_sheep:
+		return f_sheep;
+	case f_grenade:
+		return f_grenade;
+	case f_flick:
+		return f_flick;
+	case f_axe:
+		return f_axe;
+	case f_move:
+		return f_move;
+	case f_whiteFlag:
+		return f_whiteFlag;
+	case f_stinky:
+		return f_stinky;
+	case f_skip:
+		return f_skip;
+	}
+}

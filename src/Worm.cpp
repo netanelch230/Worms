@@ -1,57 +1,33 @@
 #include "Worm.h"
 
-
 void Worm::move(float time)
 {
-	auto dir = calculateDirection(time, direction());
-	m_sprite.move(dir);
-	m_name.move(dir);
-	m_textBox.move(dir);
+	m_body->ApplyForce(forc(), m_body->GetWorldCenter(), true);
+	auto dir = sf::Vector2f{ m_body->GetPosition().x,m_body->GetPosition().y };
 }
 
-int Worm::direction()
+b2Vec2 Worm::forc()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		return right;
-	
+		return b2Vec2{ 5,0 };
+
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		return left;
-	
+		return b2Vec2{ -5,0 };
+
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		return jump;
-	
+		return b2Vec2{ 0,-5 };
+
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		return down;
-	
+		return b2Vec2{ 0,5 };
+
 	else
-		return stand;
+		return b2Vec2{ 0,0 };
 }
 
-sf::Vector2f Worm::calculateDirection(const float& deltaTime, const int& num)
-{
-	float speed = 200.f;
-	switch (num)
-	{
-	case jump:
-		return sf::Vector2f(0, 0);				//need to calculate
-		break;
-	case down:
-		return sf::Vector2f(0, speed * deltaTime);
-		break;
-	case left:
-		return sf::Vector2f(-speed * deltaTime, 0);
-		break;
-	case right:
-		return sf::Vector2f(speed * deltaTime, 0);
-	case stand:
-		return { 0,0 };
-		break;
-	}
-}
 
-Worm::Worm(sf::Vector2f& location, std::string name, sf::Color color) :
+Worm::Worm(sf::Vector2f& location, std::string name, sf::Color color,  b2World& world) :
 	AnimationObject(spriteSetting{ location,sizeOfWorm,
-			Resources::instance().getAnimations(worm) }, sf::Vector2u{ 1,36 })
+			Resources::instance().getAnimations(worm) }, sf::Vector2u{ 1,36 },world,true)
 {
 	m_name.setFont(Resources::instance().getfont(name_font));
 	m_name.setString(name+'\n'+"   "+std::to_string(m_life));
@@ -69,7 +45,14 @@ Worm::Worm(sf::Vector2f& location, std::string name, sf::Color color) :
 void Worm::draw(sf::RenderWindow& window)
 {
 	AnimationObject::draw(window);
+	auto position = getPosition();
+	auto angle = getRotation();
+	m_name.setPosition(position + sf::Vector2f{7, -25}); //convert to world cords
+	m_name.setRotation(angle);
+	m_textBox.setPosition(position + sf::Vector2f{ 7, -25 });   //convert to world cords
+	m_textBox.setRotation(angle);
 	window.draw(m_textBox);
 	window.draw(m_name);
+	AbsObject::m_body;
 }
 
