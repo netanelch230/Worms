@@ -9,13 +9,15 @@ Resources& Resources::instance()
 
 void Resources::loadPicture()
 {
-	m_picture[arrbackground].loadFromFile("Background3.jpg");
+	m_picture[arrbackground].loadFromFile("Background5.png");
 	m_picture[flik].loadFromFile("firepnch.1.png");
 	m_picture[grenade].loadFromFile("grenade.1.png");
 	m_picture[pass].loadFromFile("skipgo.2.png");
 	m_picture[sheep].loadFromFile("sheep.1.png");
 	m_picture[whiteflag].loadFromFile("surender.1.png");
 	m_picture[featuresMenu].loadFromFile("featuresMenu.png");
+	m_picture[shelf].loadFromFile("wood.png");
+	m_picture[stone].loadFromFile("stone.jpg");
 	m_animations[worm].loadFromFile("worm.png");
 	m_animations[axe].loadFromFile("axe.png");
 		
@@ -43,4 +45,13 @@ void Resources::loadFont()
 sf::Vector2f operator+(sf::Vector2f v1, sf::Vector2f v2)
 {
 	return v1 += v2;
+}
+
+sf::Vector2f randomLocation(int height, int width)
+{
+	//srand(time(NULL));
+	float randPlaceX = rand() % height;
+	float randPlaceY = rand() % width;
+
+	return sf::Vector2f{ randPlaceX, randPlaceY };
 }

@@ -8,7 +8,9 @@
 #include "Attack.h"
 #include"Resources.h"
 #include "Timer.h"
-#include "Ground.h"
+#include "Shelf.h"
+
+using staticObjVec = std::vector<std::unique_ptr<staticObject>>;
 
 #define TIMESTEP 1.0f/60.0f     // Refresh time
 #define VELITER 10             // Number of iterations per tick to calculate speed
@@ -23,7 +25,7 @@ public:
 	//~Player();
 	void run(sf::RenderWindow& window, sf::Event& event, 
 		std::vector<std::unique_ptr<Player>>& groupPlayers,
-			sf::RectangleShape &featuresMenu, Ground& ground,
+			sf::RectangleShape &featuresMenu, staticObjVec& m_staticObject,
 		std::vector<sf::Vector2f> featuresLocation);
 	void draw(sf::RenderWindow& window);					//draw all the worms
 	//void loadFeatures(const sf::Texture& tex, const sf::Vector2f& pos);
@@ -53,7 +55,6 @@ private:
 	void creatWorms();
 	void restartBackground(int i);
 	sf::Vector2f locatin(sf::RenderWindow&, sf::Event&);
-	sf::Vector2f randomLocation();
 	bool timesUp();
 	sf::RectangleShape m_background;
 };

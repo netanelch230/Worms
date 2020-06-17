@@ -18,9 +18,7 @@ private:
 	sf::Text m_name;
 	sf::RectangleShape m_textBox;
 
-
-	int direction();
-	sf::Vector2f calculateDirection(const float& deltaTime, const int& num);
 	b2Vec2 forc();
+	
 };
 

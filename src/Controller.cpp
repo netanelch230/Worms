@@ -1,12 +1,13 @@
 #include "Controller.h"
 #include <iostream>
+#include "Stone.h"
 
 Controller::Controller()
 {
 	if (m_menu.run(m_window))
 	{
 		restartBackground();
-		m_ground = Ground(*m_world.get());
+		defineStatic();
 		restartPlayers();
 		restartFeaturesMenu();
 		restartFeaturesLocation();
@@ -30,7 +31,7 @@ void Controller::run()
 		m_window.display();
 		exitGame();
 		for (auto& i : m_player)
-			i->run(m_window, m_event, m_player, m_featuresMenu, m_ground,m_featuresLocation);
+			i->run(m_window, m_event, m_player, m_featuresMenu, m_staticObject,m_featuresLocation);
 	}
 
 }
@@ -77,6 +78,38 @@ void Controller::restartBackground()
 	b2Vec2 m_gravity(0.0f, 1.2f);
 	m_world = std::make_unique<b2World>(m_gravity);
 
+}
+
+void Controller::defineShelf()
+{
+	m_staticObject.emplace_back(std::make_unique<Shelf>(*m_world.get(), sf::Vector2f(3000, 20), sf::Vector2f(0, 600)));
+	int size = rand() % 6;
+	for (size_t i = 0; i < 10; i++)
+	{
+		auto position = randomLocation(1200, 500);
+		m_staticObject.emplace_back(std::make_unique<Shelf>(*m_world.get(), sizeOfShelf, position));
+	}
+}
+
+void Controller::defineStatic()
+{
+	defineShelf();
+	defineStone();
+}
+
+void Controller::defineStone()
+{
+	float height = 550;
+	for (size_t i = 0; i < 3; i++)
+	{
+		int amount = (rand() % 3) + 1;
+		float width = rand() % 1200;
+		for (size_t j = 0; j < amount; j++)
+		{
+			sf::Vector2f pos = { width + j * 50,height };
+			m_staticObject.emplace_back(std::make_unique<Stone>(*m_world.get(),pos));
+		}
+	}
 }
 
 void Controller::drawPlayer()
