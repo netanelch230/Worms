@@ -2,9 +2,7 @@
 #include "Enum.h"
 void Resources::loadPicture()
 {
-<<<<<<< karin
-	m_picture[menuPic].loadFromFile("menuBackground.png");
-=======
+
 	m_picture[arrbackground].loadFromFile("Background5.png");
 	m_picture[flik].loadFromFile("firepnch.1.png");
 	m_picture[grenade].loadFromFile("grenade.1.png");
@@ -34,7 +32,7 @@ void Resources::loadPicture()
 	m_playersBottonsTextures[2].loadFromFile("p3.png");
 	m_playersBottonsTextures[3].loadFromFile("p4.png");
 
->>>>>>> local
+
 }
 
 void Resources::loadFont()
