@@ -133,3 +133,7 @@ void Controller::exitGame()
 
 
 
+void Controller::noaTheQueen()
+{
+	
+}

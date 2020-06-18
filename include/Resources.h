@@ -32,7 +32,7 @@ private:
 	//std::array<sf::Music,countOfMusic> m_sound;
 	void loadPicture();
 	void loadFont();
-	//void loadSound();
+
 };
 
 sf::Vector2f operator+(sf::Vector2f v1, sf::Vector2f v2);

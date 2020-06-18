@@ -7,6 +7,7 @@ Resources& Resources::instance()
 	return instance;
 }
 
+
 void Resources::loadPicture()
 {
 
@@ -27,7 +28,6 @@ void Resources::loadPicture()
 	m_picture[featuresMenu].loadFromFile("featuresMenu.png");
 	m_picture[shelf].loadFromFile("wood.png");
 	m_picture[stone].loadFromFile("rocks.png");
-	
 	m_picture[f_worm].loadFromFile("worm.png");
 	m_picture[f_skip].loadFromFile("pass.png");
 
