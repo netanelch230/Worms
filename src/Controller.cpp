@@ -81,7 +81,7 @@ void Controller::restartBackground()
 
 void Controller::defineShelf()
 {
-	m_staticObject.emplace_back(std::make_unique<Shelf>(*m_world.get(), sf::Vector2f(3000, 20), sf::Vector2f(0, 600)));
+	//m_staticObject.emplace_back(std::make_unique<Shelf>(*m_world.get(), sf::Vector2f(3000, 20), sf::Vector2f(0, 600)));
 	int size = rand() % 6;
 	for (size_t i = 0; i < 10; i++)
 	{

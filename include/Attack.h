@@ -1,10 +1,17 @@
 #pragma once
 #include"Features.h"
+#include"AnimationObject.h"
 
-class Attack :public Features 
+//--------------class-------------
+class Attack :public Features , public AnimationObject
 {
 public:
-	virtual bool touch(sf::Vector2f location);
+	Attack(b2World& world, spriteSetting sset, sf::Vector2u imageCount,
+							 sf::Vector2u imagecountWorm, int place)
+		:Features(imagecountWorm, place),
+		AnimationObject(sset, imageCount, world, true) {}
+	void foo();
+	
 private:
-	int m_count;
+	//int m_count;
 };

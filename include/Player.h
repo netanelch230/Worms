@@ -9,6 +9,19 @@
 #include"Resources.h"
 #include "Timer.h"
 #include "Shelf.h"
+#include "Grenade.h"
+#include"Sheep.h"
+#include"Flik.h"
+#include "Axe.h"
+//#include "WhiteFlag.h"
+//#include "Transform.h"
+//#include "Pass.h"
+//#include "Stinky.h"
+
+//class WiteFlag;
+//class Pass;
+//class Stinky;
+
 
 using staticObjVec = std::vector<std::unique_ptr<staticObject>>;
 
@@ -55,8 +68,10 @@ private:
 	void chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& featuresMenu,
 		std::vector<sf::Vector2f> featuresLocation, int currWorm,
 		std::vector<std::unique_ptr<Player>>& groupPlayers, staticObjVec& m_staticObject);
-	animationData checkClick(sf::Vector2f clickLocation, std::vector<sf::Vector2f> featuresLocation);
-	animationData getFeaturesName(int index);
+
+	std::shared_ptr<Features> checkClick(sf::Vector2f clickLocation, std::vector<sf::Vector2f> featuresLocation, int currWorm);
+	std::shared_ptr<Features> getFeaturesName(int index, int current);
+
 	void chooseWorm(sf::RenderWindow& window, sf::Event& event, int& place);	//check if some of worm choose, if not the computer choose one randomalic
 	void wormMove(int i);
 	void update();

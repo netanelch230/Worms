@@ -38,6 +38,8 @@ void Resources::loadPicture()
 	m_picture[f_flick].loadFromFile("flick.png");
 	m_picture[f_teleporter].loadFromFile("mahbet.png");
 	m_picture[f_skip].loadFromFile("pass.png");
+
+	m_picture[grenade].loadFromFile("grenade.png");
 }
 
 void Resources::loadFont()
