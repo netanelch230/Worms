@@ -25,7 +25,7 @@ const size_t wormsLimit = 5;
 const auto NumOfLife = 150;
 const int WIDTH = 1200;
 const int HEIGHT = 700;
-const int countOfPicture = 16;
+const int amuntOfPicture = 50;
 const int countOfFont = 3;
 const int countOfMusic = 5;
 const auto sizeOfIcon = sf::Vector2f{ 20,30 };
@@ -47,28 +47,25 @@ const auto whiteFlagImageCount = sf::Vector2u{ 1,10 };
 const auto axeImageCount = sf::Vector2u{ 1,15 };
 const auto stinkyImageCount = sf::Vector2u{ 1,10 };
 const auto GreenGrenadeImageCount = sf::Vector2u{ 1,32 };
-//sf::Vector2u sheepImageCount = { 1,36 };
+const auto skipImageCount = sf::Vector2u{ 1,9 };
+const auto sheepImageCount = sf::Vector2u{ 1,36 };
+const auto teleporterImageCount = sf::Vector2u{ 1,36 };
 
 const auto sizeOfShelf = sf::Vector2f{ 70,50 };
 const auto sizeOfStone = sf::Vector2f{ 50,50 };
 
 
-enum featuresMenu
+enum features
 {
+	f_worm=15,
 	f_sheep,
 	f_grenade,
 	f_flick,
 	f_axe,
-	f_move,
+	f_teleporter,
 	f_whiteFlag,
 	f_stinky,
 	f_skip
-};
-
-
-enum menuOption
-{
-	arrbackground
 };
 
 enum sides
@@ -87,20 +84,7 @@ enum e_music
 	diamondmusic
 };
 
-enum Icon
-{
-	flik=1,
-	grenade,
-	pass,
-	sheep,
-	whiteflag
-};
 
-enum Anomation
-{
-	worm,
-	axe
-};
 
 enum font
 {
@@ -131,7 +115,7 @@ enum menuPress
 	t_startPlay
 };
 
-enum Pictures
+enum menuPictures
 {
 	menuPic,
 	menuHeadline,
@@ -139,9 +123,18 @@ enum Pictures
 	playWithComputerPic,
 	backGround1pic,
 	backGround2pic,
-	startPlay,
-	featuresMenu,
-	shelf, 
+	start,
+	exitGame,
+	p1,
+	p2,
+	p3,
+	p4
+};
+
+enum board
+{
+	featuresMenu=12,
+	shelf,
 	stone
 };
 

@@ -12,6 +12,8 @@
 
 using staticObjVec = std::vector<std::unique_ptr<staticObject>>;
 
+using animationData = std::pair<int, sf::Vector2u>;
+
 #define TIMESTEP 1.0f/60.0f     // Refresh time
 #define VELITER 10             // Number of iterations per tick to calculate speed
 #define POSITER 10              // Number tick iterations to calculate the position
@@ -42,13 +44,12 @@ private:
 	sf::Clock m_roundTimer;
 	sf::Text m_timeForRound;
 	
-		bool m_drawWeaponMenu = false; //if pressed right click we'll update to true and we'll print the weapon menu
+	bool m_drawWeaponMenu = false; //if pressed right click we'll update to true and we'll print the weapon menu
 	void chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& featuresMenu,
 		std::vector<sf::Vector2f> featuresLocation, int currWorm);
-	int checkClick(sf::Vector2f clickLocation, std::vector<sf::Vector2f> featuresLocation);
-	int getFeatureName(int index);
+	animationData checkClick(sf::Vector2f clickLocation, std::vector<sf::Vector2f> featuresLocation);
+	animationData getFeaturesName(int index);
 	void chooseWorm(sf::RenderWindow& window, sf::Event& event, int& place);	//check if some of worm choose, if not the computer choose one randomalic
-
 	void wormMove(int i);
 	void update();
 	void loadTimer();
