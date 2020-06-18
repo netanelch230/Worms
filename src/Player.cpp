@@ -23,6 +23,18 @@ void Player::run(sf::RenderWindow& window,
 	{
 		if (window.pollEvent(event))
 		{
+			if (sf::Keyboard::isKeyPressed)
+			{
+				switch (event.type)
+				{
+				case sf::Event::KeyPressed:
+					case sf::Keyboard::Space:
+						//in here netanel, karin and yair needs to handle box-2d
+						break;
+					break;
+
+				}
+			}
 			if (sf::Mouse::isButtonPressed)
 			{
 				switch (event.type)
@@ -38,56 +50,69 @@ void Player::run(sf::RenderWindow& window,
 			}
 		}
 		wormMove(place);
-		window.clear();
-		m_world->Step(TIMESTEP, VELITER, POSITER);
-		window.draw(m_background);
-		for (auto& i : m_staticObject)
-			i->draw(window);
-
-		for (auto& group : groupPlayers) {
-			group->update();
-			group->draw(window);
-		}
+		drawBoardAndAnimation(window, groupPlayers, featuresMenu, m_staticObject);
 		if (m_drawWeaponMenu)
-			chooseWeapon(window, featuresMenu, featuresLocation, place);
-		else
-			window.display();
-	}
+				chooseWeapon(window, featuresMenu, featuresLocation, place, groupPlayers,
+					m_staticObject);
+	}	
+	//set current worm to regular worm because turn is over!
+	m_worms[place]->setAnimation(Resources::instance().getTexture(f_worm), wormImageCount, 0.03f);
+	//m_timeForRound.setString("10");
+	//Timer::setTime(timeOfRound);
 
 }
 
+void Player::drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::unique_ptr<Player>>& groupPlayers, sf::RectangleShape& featuresMenu,
+	staticObjVec& m_staticObject)
+{
+	window.clear();
+	m_world->Step(TIMESTEP, VELITER, POSITER);
+	window.draw(m_background);
+	if (m_drawWeaponMenu)
+		window.draw(featuresMenu);
+	for (auto& i : m_staticObject)
+		i->draw(window);
+
+	window.draw(m_timeForRound);
+
+	for (auto& group : groupPlayers)
+	{
+		group->update();
+		group->draw(window);
+	}
+	window.display();
+}
 void Player::draw(sf::RenderWindow& window)
 {
 	for (auto& i : m_worms)
 		i->draw(window);
-	window.draw(m_timeForRound);
 }
 
 
 void Player::chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& featuresMenu,
-	std::vector<sf::Vector2f> featuresLocation, int currWorm)
+	std::vector<sf::Vector2f> featuresLocation, int currWorm,
+	std::vector<std::unique_ptr<Player>>& groupPlayers, staticObjVec& m_staticObject)
 {
-	window.draw(featuresMenu);//now after choosing weapon we'll check which weapon the worm chose
-	window.display();
-	while (m_drawWeaponMenu) // while we still want to use the weapon Menu
-	{
-		if (auto event = sf::Event{}; window.pollEvent(event))
+		while (m_drawWeaponMenu && !timesUp()) // while we still want to use the weapon Menu
 		{
-			if (event.type == sf::Event::MouseButtonPressed)
+			drawBoardAndAnimation(window, groupPlayers, featuresMenu, m_staticObject);
+			if (auto event = sf::Event{}; window.pollEvent(event))
 			{
-				if (event.mouseButton.button == sf::Mouse::Right)
+				if (event.type == sf::Event::MouseButtonPressed)
 				{
-					m_drawWeaponMenu = false;
-					break;
-				}
-				else if (event.mouseButton.button == sf::Mouse::Left)
-				{
-					auto location = locatin(window, event); //will return where pressed on board
-					auto featureToCreate = checkClick(location, featuresLocation, currWorm);
-					auto place = featureToCreate->getPlace();
-					auto imageCount = featureToCreate->getImageCount();
-					m_worms[currWorm]->setAnimation(Resources::instance().getTexture(place),
-						imageCount, 0.03f);
+					if (event.mouseButton.button == sf::Mouse::Right)
+					{
+						m_drawWeaponMenu = false;
+						break;
+				  else if (event.mouseButton.button == sf::Mouse::Left)
+				  {
+              auto location = locatin(window, event); //will return where pressed on board
+              auto featureToCreate = checkClick(location, featuresLocation, currWorm);
+              handleFeatureChoosing(featureToCreate, currWorm, window)
+              auto place = featureToCreate->getPlace();
+              auto imageCount = featureToCreate->getImageCount();
+              m_worms[currWorm]->setAnimation(Resources::instance().getTexture(place),
+              imageCount, 0.03f);
 					if (auto i = std::dynamic_pointer_cast<Attack>(featureToCreate))
 					{
 						i->foo();
@@ -98,7 +123,15 @@ void Player::chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& features
 				}
 			}
 		}
-	}
+}
+
+void Player::handleFeatureChoosing(animationData featureToCreate, int currWorm, sf::RenderWindow& window)
+{
+	if (featureToCreate.first == -1)
+		return;
+	m_worms[currWorm]->setAnimation(Resources::instance().getTexture(featureToCreate.first),
+		featureToCreate.second, 0.03f);
+	handleCollision(featureToCreate.first, window);
 }
 
 std::shared_ptr<Features> Player::checkClick(sf::Vector2f clickLocation,
@@ -145,9 +178,93 @@ sf::Vector2f Player::locatin(sf::RenderWindow& window, sf::Event& event)
 void Player::update()
 {
 	float time = m_wormsTimeAnimation.restart().asSeconds();
+
 	for (auto& i : m_worms)
 		i->update(time);
 }
+
+void Player::handleCollision(int wep,sf::RenderWindow& window)
+{
+	switch (wep)
+	{
+	case f_sheep:
+		break;
+	case f_grenade:
+		break;
+	case f_flick:
+		break;
+	case f_axe:
+		//figure the player who werw attacked and change his life to helf
+		break;
+	case f_teleporter:
+	{
+		handleTeleporter(window);
+		break;
+	}
+	case f_whiteFlag:
+		handleWhiteFlag(window);
+		//flag to all worms and dissapered
+		break;
+	case f_stinky:
+		// all worms from other group that in area became sick and lose 5 life any turn
+		break;
+	case f_skip:
+	{
+		handleSkip(window);
+		//wait for press and end the section
+		break;
+	}
+	}
+}
+
+void Player::handleWhiteFlag(sf::RenderWindow &window)
+{
+	for (auto& i : m_worms)
+	{
+		i->setAnimation(Resources::instance().getTexture(f_whiteFlag), whiteFlagImageCount, 0.03f);
+	}
+}
+
+void Player::handleSkip(sf::RenderWindow & window)
+{
+	while(m_roundTimer.getElapsedTime().asSeconds() > 1.f)
+	{
+		if (auto event = sf::Event{}; window.pollEvent(event))
+		{
+			if (sf::Keyboard::isKeyPressed)
+			{
+				switch (event.type)
+				{
+				case sf::Event::KeyPressed:
+				case sf::Keyboard::Space:
+					break;
+					break;
+				}
+			}
+		}
+	}
+}
+
+
+void Player::handleTeleporter(sf::RenderWindow& window)
+{
+	while (true)
+	{
+		if (auto event = sf::Event{}; window.pollEvent(event))
+		{
+			if (event.type == sf::Event::MouseButtonPressed)
+			{
+				if (event.mouseButton.button == sf::Mouse::Left)
+				{
+					auto location = locatin(window, event); //will return where pressed
+					//we need to use box-2d here with the location we got!
+				}
+				break;
+			}
+		}
+	}
+}
+
 
 bool Player::timesUp()
 {
@@ -160,11 +277,12 @@ bool Player::timesUp()
 			m_timeForRound.setString(std::to_string(Timer::getTime()));
 		}
 		if (Timer::getTime() == 0)
+		{
 			return true;
+		}
 	}
 	return false;
 }
-
 
 void Player::loadTimer()
 {

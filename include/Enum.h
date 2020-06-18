@@ -14,7 +14,7 @@ const int gameFormatOptions = 2;
 const int colorsOptions = 4;
 const int backgroundOptions = 2;
 
-const int timeOfRound = 45;
+const int timeOfRound =10; // 45; to change back !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //=======================================locations on menu=========================================
 const float playersBottonX = 300;
 const float playersBottonXRatio = 150;
@@ -50,6 +50,7 @@ const auto GreenGrenadeImageCount = sf::Vector2u{ 1,32 };
 const auto skipImageCount = sf::Vector2u{ 1,9 };
 const auto sheepImageCount = sf::Vector2u{ 1,36 };
 const auto teleporterImageCount = sf::Vector2u{ 1,36 };
+const auto wormImageCount = sf::Vector2u{ 1,36 };
 
 const auto sizeOfShelf = sf::Vector2f{ 70,50 };
 const auto sizeOfStone = sf::Vector2f{ 50,50 };
@@ -65,7 +66,7 @@ enum featuresAnim
 	f_teleporter,
 	f_whiteFlag,
 	f_stinky,
-	f_skip
+	f_skip = 23
 };
 
 enum features
