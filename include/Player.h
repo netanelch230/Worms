@@ -43,10 +43,18 @@ private:
 	sf::Clock m_wormsTimeAnimation;
 	sf::Clock m_roundTimer;
 	sf::Text m_timeForRound;
-	
+	void handleCollision(int wep, sf::RenderWindow& window);
+	void handleTeleporter(sf::RenderWindow& window);
+	void handleFeatureChoosing(animationData featureToCreate, int currWorm, sf::RenderWindow& window);
+	void handleWhiteFlag(sf::RenderWindow& window);
+	void handleSkip(sf::RenderWindow & window);
+
+	void drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::unique_ptr<Player>>& groupPlayers, sf::RectangleShape& featuresMenu,
+		staticObjVec& m_staticObject);
 	bool m_drawWeaponMenu = false; //if pressed right click we'll update to true and we'll print the weapon menu
 	void chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& featuresMenu,
-		std::vector<sf::Vector2f> featuresLocation, int currWorm);
+		std::vector<sf::Vector2f> featuresLocation, int currWorm,
+		std::vector<std::unique_ptr<Player>>& groupPlayers, staticObjVec& m_staticObject);
 	animationData checkClick(sf::Vector2f clickLocation, std::vector<sf::Vector2f> featuresLocation);
 	animationData getFeaturesName(int index);
 	void chooseWorm(sf::RenderWindow& window, sf::Event& event, int& place);	//check if some of worm choose, if not the computer choose one randomalic
@@ -58,5 +66,6 @@ private:
 	sf::Vector2f locatin(sf::RenderWindow&, sf::Event&);
 	bool timesUp();
 	sf::RectangleShape m_background;
+	
 };
 

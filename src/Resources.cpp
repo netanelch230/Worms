@@ -28,9 +28,16 @@ void Resources::loadPicture()
 	m_picture[featuresMenu].loadFromFile("featuresMenu.png");
 	m_picture[shelf].loadFromFile("wood.png");
 	m_picture[stone].loadFromFile("rocks.png");
+	//load animations!
 	m_picture[f_worm].loadFromFile("worm.png");
+	m_picture[f_sheep].loadFromFile("sheep.png");
+	m_picture[f_axe].loadFromFile("axe.png");
+	m_picture[f_stinky].loadFromFile("boesh.png");
+	m_picture[f_whiteFlag].loadFromFile("whiteFlag.png");
+	m_picture[f_grenade].loadFromFile("greenGrenade.png");
+	m_picture[f_flick].loadFromFile("flick.png");
+	m_picture[f_teleporter].loadFromFile("mahbet.png");
 	m_picture[f_skip].loadFromFile("pass.png");
-
 }
 
 void Resources::loadFont()

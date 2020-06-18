@@ -33,7 +33,6 @@ void Controller::run()
 		for (auto& i : m_player)
 			i->run(m_window, m_event, m_player, m_featuresMenu, m_staticObject,m_featuresLocation);
 	}
-
 }
 
 void Controller::restartPlayers()   
@@ -96,7 +95,15 @@ void Controller::defineStatic()
 	defineShelf();
 	defineStone();
 	m_staticObject.emplace_back(std::make_unique<Shelf>
-		(*m_world.get(), sf::Vector2f(3000, 20), sf::Vector2f(0, 700))); 
+		(*m_world.get(), sf::Vector2f(3000, 20), sf::Vector2f(0, 700)));
+	m_staticObject.emplace_back(std::make_unique<Shelf>
+		(*m_world.get(), sf::Vector2f(3000, 20), sf::Vector2f(0, 0)));
+	m_staticObject.emplace_back(std::make_unique<Shelf>
+		(*m_world.get(), sf::Vector2f(3000, 20), sf::Vector2f(1200, 0)));
+	m_staticObject.emplace_back(std::make_unique<Shelf>
+		(*m_world.get(), sf::Vector2f(3000, 20), sf::Vector2f(700, 1200)));
+	m_staticObject.emplace_back(std::make_unique<Shelf>
+		(*m_world.get(), sf::Vector2f(3000, 20), sf::Vector2f(0, 1200)));
 }
 
 void Controller::defineStone()
@@ -129,11 +136,4 @@ void Controller::exitGame()
 			m_window.close();
 			break;
 		}
-}
-
-
-
-void Controller::noaTheQueen()
-{
-	
 }

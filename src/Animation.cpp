@@ -18,9 +18,10 @@ void Animation::update(int row, float deltaTime)
 		m_totaltime -= m_switchtime;
 		currentImage.y++;
 		if (currentImage.y >= m_imageCount.y)
+		{
 			currentImage.y = 0;
+		}
 	}
 	m_rect.left = currentImage.x * m_rect.width;
 	m_rect.top = currentImage.y * m_rect.height;
-
 }
