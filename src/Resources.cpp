@@ -9,30 +9,27 @@ Resources& Resources::instance()
 
 void Resources::loadPicture()
 {
-	m_picture[arrbackground].loadFromFile("Background5.png");
-	m_picture[flik].loadFromFile("firepnch.1.png");
-	m_picture[grenade].loadFromFile("grenade.1.png");
-	m_picture[pass].loadFromFile("skipgo.2.png");
-	m_picture[sheep].loadFromFile("sheep.1.png");
-	m_picture[whiteflag].loadFromFile("surender.1.png");
+
+	m_picture[menuPic].loadFromFile("menuBackground.jpg");
+	m_picture[menuHeadline].loadFromFile("wormsHeadline.png");
+	m_picture[playWithFriendsPic].loadFromFile("PlayWithFriends.png");
+	m_picture[playWithComputerPic].loadFromFile("PlayWithComputer.png");
+	m_picture[backGround1pic].loadFromFile("background5.PNG");
+	m_picture[backGround2pic].loadFromFile("background3.png");
+	m_picture[start].loadFromFile("start.png");
+	m_picture[exitGame].loadFromFile("exit.png");
+	
+	m_picture[p1].loadFromFile("p1.png");
+	m_picture[p2].loadFromFile("p2.png");
+	m_picture[p3].loadFromFile("p3.png");
+	m_picture[p4].loadFromFile("p4.png");
+
 	m_picture[featuresMenu].loadFromFile("featuresMenu.png");
 	m_picture[shelf].loadFromFile("wood.png");
-	m_picture[stone].loadFromFile("stone.jpg");
-	m_animations[worm].loadFromFile("worm.png");
-	m_animations[axe].loadFromFile("axe.png");
-		
-	m_Menupictures[menuHeadline].loadFromFile("wormsHeadline.png");
-	m_Menupictures[playWithFriendsPic].loadFromFile("PlayWithFriends.png");
-	m_Menupictures[playWithComputerPic].loadFromFile("PlayWithComputer.png");
-	m_Menupictures[backGround1pic].loadFromFile("background1.PNG");
-	m_Menupictures[backGround2pic].loadFromFile("background2.png");
-	m_Menupictures[startPlay].loadFromFile("playgame.png");
-	m_Menupictures[menuPic].loadFromFile("menuBackground.jpg");
+	m_picture[stone].loadFromFile("rocks.png");
 	
-	m_playersBottonsTextures[0].loadFromFile("p1.png");
-	m_playersBottonsTextures[1].loadFromFile("p2.png");
-	m_playersBottonsTextures[2].loadFromFile("p3.png");
-	m_playersBottonsTextures[3].loadFromFile("p4.png");
+	m_picture[f_worm].loadFromFile("worm.png");
+	m_picture[f_skip].loadFromFile("pass.png");
 
 }
 

@@ -27,7 +27,7 @@ b2Vec2 Worm::forc()
 
 Worm::Worm(sf::Vector2f& location, std::string name, sf::Color color,  b2World& world) :
 	AnimationObject(spriteSetting{ location,sizeOfWorm,
-			Resources::instance().getAnimations(worm) }, sf::Vector2u{ 1,36 },world,true)
+			Resources::instance().getTexture(f_worm) }, sf::Vector2u{ 1,36 },world,true)
 {
 	m_name.setFont(Resources::instance().getfont(name_font));
 	m_name.setString(name+'\n'+"   "+std::to_string(m_life));

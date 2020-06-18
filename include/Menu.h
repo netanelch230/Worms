@@ -57,6 +57,7 @@ private:
 	sf::Sprite m_background2;
 	sf::Sprite m_playWithComp;
 	sf::Sprite m_playWithFriend;
-	sf::RectangleShape m_startPlay;
+	sf::RectangleShape m_start;
+	sf::RectangleShape m_exit;
 	std::vector<sf::Texture> m_MenuTextures;
 };

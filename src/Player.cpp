@@ -6,7 +6,7 @@ Player::Player(std::string name, sf::Color color, int background, std::shared_pt
 {
 	creatWorms();
 	loadTimer();
-	restartBackground(0);
+	restartBackground(backGround1pic);
 }
 
 void Player::run(sf::RenderWindow& window,
@@ -24,22 +24,20 @@ void Player::run(sf::RenderWindow& window,
 		{
 			if (sf::Mouse::isButtonPressed)
 			{
-				if (sf::Mouse::Button::Right) //weapons menu
-					chooseWeapon(window, featuresMenu,featuresLocation,place);
-
-				if (sf::Mouse::Button::Left)
-					chooseWorm(window, event, place);
-			}
-			
-			if (event.type == sf::Event::Closed)
-			{
+				switch (event.type)
+				{
+				case sf::Event::MouseButtonPressed:
+					case sf::Mouse::Button::Right:
+					m_drawWeaponMenu = true;
+					break;
+				case sf::Event::Closed:
 				window.close();
 				break;
+				}
 			}
 		}
 		wormMove(place);
 		window.clear();
-		
 		 m_world->Step(TIMESTEP, VELITER, POSITER);
 		 window.draw(m_background);
 		for (auto& i : m_staticObject)
@@ -86,27 +84,27 @@ void Player::chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& features
 				{
 					std::cout << "in left click!!!!";
 					auto location = locatin(window, event); //will return where pressed on board
-					int featureToCreate = checkClick(location, featuresLocation);
-					//m_worms[currWorm]->setAnimation(&Resources::instance().getAnimations(featureToCreate), );
+					auto featureToCreate = checkClick(location, featuresLocation);
+					m_worms[currWorm]->setAnimation(Resources::instance().getTexture(featureToCreate.first),featureToCreate.second,0.03f);
 					m_drawWeaponMenu = false;
 					break;
 				}
 			}
 		}
-	}	
+	}
 }
-int Player::checkClick(sf::Vector2f clickLocation, std::vector<sf::Vector2f> featuresLocation)
+
+animationData Player::checkClick(sf::Vector2f clickLocation, std::vector<sf::Vector2f> featuresLocation)
 {
 	int currLocationModuluRows = 0;
 	for (auto i = featuresLocation.begin(); i != featuresLocation.end(); ++i)
 	{
 		if (abs(clickLocation.x - i->x) < squareSize && abs(clickLocation.y - i->y) < squareSize)
 		{
-			return getFeatureName(std::distance(featuresLocation.begin(), i));
+			return getFeaturesName(std::distance(featuresLocation.begin(), i)+16);
 		}
 	}
-
-	return -1;
+	return { -1,{0,0} };
 }
 
 void Player::chooseWorm(sf::RenderWindow& window, sf::Event& event, int& place)
@@ -161,6 +159,7 @@ bool Player::timesUp()
 	return false;
 }
 
+
 void Player::loadTimer()
 {
 	m_timeForRound.setFont(Resources::instance().getfont(font::name_font));
@@ -188,25 +187,25 @@ void Player::restartBackground(int i)
 
 }
 
-int Player::getFeatureName(int index)
+animationData Player::getFeaturesName(int index)
 {
 	switch (index)
 	{
 	case f_sheep:
-		return f_sheep;
+		return {f_sheep,sheepImageCount};
 	case f_grenade:
-		return f_grenade;
+		return { f_grenade,GreenGrenadeImageCount };
 	case f_flick:
-		return f_flick;
+		return { f_flick,flickImageCount };
 	case f_axe:
-		return f_axe;
-	case f_move:
-		return f_move;
+		return { f_axe,axeImageCount };
+	case f_teleporter:
+		return { f_teleporter,teleporterImageCount };
 	case f_whiteFlag:
-		return f_whiteFlag;
+		return { f_whiteFlag,whiteFlagImageCount };
 	case f_stinky:
-		return f_stinky;
+		return { f_stinky,stinkyImageCount };
 	case f_skip:
-		return f_skip;
+		return { f_skip,skipImageCount };
 	}
 }

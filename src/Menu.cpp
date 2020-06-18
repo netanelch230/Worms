@@ -14,6 +14,8 @@ Menu::Menu()
 	initializeColors();
 	setResources();
 }
+
+
 bool Menu::run(sf::RenderWindow& window)
 {
 	int pressed;
@@ -71,6 +73,7 @@ bool Menu::run(sf::RenderWindow& window)
 	
 }
 
+//update in members the press of the player
 int Menu::updatePress(sf::Vector2f location)
 {
 	for (auto i = 0; i < m_playersSprite.size(); i++)
@@ -78,7 +81,7 @@ int Menu::updatePress(sf::Vector2f location)
 		if (m_playersSprite[i].getGlobalBounds().contains(location.x, location.y))
 		{
 			initializeColors();
-			m_groupAmount = i+1;
+			m_groupAmount = i;
 			for (int j = 0; j <= i; j++)
 			{
 				m_textFields[j].setFillColor(sf::Color::White);
@@ -103,18 +106,20 @@ int Menu::updatePress(sf::Vector2f location)
 		m_menuParameters.m_gameFormat = false;
 	
 
-	//if (m_playWithFriend.getGlobalBounds().contains(location.x, location.y))
-	//	return t_end;
-
-	if (m_startPlay.getGlobalBounds().contains(location.x, location.y))
+	if (m_start.getGlobalBounds().contains(location.x, location.y))
 		return t_startPlay;
+
+	if (m_exit.getGlobalBounds().contains(location.x, location.y))
+		return menuPress::t_end;
 
 	
 	return t_update;
 }
 
+
 void Menu::setMenuParameters()
-{
+{	
+	m_groupAmount++;
 	m_menuParameters.m_playersColor.resize(m_groupAmount);
 	m_menuParameters.m_playerName.resize(m_groupAmount);
 	m_menuParameters.m_numOfPlayers = m_groupAmount;
@@ -124,6 +129,8 @@ void Menu::setMenuParameters()
 		m_menuParameters.m_playersColor[i] = getColor(i);
 	}
 }
+
+//groups colors
 void Menu::initializeColors()
 {
 	for (auto c = m_groupColors.begin(); c != m_groupColors.end(); ++c)
@@ -136,6 +143,7 @@ void Menu::initializeColors()
 	}
 }
 
+//groups names fields
 void Menu::setPlayerTextField()
 {
 	m_playerInput.resize(maxTextFields);
@@ -196,7 +204,8 @@ void Menu::drawMenu(sf::RenderWindow& window)
 	//draw all head lines!
 	for (auto i : m_headLines)
 		window.draw(i);
-	window.draw(m_startPlay);
+	window.draw(m_start);
+	window.draw(m_exit);
 
 }
 
@@ -224,28 +233,31 @@ void Menu::setResources()
 	for (auto i = 0; i < m_playerText.size(); ++i)
 		m_playerText[i].setFont(Resources::instance().getfont(menu_font));
 	
-	m_spriteBackGround.setTexture(Resources::instance().getMenuTexture(menuPic));
-	m_spriteHeadline.setTexture(Resources::instance().getMenuTexture(menuHeadline));
+	m_spriteBackGround.setTexture(Resources::instance().getTexture(menuPic));
+	m_spriteHeadline.setTexture(Resources::instance().getTexture(menuHeadline));
 	m_spriteHeadline.setPosition(250, 0);
-	m_playWithComp.setTexture(Resources::instance().getMenuTexture(playWithComputerPic));
+	m_playWithComp.setTexture(Resources::instance().getTexture(playWithComputerPic));
 	m_playWithComp.setPosition(10, 200);
-	m_playWithFriend.setTexture(Resources::instance().getMenuTexture(playWithFriendsPic));
+	m_playWithFriend.setTexture(Resources::instance().getTexture(playWithFriendsPic));
 	m_playWithFriend.setPosition(10, 400);
-	m_background1.setTexture(&Resources::instance().getMenuTexture(backGround1pic));
+	m_background1.setTexture(&Resources::instance().getTexture(backGround1pic));
 	m_background1.setPosition(900, 200);
 	m_background1.setSize({ 250,200 });
-	m_background2.setTexture(Resources::instance().getMenuTexture(backGround2pic));
+	m_background2.setTexture(Resources::instance().getTexture(backGround2pic));
 	m_background2.setPosition(900, 400);
-	m_startPlay.setSize({ 100, 70 });
-	m_startPlay.setTexture(&Resources::instance().getMenuTexture(startPlay));
-	m_startPlay.setPosition(750, 600);
+	m_start.setSize({ 100, 70 });
+	m_start.setTexture(&Resources::instance().getTexture(start));
+	m_start.setPosition(750, 600);
+	m_exit.setSize({ 100, 70 });
+	m_exit.setTexture(&Resources::instance().getTexture(exitGame));
+	m_exit.setPosition(350, 600);
 
 
 	sf::Sprite s;
-	m_playersSprite.resize(Resources::instance().sizeOfPlayers());
+	m_playersSprite.resize(4);
 	for (auto i = 0; i < m_playersSprite.size(); i++)
 	{
-		m_playersSprite[i].setTexture(Resources::instance().getPlayersTextures(i));
+		m_playersSprite[i].setTexture(Resources::instance().getTexture(i+8));
 		m_playersSprite[i].setPosition(playersBottonX + (i * playersBottonXRatio), playersBottonY);
 	}
 
@@ -261,9 +273,9 @@ void Menu::setTextFieldsHeadlines()
 	setHeadLine(currHeadLine++, "Choose game background");
 	m_headLines[gameBackground].setPosition(900, 150);
 	setHeadLine(currHeadLine++, "Choose number of players");
-	m_headLines[numberOfPlayers].setPosition(440, 190);
-	setHeadLine(currHeadLine++, "Enter group name");
-	m_headLines[groupName].setPosition(470, 350);
+	m_headLines[numberOfPlayers].setPosition(440, 170);
+	//setHeadLine(currHeadLine++, "Enter group name");
+	//m_headLines[currHeadLine].setPosition(470, 350);
 }
 
 void Menu::setHeadLine(const int index, std::string headLine)

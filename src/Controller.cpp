@@ -73,7 +73,7 @@ void Controller::restartFeaturesLocation()
 
 void Controller::restartBackground()   
 {
-	m_background.setTexture(&Resources::instance().getTexture(0));
+	m_background.setTexture(&Resources::instance().getTexture(backGround1pic));
 	m_background.setSize({ WIDTH,HEIGHT });
 	b2Vec2 m_gravity(0.0f, 1.2f);
 	m_world = std::make_unique<b2World>(m_gravity);
@@ -95,6 +95,8 @@ void Controller::defineStatic()
 {
 	defineShelf();
 	defineStone();
+	m_staticObject.emplace_back(std::make_unique<Shelf>
+		(*m_world.get(), sf::Vector2f(3000, 20), sf::Vector2f(0, 700))); 
 }
 
 void Controller::defineStone()
