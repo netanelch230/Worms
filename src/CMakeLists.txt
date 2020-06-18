@@ -9,4 +9,5 @@
 "animation.cpp"
 "animationobject.cpp"
 "Timer.cpp"
+"staticObject.cpp"
 )

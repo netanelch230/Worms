@@ -25,6 +25,7 @@ public:
 	sf::Color getColor(int colorNum);
 
 private:
+
 	void setHeadLine(const int index, std::string headLine);
 	void drawMenu(sf::RenderWindow& window);
 	void setPlayerTextField();

@@ -29,7 +29,7 @@ const int amuntOfPicture = 50;
 const int countOfFont = 3;
 const int countOfMusic = 5;
 const auto sizeOfIcon = sf::Vector2f{ 20,30 };
-const auto sizeOfWorm = sf::Vector2f { 70,70 };
+const auto sizeOfWorm = sf::Vector2f { 50,50 };
 
 //=======================================locations on Board=========================================
 
@@ -55,7 +55,7 @@ const auto sizeOfShelf = sf::Vector2f{ 70,50 };
 const auto sizeOfStone = sf::Vector2f{ 50,50 };
 
 
-enum features
+enum featuresAnim
 {
 	f_worm=15,
 	f_sheep,
@@ -66,6 +66,18 @@ enum features
 	f_whiteFlag,
 	f_stinky,
 	f_skip
+};
+
+enum features
+{
+	sheep=24,
+	grenade,
+	flick,
+	axe,
+	teleporter,
+	whiteFlag,
+	stinky,
+	skip
 };
 
 enum sides

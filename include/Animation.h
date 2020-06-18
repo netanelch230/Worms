@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 
-class Animation {
+class Animation 
+{
 public:
 	Animation(sf::Texture* tex, sf::Vector2u imageCount, float switchtime);
 	Animation(Animation& ani) = default;
@@ -14,5 +15,4 @@ private:
 	sf::Vector2u currentImage;
 	float m_totaltime;
 	float m_switchtime;
-
 };
