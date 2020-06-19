@@ -130,10 +130,3 @@ void Controller::exitGame()
 			break;
 		}
 }
-
-
-
-void Controller::noaTheQueen()
-{
-	
-}
