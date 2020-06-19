@@ -63,7 +63,7 @@ void Player::run(sf::RenderWindow& window,
 }
 
 void Player::drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::unique_ptr<Player>>& groupPlayers, sf::RectangleShape& featuresMenu,
-	staticObjVec& m_staticObject)
+	staticObjVec &m_staticObject)
 {
 	window.clear();
 	m_world->Step(TIMESTEP, VELITER, POSITER);
@@ -93,36 +93,38 @@ void Player::chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& features
 	std::vector<sf::Vector2f> featuresLocation, int currWorm,
 	std::vector<std::unique_ptr<Player>>& groupPlayers, staticObjVec& m_staticObject)
 {
-		while (m_drawWeaponMenu && !timesUp()) // while we still want to use the weapon Menu
+	while (m_drawWeaponMenu && !timesUp()) // while we still want to use the weapon Menu
+	{
+		drawBoardAndAnimation(window, groupPlayers, featuresMenu, m_staticObject);
+		if (auto event = sf::Event{}; window.pollEvent(event))
 		{
-			drawBoardAndAnimation(window, groupPlayers, featuresMenu, m_staticObject);
-			if (auto event = sf::Event{}; window.pollEvent(event))
+			if (event.type == sf::Event::MouseButtonPressed)
 			{
-				if (event.type == sf::Event::MouseButtonPressed)
+				if (event.mouseButton.button == sf::Mouse::Right)
 				{
-					if (event.mouseButton.button == sf::Mouse::Right)
-					{
-						m_drawWeaponMenu = false;
-						break;
-				  else if (event.mouseButton.button == sf::Mouse::Left)
-				  {
-              auto location = locatin(window, event); //will return where pressed on board
-              auto featureToCreate = checkClick(location, featuresLocation, currWorm);
-              handleFeatureChoosing(featureToCreate, currWorm, window)
-              auto place = featureToCreate->getPlace();
-              auto imageCount = featureToCreate->getImageCount();
-              m_worms[currWorm]->setAnimation(Resources::instance().getTexture(place),
-              imageCount, 0.03f);
-					if (auto i = std::dynamic_pointer_cast<Attack>(featureToCreate))
-					{
-						i->foo();
-					}
-
 					m_drawWeaponMenu = false;
 					break;
 				}
+				else if (event.mouseButton.button == sf::Mouse::Left)
+				{
+					auto location = locatin(window, event); //will return where pressed on board
+					auto featureToCreate = checkClick(location, featuresLocation, currWorm);
+					//handleFeatureChoosing(featureToCreate, currWorm, window);
+					auto place = featureToCreate->getPlace();
+					auto imageCount = featureToCreate->getImageCount();
+					m_worms[currWorm]->setAnimation(Resources::instance().getTexture(place),
+						imageCount, 0.03f);
+				}
+				/*if (auto i = std::dynamic_pointer_cast<Attack>(featureToCreate))
+				{
+					i->foo();
+				}*/
+
+				m_drawWeaponMenu = false;
+				break;
 			}
 		}
+	}
 }
 
 void Player::handleFeatureChoosing(animationData featureToCreate, int currWorm, sf::RenderWindow& window)
@@ -314,14 +316,17 @@ void Player::restartBackground(int i)
 std::shared_ptr<Features> Player::getFeaturesName(int index, int current)
 {
 	auto wormPosition = m_worms[current]->getBody()->GetPosition();
-
-	switch (index)
+	sf::Vector2f w{ wormPosition.x,wormPosition.y };
+	std::shared_ptr<Features> p;
+	p= std::make_shared<Sheep>(*m_world.get(), w);
+	return p;
+	/*switch (index)
 	{
 	case f_sheep:
 	{
 		std::shared_ptr<Features> p = std::make_shared<Sheep>(m_world, wormPosition);
 		return p;
-	}
+	}*/
 	//case f_grenade:
 	//{
 	//	std::shared_ptr<Features> p = std::make_shared<Grenade>(m_world, wormPosition);
@@ -363,6 +368,7 @@ std::shared_ptr<Features> Player::getFeaturesName(int index, int current)
 	//	std::shared_ptr<Features> p = std::make_shared<Pass>();
 	//	return p;
 	//}
+	/*}*/
 
 	
 }

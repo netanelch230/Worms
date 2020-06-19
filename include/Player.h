@@ -6,25 +6,22 @@
 #include "Worm.h"
 #include "Enum.h"
 #include "Attack.h"
-#include"Resources.h"
+#include "Resources.h"
 #include "Timer.h"
 #include "Shelf.h"
 #include "Grenade.h"
-#include"Sheep.h"
-#include"Flik.h"
+#include "Sheep.h"
+#include "Flik.h"
 #include "Axe.h"
+#include "D:\New folder\Worms\include\staticObject.h";
+#include "staticObject.h"
 //#include "WhiteFlag.h"
 //#include "Transform.h"
 //#include "Pass.h"
-//#include "Stinky.h"
+//#include "Stinky.h";
 
-//class WiteFlag;
-//class Pass;
-//class Stinky;
-
-
+;
 using staticObjVec = std::vector<std::unique_ptr<staticObject>>;
-
 using animationData = std::pair<int, sf::Vector2u>;
 
 #define TIMESTEP 1.0f/60.0f     // Refresh time
@@ -35,8 +32,8 @@ class Player
 {
 	//using playerVector = std::vector<std::unique_ptr<Player>>;
 public:
-	Player(std::string name, sf::Color color, int background,std::shared_ptr<b2World> m_world);
-	std::string getName() { return m_name; };
+	Player(std::string name, sf::Color color, int background, std::shared_ptr<b2World> m_world);
+	std::string getName() { return m_name; }
 	//~Player();
 	void run(sf::RenderWindow& window, sf::Event& event, 
 		std::vector<std::unique_ptr<Player>>& groupPlayers,
