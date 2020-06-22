@@ -8,7 +8,10 @@ class Board
 {
 public:
 	Board(int type, std::shared_ptr <b2World> world);
+	Board() = default;
+	void draw(sf::RenderWindow& window);
 private:
+	void loadBorders();
 	void loadJerusalem();
 	void loadDesert();
 	spriteSetting getSpriteSetting(sf::Vector2f position, int pic);

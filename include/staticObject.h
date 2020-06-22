@@ -7,6 +7,6 @@ public:
 	staticObject() = default;
 	staticObject(spriteSetting sset, b2World& world) :AbsObject(sset, world, false) {}
 	//~staticObject();
-
+	void setTranspert() { m_sprite.setFillColor(sf::Color::Transparent); }
 private:
 };

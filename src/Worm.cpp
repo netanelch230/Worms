@@ -1,4 +1,5 @@
 #include "Worm.h"
+#include <iostream>
 
 void Worm::move(float time)
 {
@@ -29,6 +30,7 @@ Worm::Worm(sf::Vector2f& location, std::string name, sf::Color color,  b2World& 
 	AnimationObject(spriteSetting{ location,sizeOfWorm,
 			Resources::instance().getTexture(animation_worm) }, sf::Vector2u{ 1,36 },world,true,1)
 {
+	std::cout << "1." << location.x << " " << location.y << "   ";
 	m_name.setFont(Resources::instance().getfont(name_font));
 	m_name.setString(name+'\n'+"   "+std::to_string(m_life));
 	m_name.setFillColor(color);

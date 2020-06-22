@@ -36,7 +36,7 @@ const size_t wormsLimit = 5;
 const auto NumOfLife = 150;
 const int WIDTH = 1280;
 const int HEIGHT = 720;
-const int amuntOfPicture = 51;
+const int amuntOfPicture = 100;
 const int countOfFont = 3;
 const int countOfMusic = 5;
 const auto sizeOfIcon = sf::Vector2f{ 20,30 };
@@ -77,7 +77,7 @@ const auto playerButtonPos = sf::Vector2f{ 300, 200 };
 const auto playButtonPos = sf::Vector2f{ 950, 580 };
 
 const int playerDistance = 150;
-const int playgameButton = 32;
+const int playgameButton = 50;
 
 const auto gameFormatPos = sf::Vector2f{ 5, 120 };
 const auto gameMapPos = sf::Vector2f{ 900, 120 };
@@ -90,9 +90,49 @@ const int amountOfAnimation = 9;
 //==============================distance of animation from the beginning================================
 const int featureDistance = 16;
 //==============================features Animation enums!====================================================
+enum menuPictures
+{
+	menuPic1,
+	menuPic2,
+	playWithFriendsPic,
+	playWithComputerPic,
+	backGround1pic,
+	backGround2pic,
+	start,
+	exitGame,
+	p1,
+	p2,
+	p3,
+	p4
+};
+
+enum jerusalemMap
+{
+	featuresMenu = 12,
+	jeruland1,
+	westrenWall,
+	lionGate,
+	daviaTower,
+	jeruBack
+};
+
+enum desertMap
+{
+	cactus=18,
+	camel,
+	desertBack,
+	desertLand3,
+	desertLand4,
+	desertLand7,
+	tent,
+	waterWall
+};
+
+
+
 enum featuresAnim
 {
-	animation_worm=15,
+	animation_worm=28,
 	animaiton_sheep,
 	animation_grenade,
 	animation_flick,
@@ -100,13 +140,13 @@ enum featuresAnim
 	animation_teleporter,
 	animation_whiteFlag,
 	animation_stinky,
-	animation_skip = 23
+	animation_skip
 };
 
 
 enum features
 {
-	sheep=24,
+	sheep=37,
 	grenade,
 	flick,
 	axe,
@@ -118,7 +158,7 @@ enum features
 
 enum menuHeadlines
 {
-	gameFormatHeadline = 33,
+	gameFormatHeadline = 45,
 	gameMapHeadline,
 	playersNamesHeadline,
 	groupAmountHeadlines
@@ -171,37 +211,5 @@ enum menuPress
 	t_startPlay
 };
 
-enum menuPictures
-{
-	menuPic1,
-	menuPic2,
-	playWithFriendsPic,
-	playWithComputerPic,
-	backGround1pic,
-	backGround2pic,
-	start,
-	exitGame,
-	p1,
-	p2,
-	p3,
-	p4
-};
 
-enum jerusalemMap
-{
-	featuresMenu=12,
-	jeruland1,
-	jeruland2,
-	jeruland3,
-	jeruland4,
-	westrenWall,
-	lionGate,
-	daviaTower,
-	jeruBack
-};
 
-enum desertMap
-{
-	desertBack = 21
-
-};

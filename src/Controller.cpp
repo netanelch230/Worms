@@ -7,7 +7,7 @@ Controller::Controller()
 	//m_window.create(sf::VideoMode(WIDTH, HEIGHT), "Worms");
 	if (m_menu.run(m_window) && m_window.isOpen())
 	{
-		restartBackground();
+		defineBoard();
 		restartPlayers();
 		restartFeaturesMenu();
 		restartFeaturesLocation();
@@ -26,12 +26,12 @@ void Controller::run()
 	while (m_window.isOpen())
 	{
 		m_window.clear();
-		m_window.draw(m_background);
+		m_board.draw(m_window);
 		drawPlayer();
 		m_window.display();
 		exitGame();
 		for (auto& i : m_player)
-			i->run(m_window, m_event, m_player, m_featuresMenu, m_staticObject,m_featuresLocation);
+			i->run(m_window, m_event, m_player, m_featuresMenu,m_featuresLocation);
 	}
 }
 
@@ -44,7 +44,7 @@ void Controller::restartPlayers()
 	for (auto& it : m_player)
 	{
 		auto i = std::make_unique<Player>(name[j], m_menu.getInput().m_playersColor[j],
-			m_menu.getInput().m_background,m_world);
+			m_world,std::make_shared<Board>(m_board));
 		it.swap(i);
 		j++;
 	}
@@ -70,12 +70,12 @@ void Controller::restartFeaturesLocation()
 	}
 }
 
-void Controller::restartBackground()   
+void Controller::defineBoard()   
 {
-	m_background.setTexture(&Resources::instance().getTexture(backGround1pic));
-	m_background.setSize({ WIDTH,HEIGHT });
 	b2Vec2 m_gravity(0.0f, 1.2f);
 	m_world = std::make_unique<b2World>(m_gravity);
+	Board u(m_menu.getInput().m_background, m_world);
+	m_board = u;
 
 }
 

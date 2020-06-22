@@ -4,6 +4,7 @@
 #include "Player.h"
 #include"Enum.h"
 #include "GameMenu.h"
+#include "Board.h"
 
 
 class Controller
@@ -20,13 +21,12 @@ private:
 	sf::RectangleShape m_featuresMenu;
 	std::vector<sf::Vector2f> m_featuresLocation;
 	std::vector<std::unique_ptr<Player>> m_player;
-	staticObjVec m_staticObject;
 	sf::Event m_event;
 	GameMenu m_menu;
-	sf::RectangleShape m_background;
+	Board m_board;
 	void restartFeaturesMenu();
 	void restartPlayers();        //build the player from menuInput
-	void restartBackground();     //define the arrbackground from menuInput
+	void defineBoard();     //define the arrbackground from menuInput
 	void drawPlayer();
 	void exitGame();
 	void restartFeaturesLocation();

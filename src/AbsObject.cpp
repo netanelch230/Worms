@@ -1,5 +1,6 @@
-
 #include "AbsObject.h"
+#include <iostream>
+
 
 AbsObject::AbsObject(spriteSetting sset,b2World& world,bool whichtype)
 {

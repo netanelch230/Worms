@@ -29,14 +29,20 @@ void Resources::loadPicture()
 
 	//load background and board to Jerusalem map
 	m_picture[jeruland1].loadFromFile("jeruLand1.png");
-	m_picture[jeruland2].loadFromFile("jeruLand2.png");
-	m_picture[jeruland3].loadFromFile("jeruLand3.png");
-	m_picture[jeruland4].loadFromFile("jeruLand4.png");
 	m_picture[daviaTower].loadFromFile("davidTower.png");
 	m_picture[jeruBack].loadFromFile("jeruBack.png");
 	m_picture[lionGate].loadFromFile("lionGate.png");
 	m_picture[westrenWall].loadFromFile("wastrenWall.png");
 
+	//load background and board to Jerusalem map
+	m_picture[cactus].loadFromFile("cactus.png");
+	m_picture[camel].loadFromFile("camel.png");
+	m_picture[desertBack].loadFromFile("desertBack.png");
+	m_picture[desertLand3].loadFromFile("desertLand3.png");
+	m_picture[desertLand4].loadFromFile("desertLand4.png");
+	m_picture[desertLand7].loadFromFile("desertLand7.png");
+	m_picture[tent].loadFromFile("tent.png");
+	m_picture[waterWall].loadFromFile("waterWall.png");
 
 	//load animations!
 	m_picture[animation_worm].loadFromFile("worm.png");
@@ -76,8 +82,8 @@ sf::Vector2f operator+(sf::Vector2f v1, sf::Vector2f v2)
 sf::Vector2f randomLocation(int height, int width)
 {
 	//srand(time(NULL));
-	float randPlaceX = rand() % height;
-	float randPlaceY = rand() % width;
+	float randPlaceX = (rand() % height) +10;
+	float randPlaceY = (rand() % width) + 10;
 
 	return sf::Vector2f{ randPlaceX, randPlaceY };
 }

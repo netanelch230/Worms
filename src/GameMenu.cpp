@@ -141,11 +141,11 @@ bool GameMenu::updatePress(sf::Vector2f location)
 	}
 
 	
-	if(m_map1->contains(location))
-		m_menuParameters.m_background = backGround1pic;
+	if (m_map1->contains(location))
+		m_menuParameters.m_background = jeruBack;
 
 	if (m_map2->contains(location))
-		m_menuParameters.m_background = backGround2pic;
+		m_menuParameters.m_background = desertBack;
 
 	if(m_playWithComp->contains(location))
 		m_menuParameters.m_gameFormat = true;
@@ -422,7 +422,7 @@ void GameMenu::setResources()
 	m_hedlinesSprite.resize(4);
 	for (auto i = 0; i < m_hedlinesSprite.size(); i++)
 	{
-		m_hedlinesSprite[i].setTexture(Resources::instance().getTexture(i + 33));
+		m_hedlinesSprite[i].setTexture(Resources::instance().getTexture(i + 45));
 	}
 	
 	m_hedlinesSprite[0].setPosition(gameFormatPos);

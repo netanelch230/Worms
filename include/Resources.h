@@ -8,7 +8,6 @@
 #include <stdio.h>
 
 using picsArray = std::array<sf::Texture, amuntOfPicture>;
-using animationArray = std::array<sf::Texture, amountOfAnimation>;
 
 class Resources
 {
@@ -27,7 +26,6 @@ private:
 		loadPicture();
 		loadFont();
 	};
-	animationArray m_animations;
 	picsArray m_picture;
 	sf::Texture m_featuresMenu;
 	std::array<sf::Font, countOfFont> m_font;
