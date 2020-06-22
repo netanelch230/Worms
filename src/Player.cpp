@@ -19,6 +19,7 @@ void Player::run(sf::RenderWindow& window,
 {
 	Timer::setTime(timeOfRound);
 	int place = rand() % wormsLimit;
+	sf::Clock m_force;
 	while (!timesUp())
 	{
 		if (window.pollEvent(event))
@@ -29,11 +30,27 @@ void Player::run(sf::RenderWindow& window,
 				{
 				case sf::Event::KeyPressed:
 					case sf::Keyboard::Space:
+						m_force.restart();
 						//in here netanel, karin and yair needs to handle box-2d
 						break;
 					break;
-
+					
 				}
+				
+			}
+			if (sf::Keyboard::isKeyPressed  && ((event.key.code == sf::Keyboard::Space)))
+			{
+				switch (event.type)
+				{
+				case::sf::Event::KeyReleased:
+					case::sf::Keyboard::Space:
+						auto time = m_force.getElapsedTime().asSeconds();
+						m_drawfeatur = true;
+						m_feature->applyFeatures(time);
+					break;
+				break;
+				}
+
 			}
 			if (sf::Mouse::isButtonPressed)
 			{
@@ -56,10 +73,10 @@ void Player::run(sf::RenderWindow& window,
 					m_staticObject);
 	}	
 	//set current worm to regular worm because turn is over!
-	m_worms[place]->setAnimation(Resources::instance().getTexture(f_worm), wormImageCount, 0.03f);
+	m_worms[place]->setAnimation(Resources::instance().getTexture(f_worm), wormImageCount, 0.03f,1);
 	//m_timeForRound.setString("10");
 	//Timer::setTime(timeOfRound);
-
+	  
 }
 
 void Player::drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::unique_ptr<Player>>& groupPlayers, sf::RectangleShape& featuresMenu,
@@ -80,6 +97,8 @@ void Player::drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::un
 		group->update();
 		group->draw(window);
 	}
+	if (m_feature && m_drawfeatur)
+		m_feature->draw(window);
 	window.display();
 }
 void Player::draw(sf::RenderWindow& window)
@@ -103,23 +122,19 @@ void Player::chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& features
 				if (event.mouseButton.button == sf::Mouse::Right)
 				{
 					m_drawWeaponMenu = false;
-					break;
+					break;                               //didn't use menubreak;
 				}
 				else if (event.mouseButton.button == sf::Mouse::Left)
 				{
 					auto location = locatin(window, event); //will return where pressed on board
-					auto featureToCreate = checkClick(location, featuresLocation, currWorm);
+					m_feature = checkClick(location, featuresLocation, currWorm);
 					//handleFeatureChoosing(featureToCreate, currWorm, window);
-					auto place = featureToCreate->getPlace();
-					auto imageCount = featureToCreate->getImageCount();
+					auto place = m_feature->getPlace();
+					auto imageCount = m_feature->getImageCount();
+					auto distance = m_feature->getDistance();
 					m_worms[currWorm]->setAnimation(Resources::instance().getTexture(place),
-						imageCount, 0.03f);
+						imageCount, 0.05f,distance);
 				}
-				/*if (auto i = std::dynamic_pointer_cast<Attack>(featureToCreate))
-				{
-					i->foo();
-				}*/
-
 				m_drawWeaponMenu = false;
 				break;
 			}
@@ -132,11 +147,11 @@ void Player::handleFeatureChoosing(animationData featureToCreate, int currWorm, 
 	if (featureToCreate.first == -1)
 		return;
 	m_worms[currWorm]->setAnimation(Resources::instance().getTexture(featureToCreate.first),
-		featureToCreate.second, 0.03f);
+		featureToCreate.second, 0.03f,1);
 	handleCollision(featureToCreate.first, window);
 }
 
-std::shared_ptr<Features> Player::checkClick(sf::Vector2f clickLocation,
+std::unique_ptr<Features> Player::checkClick(sf::Vector2f clickLocation,
 	std::vector<sf::Vector2f> featuresLocation, int currWorm)
 {
 	int currLocationModuluRows = 0;
@@ -223,7 +238,7 @@ void Player::handleWhiteFlag(sf::RenderWindow &window)
 {
 	for (auto& i : m_worms)
 	{
-		i->setAnimation(Resources::instance().getTexture(f_whiteFlag), whiteFlagImageCount, 0.03f);
+		i->setAnimation(Resources::instance().getTexture(f_whiteFlag), whiteFlagImageCount, 0.03f,1);
 	}
 }
 
@@ -313,62 +328,39 @@ void Player::restartBackground(int i)
 
 }
 
-std::shared_ptr<Features> Player::getFeaturesName(int index, int current)
+std::unique_ptr<Features> Player::getFeaturesName(int index, int current)
 {
-	auto wormPosition = m_worms[current]->getBody()->GetPosition();
-	sf::Vector2f w{ wormPosition.x,wormPosition.y };
-	std::shared_ptr<Features> p;
-	p= std::make_shared<Sheep>(*m_world.get(), w);
-	return p;
-	/*switch (index)
+	auto wormPosition = m_worms[current]->getPosition();
+	std::unique_ptr<Features> p;
+	
+	switch (index)
 	{
 	case f_sheep:
-	{
-		std::shared_ptr<Features> p = std::make_shared<Sheep>(m_world, wormPosition);
-		return p;
-	}*/
-	//case f_grenade:
-	//{
-	//	std::shared_ptr<Features> p = std::make_shared<Grenade>(m_world, wormPosition);
-	//	return p;
-	//}
+		p = std::make_unique<Sheep>(*m_world.get(), wormPosition);
+		break;
+	case f_grenade:
+		p = std::make_unique<Grenade>(*m_world.get(), wormPosition);
+		break;
+	case f_flick:
+		p = std::make_unique<Flick>(*m_world.get(), wormPosition);
+		break;
+	case f_axe:
+		p = std::make_unique<Axe>(*m_world.get(), wormPosition);
+		break;
+	case f_teleporter:
+		p = std::make_unique<Transform>();
+		break;
+	case f_whiteFlag:
+		p = std::make_unique<WhiteFlag>();
+		break;
+	case f_stinky:
+		p = std::make_unique<Stinky>(*m_world.get(), wormPosition);
+		break;
+	case f_skip:
+		p = std::make_unique<Pass>();
+		break;
 
-	//case f_flick:
-	//{
-	//	std::shared_ptr<Features> p = std::make_shared<Flick>(m_world, wormPosition);
-	//	return p;
-	//}
-
-	//case f_axe:
-	//{
-	//	std::shared_ptr<Features> p = std::make_shared<Axe>(m_world, wormPosition);
-	//	return p;
-	//}
-
-	//case f_teleporter:
-	//{
-	//	std::shared_ptr<Features> p = std::make_shared<Transform>();
-	//	return p;
-	//}
-
-	///*case f_whiteFlag:
-	//{
-	//	std::shared_ptr<Features> p = std::make_shared<WhiteFlag>();
-	//	return p;
-	//}*/
-
-	//case f_stinky:
-	//{
-	//	std::shared_ptr<Features> p = std::make_shared<Stinky>(m_world, wormPosition);
-	//	return p;
-	//}
-
-	//case f_skip:
-	//{
-	//	std::shared_ptr<Features> p = std::make_shared<Pass>();
-	//	return p;
-	//}
-	/*}*/
-
+	}
+	return p;
 	
 }

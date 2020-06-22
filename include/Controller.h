@@ -2,10 +2,9 @@
 #include <SFML/Graphics.hpp>
 #include "Resources.h"
 #include "Player.h"
-#include "Menu.h"
 #include"Enum.h"
 #include"Shelf.h"
-
+#include "GameMenu.h"
 
 
 class Controller
@@ -24,7 +23,7 @@ private:
 	std::vector<std::unique_ptr<Player>> m_player;
 	staticObjVec m_staticObject;
 	sf::Event m_event;
-	Menu m_menu;
+	GameMenu m_menu;
 	sf::RectangleShape m_background;
 	void restartFeaturesMenu();
 	void restartPlayers();        //build the player from menuInput

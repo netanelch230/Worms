@@ -4,7 +4,8 @@
 
 Controller::Controller()
 {
-	if (m_menu.run(m_window))
+	//m_window.create(sf::VideoMode(WIDTH, HEIGHT), "Worms");
+	if (m_menu.run(m_window) && m_window.isOpen())
 	{
 		restartBackground();
 		defineStatic();

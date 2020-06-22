@@ -1,7 +1,7 @@
 #pragma once
 #include "AbsObject.h"
 
-class staticObject:public AbsObject 
+class staticObject: public AbsObject 
 {
 public:
 	staticObject() = default;

@@ -21,6 +21,7 @@ public:
 	virtual void draw(sf::RenderWindow& window);
 	virtual bool touch(sf::Vector2f location);
 	//void update(float deltaTime);
+	 sf::Vector2f getPosition();
 
 
 protected:
@@ -29,7 +30,6 @@ protected:
 	float  m_radius;
 	 sf::Vector2f m_size;
 
-	 sf::Vector2f getPosition();
 	 float getRotation();
 
 };

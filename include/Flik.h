@@ -8,6 +8,7 @@ public:
 	Flick(b2World& world, sf::Vector2f position) :Attack(world, spriteSetting{ position,
 	grenadeSize,Resources::instance().getTexture(flick) },
  spriteSheetGrenadeSize,flickImageCount,f_flick) {}
+	virtual void applyFeatures(float time) {};
 
 };
 

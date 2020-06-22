@@ -10,16 +10,15 @@ Resources& Resources::instance()
 
 void Resources::loadPicture()
 {
-
-	m_picture[menuPic].loadFromFile("menuBackground.jpg");
-	m_picture[menuHeadline].loadFromFile("wormsHeadline.png");
+	m_picture[menuPic1].loadFromFile("menuBackground1.png");
+	m_picture[menuPic2].loadFromFile("menuBackground2.png");
 	m_picture[playWithFriendsPic].loadFromFile("PlayWithFriends.png");
 	m_picture[playWithComputerPic].loadFromFile("PlayWithComputer.png");
-	m_picture[backGround1pic].loadFromFile("background5.PNG");
-	m_picture[backGround2pic].loadFromFile("background3.png");
+	m_picture[backGround1pic].loadFromFile("jerusalemButton.PNG");
+	m_picture[backGround2pic].loadFromFile("desertButton.png");
 	m_picture[start].loadFromFile("start.png");
 	m_picture[exitGame].loadFromFile("exit.png");
-	
+
 	m_picture[p1].loadFromFile("p1.png");
 	m_picture[p2].loadFromFile("p2.png");
 	m_picture[p3].loadFromFile("p3.png");
@@ -38,14 +37,21 @@ void Resources::loadPicture()
 	m_picture[f_flick].loadFromFile("flick.png");
 	m_picture[f_teleporter].loadFromFile("mahbet.png");
 	m_picture[f_skip].loadFromFile("pass.png");
+	m_picture[grenade].loadFromFile("GRENADE1.png");
 
-	m_picture[grenade].loadFromFile("grenade.png");
+	//load menu headlines and start game button
+	m_picture[playgameButton].loadFromFile("play.png");
+	m_picture[gameFormatHeadline].loadFromFile("gameFormat.png");
+	m_picture[gameMapHeadline].loadFromFile("gameMap.png");
+	m_picture[playersNamesHeadline].loadFromFile("groupName.png");
+	m_picture[groupAmountHeadlines].loadFromFile("playersNum.png");
 }
 
 void Resources::loadFont()
 {
 	m_font[menu_font].loadFromFile("herist.otf");
 	m_font[name_font].loadFromFile("tahoma.ttf");
+	
 }
 
 sf::Vector2f operator+(sf::Vector2f v1, sf::Vector2f v2)

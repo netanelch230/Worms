@@ -3,7 +3,7 @@
 class Animation 
 {
 public:
-	Animation(sf::Texture* tex, sf::Vector2u imageCount, float switchtime);
+	Animation(sf::Texture* tex, sf::Vector2u imageCount, float switchtime, int distance);
 	Animation(Animation& ani) = default;
 	void update(int row, float deltaTime);
 	sf::IntRect getrect() { return m_rect; };
@@ -16,4 +16,5 @@ private:
 	sf::Vector2u currentImage;
 	float m_totaltime;
 	float m_switchtime;
+	int m_distance;
 };

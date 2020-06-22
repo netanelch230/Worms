@@ -13,7 +13,12 @@
 #include "Sheep.h"
 #include "Flik.h"
 #include "Axe.h"
-#include "D:\New folder\Worms\include\staticObject.h";
+#include "Stinky.h"
+#include "Transform.h"
+#include "WhiteFlag.h"
+#include "Pass.h"
+
+
 #include "staticObject.h"
 //#include "WhiteFlag.h"
 //#include "Transform.h"
@@ -45,7 +50,6 @@ public:
 private:
 	std::shared_ptr<b2World> m_world;
 	std::vector<std::unique_ptr<Worm>> m_worms; // initialize the size of the vector
-	std::vector < std::unique_ptr<Features>> m_features;
 	std::string m_name; // will be read from sfml
 	sf::Vector2f m_location;
 	sf::Color m_color;
@@ -53,6 +57,8 @@ private:
 	sf::Clock m_wormsTimeAnimation;
 	sf::Clock m_roundTimer;
 	sf::Text m_timeForRound;
+	std::unique_ptr<Features> m_feature;
+	
 	void handleCollision(int wep, sf::RenderWindow& window);
 	void handleTeleporter(sf::RenderWindow& window);
 	void handleFeatureChoosing(animationData featureToCreate, int currWorm, sf::RenderWindow& window);
@@ -62,12 +68,13 @@ private:
 	void drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::unique_ptr<Player>>& groupPlayers, sf::RectangleShape& featuresMenu,
 		staticObjVec& m_staticObject);
 	bool m_drawWeaponMenu = false; //if pressed right click we'll update to true and we'll print the weapon menu
+	bool m_drawfeatur = false;
 	void chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& featuresMenu,
 		std::vector<sf::Vector2f> featuresLocation, int currWorm,
 		std::vector<std::unique_ptr<Player>>& groupPlayers, staticObjVec& m_staticObject);
 
-	std::shared_ptr<Features> checkClick(sf::Vector2f clickLocation, std::vector<sf::Vector2f> featuresLocation, int currWorm);
-	std::shared_ptr<Features> getFeaturesName(int index, int current);
+	std::unique_ptr<Features> checkClick(sf::Vector2f clickLocation, std::vector<sf::Vector2f> featuresLocation, int currWorm);
+	std::unique_ptr<Features> getFeaturesName(int index, int current);
 
 	void chooseWorm(sf::RenderWindow& window, sf::Event& event, int& place);	//check if some of worm choose, if not the computer choose one randomalic
 	void wormMove(int i);
