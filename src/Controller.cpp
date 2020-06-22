@@ -1,6 +1,6 @@
 #include "Controller.h"
 #include <iostream>
-#include "Stone.h"
+
 
 Controller::Controller()
 {
@@ -8,7 +8,6 @@ Controller::Controller()
 	if (m_menu.run(m_window) && m_window.isOpen())
 	{
 		restartBackground();
-		defineStatic();
 		restartPlayers();
 		restartFeaturesMenu();
 		restartFeaturesLocation();
@@ -80,47 +79,6 @@ void Controller::restartBackground()
 
 }
 
-void Controller::defineShelf()
-{
-	//m_staticObject.emplace_back(std::make_unique<Shelf>(*m_world.get(), sf::Vector2f(3000, 20), sf::Vector2f(0, 600)));
-	int size = rand() % 6;
-	for (size_t i = 0; i < 10; i++)
-	{
-		auto position = randomLocation(1200, 500);
-		m_staticObject.emplace_back(std::make_unique<Shelf>(*m_world.get(), sizeOfShelf, position));
-	}
-}
-
-void Controller::defineStatic()
-{
-	defineShelf();
-	defineStone();
-	m_staticObject.emplace_back(std::make_unique<Shelf>
-		(*m_world.get(), sf::Vector2f(3000, 20), sf::Vector2f(0, 700)));
-	m_staticObject.emplace_back(std::make_unique<Shelf>
-		(*m_world.get(), sf::Vector2f(3000, 20), sf::Vector2f(0, 0)));
-	m_staticObject.emplace_back(std::make_unique<Shelf>
-		(*m_world.get(), sf::Vector2f(3000, 20), sf::Vector2f(1200, 0)));
-	m_staticObject.emplace_back(std::make_unique<Shelf>
-		(*m_world.get(), sf::Vector2f(3000, 20), sf::Vector2f(700, 1200)));
-	m_staticObject.emplace_back(std::make_unique<Shelf>
-		(*m_world.get(), sf::Vector2f(3000, 20), sf::Vector2f(0, 1200)));
-}
-
-void Controller::defineStone()
-{
-	float height = 550;
-	for (size_t i = 0; i < 3; i++)
-	{
-		int amount = (rand() % 3) + 1;
-		float width = rand() % 1200;
-		for (size_t j = 0; j < amount; j++)
-		{
-			sf::Vector2f pos = { width + j * 50,height };
-			m_staticObject.emplace_back(std::make_unique<Stone>(*m_world.get(),pos));
-		}
-	}
-}
 
 void Controller::drawPlayer()
 {

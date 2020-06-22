@@ -24,19 +24,30 @@ void Resources::loadPicture()
 	m_picture[p3].loadFromFile("p3.png");
 	m_picture[p4].loadFromFile("p4.png");
 
+	
 	m_picture[featuresMenu].loadFromFile("featuresMenu.png");
-	m_picture[shelf].loadFromFile("wood.png");
-	m_picture[stone].loadFromFile("rocks.png");
+
+	//load background and board to Jerusalem map
+	m_picture[jeruland1].loadFromFile("jeruLand1.png");
+	m_picture[jeruland2].loadFromFile("jeruLand2.png");
+	m_picture[jeruland3].loadFromFile("jeruLand3.png");
+	m_picture[jeruland4].loadFromFile("jeruLand4.png");
+	m_picture[daviaTower].loadFromFile("davidTower.png");
+	m_picture[jeruBack].loadFromFile("jeruBack.png");
+	m_picture[lionGate].loadFromFile("lionGate.png");
+	m_picture[westrenWall].loadFromFile("wastrenWall.png");
+
+
 	//load animations!
-	m_picture[f_worm].loadFromFile("worm.png");
-	m_picture[f_sheep].loadFromFile("sheep.png");
-	m_picture[f_axe].loadFromFile("axe.png");
-	m_picture[f_stinky].loadFromFile("boesh.png");
-	m_picture[f_whiteFlag].loadFromFile("whiteFlag.png");
-	m_picture[f_grenade].loadFromFile("greenGrenade.png");
-	m_picture[f_flick].loadFromFile("flick.png");
-	m_picture[f_teleporter].loadFromFile("mahbet.png");
-	m_picture[f_skip].loadFromFile("pass.png");
+	m_picture[animation_worm].loadFromFile("worm.png");
+	m_picture[animaiton_sheep].loadFromFile("sheep.png");
+	m_picture[animation_axe].loadFromFile("axe.png");
+	m_picture[animation_stinky].loadFromFile("boesh.png");
+	m_picture[animation_whiteFlag].loadFromFile("whiteFlag.png");
+	m_picture[animation_grenade].loadFromFile("greenGrenade.png");
+	m_picture[animation_flick].loadFromFile("flick.png");
+	m_picture[animation_teleporter].loadFromFile("mahbet.png");
+	m_picture[animation_skip].loadFromFile("pass.png");
 	m_picture[grenade].loadFromFile("GRENADE1.png");
 
 	//load menu headlines and start game button
@@ -45,6 +56,9 @@ void Resources::loadPicture()
 	m_picture[gameMapHeadline].loadFromFile("gameMap.png");
 	m_picture[playersNamesHeadline].loadFromFile("groupName.png");
 	m_picture[groupAmountHeadlines].loadFromFile("playersNum.png");
+
+	
+
 }
 
 void Resources::loadFont()

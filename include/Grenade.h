@@ -12,7 +12,7 @@ class Grenade :public Attack
 public:
 	Grenade(b2World& world, sf::Vector2f position) :Attack(world, spriteSetting{ position,
 	grenadeSize,Resources::instance().getTexture(grenade) },
- spriteSheetGrenadeSize,GreenGrenadeImageCount,f_grenade,28,36) {
+ spriteSheetGrenadeSize,GreenGrenadeImageCount,animation_grenade,28,36) {
     m_body->SetFixedRotation(false);
 }
 	virtual void applyFeatures(float time) {

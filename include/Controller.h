@@ -3,7 +3,6 @@
 #include "Resources.h"
 #include "Player.h"
 #include"Enum.h"
-#include"Shelf.h"
 #include "GameMenu.h"
 
 
@@ -28,9 +27,6 @@ private:
 	void restartFeaturesMenu();
 	void restartPlayers();        //build the player from menuInput
 	void restartBackground();     //define the arrbackground from menuInput
-	void defineShelf();
-	void defineStatic();
-	void defineStone();
 	void drawPlayer();
 	void exitGame();
 	void restartFeaturesLocation();

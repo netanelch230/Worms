@@ -6,7 +6,7 @@ class Sheep :public Attack
 public:
 	Sheep(b2World& world, sf::Vector2f position) :Attack(world, spriteSetting{ position,
 	grenadeSize,Resources::instance().getTexture(sheep) },
- spriteSheetGrenadeSize,GreenGrenadeImageCount,f_sheep) {}
+ spriteSheetGrenadeSize,GreenGrenadeImageCount,animaiton_sheep) {}
 	virtual void applyFeatures(float time) {};
 private:
 

@@ -8,7 +8,6 @@
 #include "Attack.h"
 #include "Resources.h"
 #include "Timer.h"
-#include "Shelf.h"
 #include "Grenade.h"
 #include "Sheep.h"
 #include "Flik.h"
@@ -48,6 +47,7 @@ public:
 	//void loadFeatures(const sf::Texture& tex, const sf::Vector2f& pos);
 	
 private:
+
 	std::shared_ptr<b2World> m_world;
 	std::vector<std::unique_ptr<Worm>> m_worms; // initialize the size of the vector
 	std::string m_name; // will be read from sfml
@@ -85,6 +85,8 @@ private:
 	sf::Vector2f locatin(sf::RenderWindow&, sf::Event&);
 	bool timesUp();
 	sf::RectangleShape m_background;
+
+	//create object for the enum class so we'll be able to used it in the Player's function 
 	
 };
 

@@ -1,6 +1,8 @@
 #pragma once
 #include "Button.h"
 
+//---------------------------------------------
+//c-tor of button class
 Button::Button(const sf::Sprite& button, const sf::Vector2f& buttonPos)
 {
 	m_button = button;

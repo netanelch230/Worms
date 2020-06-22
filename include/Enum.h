@@ -1,6 +1,17 @@
 #pragma once
 #include<SFML/Graphics.hpp>
 
+
+//============================player enums=======================================
+
+//===========================time for round data================================
+const auto timeForRoundPosition = sf::Vector2f{ 50, 650 };
+const auto timeForRoundCharacter = 20;
+
+
+//=====================================animation features==============
+const auto animationSwitchTime = 0.03f;
+//================================================================================
 const int colorAmount = 4;
 const int recSize = 50;
 const int maxTextFields = 4;
@@ -23,8 +34,8 @@ const float gameFormatX = 10;
 
 const size_t wormsLimit = 5;
 const auto NumOfLife = 150;
-const int WIDTH = 1200;
-const int HEIGHT = 700;
+const int WIDTH = 1280;
+const int HEIGHT = 720;
 const int amuntOfPicture = 51;
 const int countOfFont = 3;
 const int countOfMusic = 5;
@@ -73,18 +84,25 @@ const auto gameMapPos = sf::Vector2f{ 900, 120 };
 const auto playersAmountPos = sf::Vector2f{ 320, 150 };
 const auto groupNamePos = sf::Vector2f{ 380, 300 };
 
+//========================================amount of animation===============================================
+const int amountOfAnimation = 9;
+
+//==============================distance of animation from the beginning================================
+const int featureDistance = 16;
+//==============================features Animation enums!====================================================
 enum featuresAnim
 {
-	f_worm=15,
-	f_sheep,
-	f_grenade,
-	f_flick,
-	f_axe,
-	f_teleporter,
-	f_whiteFlag,
-	f_stinky,
-	f_skip = 23
+	animation_worm=15,
+	animaiton_sheep,
+	animation_grenade,
+	animation_flick,
+	animation_axe,
+	animation_teleporter,
+	animation_whiteFlag,
+	animation_stinky,
+	animation_skip = 23
 };
+
 
 enum features
 {
@@ -169,10 +187,21 @@ enum menuPictures
 	p4
 };
 
-enum board
+enum jerusalemMap
 {
 	featuresMenu=12,
-	shelf,
-	stone
+	jeruland1,
+	jeruland2,
+	jeruland3,
+	jeruland4,
+	westrenWall,
+	lionGate,
+	daviaTower,
+	jeruBack
 };
 
+enum desertMap
+{
+	desertBack = 21
+
+};
