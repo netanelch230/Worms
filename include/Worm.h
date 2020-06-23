@@ -18,7 +18,7 @@ private:
 	int m_life= NumOfLife;
 	sf::Text m_name;
 	sf::RectangleShape m_textBox;
-
+	sf::Vector2f getCurrentMove();
 	b2Vec2 forc();
 	
 };

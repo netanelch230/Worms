@@ -17,7 +17,7 @@ sf::Vector2f Button::getButtonPosition() const
 }
 //---------------------------------------------
 //draw the button and text on it
-void Button::draw(sf::RenderWindow& window)
+void Button::draw(sf::RenderWindow& window) const
 {
 	window.draw(m_button);	// draw button
 }

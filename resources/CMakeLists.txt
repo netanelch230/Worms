@@ -17,7 +17,6 @@ configure_file ("Animation/sheep.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/whiteFlag.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/greenGrenade.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/flick.png" ${CMAKE_BINARY_DIR} COPYONLY)
-configure_file ("Animation/mahbet.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("Menu/playersNum.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Menu/gameMap.png" ${CMAKE_BINARY_DIR} COPYONLY)

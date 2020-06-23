@@ -1,0 +1,14 @@
+C:/Users/Adir/Desktop/newWorms/new/Worms/out/build/x64-Debug (default)/CMakeFiles/Worms.dir
+C:/Users/Adir/Desktop/newWorms/new/Worms/out/build/x64-Debug (default)/CMakeFiles/edit_cache.dir
+C:/Users/Adir/Desktop/newWorms/new/Worms/out/build/x64-Debug (default)/CMakeFiles/rebuild_cache.dir
+C:/Users/Adir/Desktop/newWorms/new/Worms/out/build/x64-Debug (default)/Box2D/include/CMakeFiles/edit_cache.dir
+C:/Users/Adir/Desktop/newWorms/new/Worms/out/build/x64-Debug (default)/Box2D/include/CMakeFiles/rebuild_cache.dir
+C:/Users/Adir/Desktop/newWorms/new/Worms/out/build/x64-Debug (default)/Box2D/src/CMakeFiles/box2d.dir
+C:/Users/Adir/Desktop/newWorms/new/Worms/out/build/x64-Debug (default)/Box2D/src/CMakeFiles/edit_cache.dir
+C:/Users/Adir/Desktop/newWorms/new/Worms/out/build/x64-Debug (default)/Box2D/src/CMakeFiles/rebuild_cache.dir
+C:/Users/Adir/Desktop/newWorms/new/Worms/out/build/x64-Debug (default)/include/CMakeFiles/edit_cache.dir
+C:/Users/Adir/Desktop/newWorms/new/Worms/out/build/x64-Debug (default)/include/CMakeFiles/rebuild_cache.dir
+C:/Users/Adir/Desktop/newWorms/new/Worms/out/build/x64-Debug (default)/src/CMakeFiles/edit_cache.dir
+C:/Users/Adir/Desktop/newWorms/new/Worms/out/build/x64-Debug (default)/src/CMakeFiles/rebuild_cache.dir
+C:/Users/Adir/Desktop/newWorms/new/Worms/out/build/x64-Debug (default)/resources/CMakeFiles/edit_cache.dir
+C:/Users/Adir/Desktop/newWorms/new/Worms/out/build/x64-Debug (default)/resources/CMakeFiles/rebuild_cache.dir

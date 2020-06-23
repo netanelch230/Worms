@@ -25,33 +25,29 @@ AbsObject::AbsObject(spriteSetting sset,b2World& world,bool whichtype)
     fixtureDef.density	= 0.7f;
 
     m_body->CreateFixture(&fixtureDef);
-
 	m_sprite.setTexture(&sset.picture);
 	m_sprite.setSize(sset.size);
-
-
 }
 
 void AbsObject::draw(sf::RenderWindow& window)
 {
     m_sprite.setPosition(getPosition());
     m_sprite.setRotation(getRotation());
-
     window.draw(m_sprite);
 }
 
-bool AbsObject::touch(sf::Vector2f location)
+bool AbsObject::touch(sf::Vector2f location) const
 {
 	return m_sprite.getGlobalBounds().contains(location);
 }
 
-sf::Vector2f AbsObject::getPosition()
+sf::Vector2f AbsObject::getPosition() const
 {
     b2Vec2 position = m_body->GetPosition();
     return sf::Vector2f(position.x * PPM, position.y * PPM);
 }
 
-float AbsObject::getRotation()
+float AbsObject::getRotation() const
 {
     float angle = m_body->GetAngle();
     return ((angle * 180.f) / 3.14);
