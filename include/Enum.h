@@ -1,13 +1,17 @@
 #pragma once
 #include<SFML/Graphics.hpp>
 
+//==============================const timer======================================
+//int m_time = 0;
 
 //============================player enums=======================================
 
 //===========================time for round data================================
 const auto timeForRoundPosition = sf::Vector2f{ 50, 650 };
 const auto timeForRoundCharacter = 20;
-
+//===========================granede angle====================================
+const auto RIGHT = sf::Vector2f{ -1,1 };
+const auto LEFT = sf::Vector2f{ 1,1 };
 
 //=====================================animation features==============
 const auto animationSwitchTime = 0.03f;
@@ -88,7 +92,7 @@ const auto groupNamePos = sf::Vector2f{ 380, 300 };
 const int amountOfAnimation = 9;
 
 //==============================distance of animation from the beginning================================
-const int featureDistance = 16;
+const int featureDistance = 29;
 //==============================features Animation enums!====================================================
 enum menuPictures
 {

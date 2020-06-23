@@ -7,13 +7,24 @@ void Worm::move(float time)
 	
 }
 
+void Worm::takeOffPoints()
+{
+	//kill;
+}
+
 b2Vec2 Worm::forc()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
+		m_sprite.setScale(RIGHT);
 		return b2Vec2{ 0.5,0 };
+	}
 
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	{
+		m_sprite.setScale(LEFT);
 		return b2Vec2{ -0.5,0 };
+	}
 
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		return b2Vec2{ 0,-0.5 };
@@ -47,6 +58,8 @@ Worm::Worm(sf::Vector2f& location, std::string name, sf::Color color,  b2World& 
 	m_textBox.setSize({ rect.width / 2, rect.height / 2 });
 }
 
+/*this function will draw each worm on the board and will set it's animatior
+and in addition will display the current animation of the board'*/
 void Worm::draw(sf::RenderWindow& window)
 {
 	AnimationObject::draw(window);

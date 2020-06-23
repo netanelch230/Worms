@@ -62,9 +62,6 @@ void Resources::loadPicture()
 	m_picture[gameMapHeadline].loadFromFile("gameMap.png");
 	m_picture[playersNamesHeadline].loadFromFile("groupName.png");
 	m_picture[groupAmountHeadlines].loadFromFile("playersNum.png");
-
-	
-
 }
 
 void Resources::loadFont()

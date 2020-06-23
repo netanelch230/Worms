@@ -5,8 +5,9 @@
 #include <SFML/Graphics.hpp>
 #include <algorithm>
 #include <utility>
-#include <iterator>     // std::distance
+#include <iterator> // std::distance
 
+//c-tor of Game menu 
 GameMenu::GameMenu()
 {
 	setPlayerTextField();
@@ -16,6 +17,16 @@ GameMenu::GameMenu()
 	buildButtons();
 }
 
+/*this function will run two menus. the first menu is to give
+the player or the groups an option if he wants to player
+or if he wants to exit.
+if he wants to play, second menu will open.
+and the groups will need to choose how many groups they want.
+respectively, we'll open the amount of text field so
+each group will write the group name and will get
+the color.
+in addition, there are two options for background
+the first one is Jerusalem, the second is the Desert.*/
 bool GameMenu::run(sf::RenderWindow& window)
 {
 	drawFirstMenu(window);
@@ -34,13 +45,12 @@ bool GameMenu::run(sf::RenderWindow& window)
 
 			if (checkEvent(window))
 				return true;
-			
 		}
 	}
 	return false;
 }
 
-sf::Color GameMenu::getColor(int colorNum)
+sf::Color GameMenu::getColor(int colorNum) const
 {
 	switch (colorNum)
 	{
@@ -57,7 +67,6 @@ sf::Color GameMenu::getColor(int colorNum)
 
 bool GameMenu::optionsEvents(sf::RenderWindow& window)
 {
-	
 	sf::Vector2f mousePos; //our mouse position
 
 	while (window.isOpen())
@@ -77,44 +86,26 @@ bool GameMenu::optionsEvents(sf::RenderWindow& window)
 					mousePos = window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y }); //the mouse position
 
 					if (m_playButton->contains(mousePos))	//clicked on play button
-					{
-						//close the game menu and start to play
-						return true;
-					}
+						return true; //close the game menu and start to play
 
 					else if (m_exitButton->contains(mousePos))	//clicked on exit button
 					{
 						window.close();
 						return false;	//close menu window
 					}
-
 				}
 				break;
 
 			case sf::Event::MouseMoved:	//if the mouse only move (with out press)
 				mousePos = window.mapPixelToCoords({ event.mouseMove.x, event.mouseMove.y });
-
 				if (m_playButton->contains(mousePos))//mouse on play button place
-				{
 					m_playButton->moveButton(posPlayButton);//bold play button
-					
-				}
-							
 				else
-				{
 					m_playButton->unMoveButton(posPlayButton);
-					
-				}
 				if (m_exitButton->contains(mousePos))//mouse on exit button
-				{
 					m_exitButton->moveButton(posExitButton);	//bold  exit button
-					
-				}
 				else
-				{
 					m_exitButton->unMoveButton(posExitButton);
-					
-				}
 				return false;
 			}
 		}
@@ -135,12 +126,9 @@ bool GameMenu::updatePress(sf::Vector2f location)
 				m_textFields[j].setFillColor(sf::Color::White);
 				m_groupColors[j].setFillColor(getColor(j));
 			}
-			//return true;
 			break;
 		}
 	}
-
-	
 	if (m_map1->contains(location))
 		m_menuParameters.m_background = jeruBack;
 
@@ -158,8 +146,6 @@ bool GameMenu::updatePress(sf::Vector2f location)
 		setMenuParameters();
 		return true;
 	}
-		
-
 	return false;
 }
 
@@ -206,37 +192,25 @@ bool GameMenu::checkEvent(sf::RenderWindow& window)
 				mousePos = window.mapPixelToCoords({ event.mouseMove.x, event.mouseMove.y });
 
 				if (m_playWithComp->contains(mousePos))//mouse on play button place
-				{
 					m_playWithComp->moveButton(posPlayCompButton);//bold play button
-				}
 				else
 					m_playWithComp->unMoveButton(posPlayCompButton);
 
 				if (m_playWithFriend->contains(mousePos))
-				{
 					m_playWithFriend->moveButton(posPlayFriendButton);	
-				}
 				else
 					m_playWithFriend->unMoveButton(posPlayFriendButton);
 
 				if (m_map1->contains(mousePos))
-				{
 					m_map1->moveButton(map1Button);	
-				}
 				else
 					m_map1->unMoveButton(map1Button);
-
 				if (m_map2->contains(mousePos))
-				{
 					m_map2->moveButton(map2Button);	
-				}
 				else
 					m_map2->unMoveButton(map2Button);
-
 				if (m_playGameButton->contains(mousePos))
-				{
 					m_playGameButton->moveButton(playButtonPos);	
-				}
 				else
 					m_playGameButton->unMoveButton(playButtonPos);
 
@@ -247,7 +221,6 @@ bool GameMenu::checkEvent(sf::RenderWindow& window)
 
 					else
 						m_playersButtons[i]->unMoveButton({ playerButtonPos.x + (i * playerDistance), playerButtonPos.y });
-					
 				}
 				return false;
 			}
@@ -255,7 +228,7 @@ bool GameMenu::checkEvent(sf::RenderWindow& window)
 	}
 }
 
-void GameMenu::drawFirstMenu(sf::RenderWindow& window)
+void GameMenu::drawFirstMenu(sf::RenderWindow& window) const
 {
 	window.clear();
 	window.draw(m_spriteBackgraound1);
@@ -265,7 +238,7 @@ void GameMenu::drawFirstMenu(sf::RenderWindow& window)
 
 }
 
-void GameMenu::drawSecondMenu(sf::RenderWindow& window)
+void GameMenu::drawSecondMenu(sf::RenderWindow& window) const
 {
 	window.clear();
 	window.draw(m_spriteBackgraound2);
@@ -345,7 +318,7 @@ void GameMenu::setPlayerTextField()
 	}
 }
 
-sf::RectangleShape GameMenu::createRectangleShape(int row)
+sf::RectangleShape GameMenu::createRectangleShape(int row) const
 {
 	sf::RectangleShape rec;
 	rec.setFillColor(sf::Color::Transparent);
@@ -357,7 +330,6 @@ sf::RectangleShape GameMenu::createRectangleShape(int row)
 void GameMenu::setTextFieldsHeadlines()
 {
 	m_headLines.resize(maxHeadlines);
-
 	int currHeadLine = 0;
 	setHeadLine(currHeadLine++, "Choose game format");
 	m_headLines[gameFormat].setPosition(gameFormatX, 150);
@@ -365,8 +337,6 @@ void GameMenu::setTextFieldsHeadlines()
 	m_headLines[gameBackground].setPosition(900, 150);
 	setHeadLine(currHeadLine++, "Choose number of players");
 	m_headLines[numberOfPlayers].setPosition(440, 170);
-	//setHeadLine(currHeadLine++, "Enter group name");
-	//m_headLines[currHeadLine].setPosition(470, 350);
 }
 
 void GameMenu::setHeadLine(const int index, std::string headLine)
@@ -377,6 +347,7 @@ void GameMenu::setHeadLine(const int index, std::string headLine)
 	m_headLines[index].setStyle(sf::Text::Bold);
 	m_headLines[index].setOrigin(0, 10);
 }
+
 /*in this function were setting all the squares of group colors to the
 maximum colors options. in the beginning we don't know how many groups
 we'll have so until the players will choose the group amount

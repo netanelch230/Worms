@@ -5,7 +5,7 @@
 #include"Enum.h"
 #include "GameMenu.h"
 #include "Board.h"
-
+#include "MyContactListener.h"
 
 class Controller
 {
@@ -24,6 +24,8 @@ private:
 	sf::Event m_event;
 	GameMenu m_menu;
 	Board m_board;
+	MyContactListener m_contactListener;
+
 	void restartFeaturesMenu();
 	void restartPlayers();        //build the player from menuInput
 	void defineBoard();     //define the arrbackground from menuInput

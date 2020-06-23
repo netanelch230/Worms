@@ -1,7 +1,14 @@
 #pragma once
+#pragma once
 #include <SFML/Graphics.hpp>
 #include"Animation.h"
 #include <box2d/box2d.h>
+
+//class Sheep;
+//class Stinky;
+//class Axe;
+//class Flik;
+
 
 struct spriteSetting
 {

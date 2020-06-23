@@ -12,6 +12,7 @@ public:
 		:Features(imagecountWorm, place,distanceToWorm),
 		AnimationObject(sset, imageCount, world, true, distanceToObject) {}
 	void draw(sf::RenderWindow& window) { AbsObject::draw(window); }
+	void explode();
 	//virtual void applyFeatures(float time) = 0;
 	
 private:

@@ -25,6 +25,7 @@ void Controller::run()
 {
 	while (m_window.isOpen())
 	{
+		m_world->SetContactListener(&m_contactListener);
 		m_window.clear();
 		m_board.draw(m_window);
 		drawPlayer();
@@ -57,9 +58,8 @@ void Controller::restartFeaturesLocation()
 	for (auto i = 0; i < rowsInTable * colsInTable; i++)
 	{
 		if (i % colsInTable == 0 && i > 0)
-		{
 			j++;
-		}
+		
 		m_featuresLocation[i].x = 984 + (i % colsInTable) * squareSize;
 		m_featuresLocation[i].y = j * squareSize;
 	}
