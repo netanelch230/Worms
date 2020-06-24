@@ -22,7 +22,7 @@ public:
 	void run(sf::RenderWindow& window, sf::Event& event, 
 		std::vector<std::unique_ptr<Player>>& groupPlayers,
 			sf::RectangleShape &featuresMenu,std::vector<sf::Vector2f> featuresLocation);
-	void draw(sf::RenderWindow& window);					//draw all the worms
+	void draw(sf::RenderWindow& window) const;					//draw all the worms
 	//void loadFeatures(const sf::Texture& tex, const sf::Vector2f& pos);
 	
 private:
@@ -40,31 +40,34 @@ private:
 	std::shared_ptr<Board> m_board;
 
 
-
+	void checkIfEventOccured(sf::RenderWindow& window, sf::Event& event);
 	void handleCollision(int wep, sf::RenderWindow& window);
 	void handleTeleporter(sf::RenderWindow& window);
 	void handleFeatureChoosing(animationData featureToCreate, int currWorm, sf::RenderWindow& window);
 	void handleWhiteFlag(sf::RenderWindow& window);
 	void handleSkip(sf::RenderWindow & window);
 
-	void drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::unique_ptr<Player>>& groupPlayers, sf::RectangleShape& featuresMenu);
+	void drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::unique_ptr<Player>>& groupPlayers, 
+		sf::RectangleShape& featuresMenu) const;
 	bool m_drawWeaponMenu = false; //if pressed right click we'll update to true and we'll print the weapon menu
 	bool m_drawfeatur = false;
 	void chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& featuresMenu,
-		std::vector<sf::Vector2f> featuresLocation, int currWorm,
+		std::vector<sf::Vector2f> featuresLocation,
 		std::vector<std::unique_ptr<Player>>& groupPlayers);
 
-	std::unique_ptr<Features> checkClick(sf::Vector2f clickLocation, std::vector<sf::Vector2f> featuresLocation, int currWorm);
-	std::unique_ptr<Features> getFeaturesName(int index, int current);
+	void checkClick(sf::Vector2f clickLocation, std::vector<sf::Vector2f> featuresLocation);
+	void getFeaturesName(int index);
 
-	void chooseWorm(sf::RenderWindow& window, sf::Event& event, int& place);	//check if some of worm choose, if not the computer choose one randomalic
-	void wormMove(int i);
+	void wormMove();
 	void update();
 	void loadTimer();
 	void creatWorms();
-	sf::Vector2f locatin(sf::RenderWindow&, sf::Event&);
+	sf::Vector2f locatin(sf::RenderWindow&, sf::Event&) const;
 	bool timesUp();
 
+
+	int m_currWormPlayer;
+	sf::Clock m_force; // will handle the force of using weapon - physical element.
 	//create object for the enum class so we'll be able to used it in the Player's function 
 	
 };

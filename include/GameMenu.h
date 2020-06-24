@@ -23,7 +23,7 @@ public:
 
 	GameMenu();
 	bool run(sf::RenderWindow& window);
-	sf::Color getColor(int colorNum);
+	sf::Color getColor(int colorNum) const;
 	Input getInput() { return m_menuParameters; }
 	~GameMenu() = default;
 
@@ -32,11 +32,11 @@ private:
 	bool optionsEvents(sf::RenderWindow& window);
 	bool updatePress(sf::Vector2f location);
 	bool checkEvent(sf::RenderWindow& window);
-	void drawFirstMenu(sf::RenderWindow& window);
-	void drawSecondMenu(sf::RenderWindow& window);
+	void drawFirstMenu(sf::RenderWindow& window) const;
+	void drawSecondMenu(sf::RenderWindow& window) const;
 	void buildButtons();
 	void setPlayerTextField();
-	sf::RectangleShape createRectangleShape(int row);
+	sf::RectangleShape createRectangleShape(int row) const;
 	void setTextFieldsHeadlines();
 	void setHeadLine(const int index, std::string headLine);
 	void initializeColors();

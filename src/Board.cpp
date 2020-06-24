@@ -20,7 +20,7 @@ Board::Board(int type, std::shared_ptr<b2World> world) :m_world(world)
 	}		
 }
 
-void Board::draw(sf::RenderWindow& window)
+void Board::draw(sf::RenderWindow& window) const
 {
 	window.draw(m_backGround);
 	for (auto i : m_staticMapObject)
@@ -70,7 +70,7 @@ void Board::loadDesert()
 
 }
 
-spriteSetting Board::getSpriteSetting(sf::Vector2f position, int pic)
+spriteSetting Board::getSpriteSetting(sf::Vector2f position, int pic) const
 {
 	auto tempSize = Resources::instance().getTexture(pic).getSize();
 	auto size = sf::Vector2f {(float)tempSize.x,(float) tempSize.y };

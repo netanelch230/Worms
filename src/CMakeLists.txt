@@ -10,4 +10,6 @@
 "Timer.cpp"
 "GameMenu.cpp"
 "Button.cpp"
-"Board.cpp")
+"Board.cpp"
+"MyContactListener.cpp"
+"CollisionHandling.cpp")
