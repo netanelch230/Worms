@@ -2,11 +2,12 @@
 "Controller.cpp"
 "Player.cpp"
 "AbsObject.cpp"
-"Menu.cpp"
 "Resources.cpp"
 "worm.cpp"
 "Attack.cpp"
 "animation.cpp"
 "animationobject.cpp"
 "Timer.cpp"
-)
+"GameMenu.cpp"
+"Button.cpp"
+"Board.cpp")

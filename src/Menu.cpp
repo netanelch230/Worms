@@ -48,6 +48,7 @@ bool Menu::run(sf::RenderWindow& window)
 				window.close();
 				return false;
 				break;
+
 			case sf::Event::MouseButtonReleased:
 				auto location = window.mapPixelToCoords(
 					{ event.mouseButton.x, event.mouseButton.y });

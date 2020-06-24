@@ -7,7 +7,7 @@
 #include <time.h>
 #include <stdio.h>
 
-using animArray = std::array<sf::Texture, amuntOfPicture>;
+using picsArray = std::array<sf::Texture, amuntOfPicture>;
 
 class Resources
 {
@@ -26,7 +26,7 @@ private:
 		loadPicture();
 		loadFont();
 	};
-	animArray m_picture;
+	picsArray m_picture;
 	sf::Texture m_featuresMenu;
 	std::array<sf::Font, countOfFont> m_font;
 	//std::array<sf::Music,countOfMusic> m_sound;

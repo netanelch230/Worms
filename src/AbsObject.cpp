@@ -1,5 +1,6 @@
-
 #include "AbsObject.h"
+#include <iostream>
+
 
 AbsObject::AbsObject(spriteSetting sset,b2World& world,bool whichtype)
 {
@@ -11,15 +12,16 @@ AbsObject::AbsObject(spriteSetting sset,b2World& world,bool whichtype)
         bodyDef.type = b2_dynamicBody;
     else
        bodyDef.type = b2_staticBody;
-
-   
+      
+    
     bodyDef.position.Set(sset.position.x * MPP, sset.position.y * MPP);
     m_body = world.CreateBody(&bodyDef);
-     polygonShape.SetAsBox( sset.size.x/2 * MPP, sset.size.y/2 * MPP);
+    m_body->SetFixedRotation(true);
+    polygonShape.SetAsBox( sset.size.x/2 * MPP, sset.size.y/2 * MPP);
 
     fixtureDef.shape = &polygonShape;
-    fixtureDef.friction = 0.2f;
-    fixtureDef.restitution	= 0.3f; 
+    fixtureDef.friction = 0.8f;
+    fixtureDef.restitution	= 0.1f; 
     fixtureDef.density	= 0.7f;
 
     m_body->CreateFixture(&fixtureDef);

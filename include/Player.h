@@ -1,16 +1,10 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include <vector>
-#include <memory>
-#include <string>
-#include "Worm.h"
-#include "Enum.h"
-#include "Attack.h"
-#include"Resources.h"
-#include "Timer.h"
-#include "Shelf.h"
+#include"Allinclude.h"
 
-using staticObjVec = std::vector<std::unique_ptr<staticObject>>;
+//#include "WhiteFlag.h"
+//#include "Transform.h"
+//#include "Pass.h"
+//#include "Stinky.h";
 
 using animationData = std::pair<int, sf::Vector2u>;
 
@@ -20,22 +14,21 @@ using animationData = std::pair<int, sf::Vector2u>;
 
 class Player
 {
-	//using playerVector = std::vector<std::unique_ptr<Player>>;
 public:
-	Player(std::string name, sf::Color color, int background,std::shared_ptr<b2World> m_world);
-	std::string getName() { return m_name; };
+	Player(std::string name, sf::Color color, std::shared_ptr<b2World> m_world,
+		std::shared_ptr<Board> board);
+	std::string getName() { return m_name; }
 	//~Player();
 	void run(sf::RenderWindow& window, sf::Event& event, 
 		std::vector<std::unique_ptr<Player>>& groupPlayers,
-			sf::RectangleShape &featuresMenu, staticObjVec& m_staticObject,
-		std::vector<sf::Vector2f> featuresLocation);
+			sf::RectangleShape &featuresMenu,std::vector<sf::Vector2f> featuresLocation);
 	void draw(sf::RenderWindow& window);					//draw all the worms
 	//void loadFeatures(const sf::Texture& tex, const sf::Vector2f& pos);
 	
 private:
+
 	std::shared_ptr<b2World> m_world;
 	std::vector<std::unique_ptr<Worm>> m_worms; // initialize the size of the vector
-	std::vector < std::unique_ptr<Features>> m_features;
 	std::string m_name; // will be read from sfml
 	sf::Vector2f m_location;
 	sf::Color m_color;
@@ -43,20 +36,36 @@ private:
 	sf::Clock m_wormsTimeAnimation;
 	sf::Clock m_roundTimer;
 	sf::Text m_timeForRound;
-	
+	std::unique_ptr<Features> m_feature;
+	std::shared_ptr<Board> m_board;
+
+
+
+	void handleCollision(int wep, sf::RenderWindow& window);
+	void handleTeleporter(sf::RenderWindow& window);
+	void handleFeatureChoosing(animationData featureToCreate, int currWorm, sf::RenderWindow& window);
+	void handleWhiteFlag(sf::RenderWindow& window);
+	void handleSkip(sf::RenderWindow & window);
+
+	void drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::unique_ptr<Player>>& groupPlayers, sf::RectangleShape& featuresMenu);
 	bool m_drawWeaponMenu = false; //if pressed right click we'll update to true and we'll print the weapon menu
+	bool m_drawfeatur = false;
 	void chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& featuresMenu,
-		std::vector<sf::Vector2f> featuresLocation, int currWorm);
-	animationData checkClick(sf::Vector2f clickLocation, std::vector<sf::Vector2f> featuresLocation);
-	animationData getFeaturesName(int index);
+		std::vector<sf::Vector2f> featuresLocation, int currWorm,
+		std::vector<std::unique_ptr<Player>>& groupPlayers);
+
+	std::unique_ptr<Features> checkClick(sf::Vector2f clickLocation, std::vector<sf::Vector2f> featuresLocation, int currWorm);
+	std::unique_ptr<Features> getFeaturesName(int index, int current);
+
 	void chooseWorm(sf::RenderWindow& window, sf::Event& event, int& place);	//check if some of worm choose, if not the computer choose one randomalic
 	void wormMove(int i);
 	void update();
 	void loadTimer();
 	void creatWorms();
-	void restartBackground(int i);
 	sf::Vector2f locatin(sf::RenderWindow&, sf::Event&);
 	bool timesUp();
-	sf::RectangleShape m_background;
+
+	//create object for the enum class so we'll be able to used it in the Player's function 
+	
 };
 

@@ -2,10 +2,9 @@
 #include <SFML/Graphics.hpp>
 #include "Resources.h"
 #include "Player.h"
-#include "Menu.h"
 #include"Enum.h"
-#include"Shelf.h"
-
+#include "GameMenu.h"
+#include "Board.h"
 
 
 class Controller
@@ -22,16 +21,12 @@ private:
 	sf::RectangleShape m_featuresMenu;
 	std::vector<sf::Vector2f> m_featuresLocation;
 	std::vector<std::unique_ptr<Player>> m_player;
-	staticObjVec m_staticObject;
 	sf::Event m_event;
-	Menu m_menu;
-	sf::RectangleShape m_background;
+	GameMenu m_menu;
+	Board m_board;
 	void restartFeaturesMenu();
 	void restartPlayers();        //build the player from menuInput
-	void restartBackground();     //define the arrbackground from menuInput
-	void defineShelf();
-	void defineStatic();
-	void defineStone();
+	void defineBoard();     //define the arrbackground from menuInput
 	void drawPlayer();
 	void exitGame();
 	void restartFeaturesLocation();
