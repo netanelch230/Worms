@@ -10,7 +10,7 @@ public:
 	Worm(sf::Vector2f& location, std::string name, sf::Color color, b2World& world);
 	virtual void draw(sf::RenderWindow& window);
 	void move(float time);
-	void takeOffPoints();
+	void takeOffPoints(int i);
 	//~Worm();
 
 private:

@@ -17,11 +17,11 @@ public:
 }
 	virtual void applyFeatures(float time) {
 			
-		auto pos = m_body->GetPosition();
+		auto pos = m_body->GetWorldCenter();
 		if (m_sprite.getScale() == RIGHT)
-			m_body->ApplyLinearImpulse({ 15.f, 1.f*time*2 }, {pos.x, pos.y }, true);
+			m_body->ApplyForce({ 250.f, 250.f }, pos, true);
 		else if(m_sprite.getScale() == LEFT)
-			m_body->ApplyLinearImpulse({ -15.f, 1.f*time*2 }, {pos.x, pos.y }, true);
+			m_body->ApplyForce({ -250.f, 250.f }, pos, true);
 	};
 
 private:

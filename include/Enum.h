@@ -30,7 +30,7 @@ const int gameFormatOptions = 2;
 const int colorsOptions = 4;
 const int backgroundOptions = 2;
 
-const int timeOfRound = 45;
+const int timeOfRound = 10;
 //=======================================locations on menu=========================================
 const float playersBottonX = 300;
 const float playersBottonXRatio = 150;

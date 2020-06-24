@@ -10,4 +10,4 @@ public:
 
 };
 
-void processCollision(AbsObject& object1, AbsObject& object2);
+void processCollision(AbsObject* object1, AbsObject* object2);

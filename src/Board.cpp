@@ -52,9 +52,9 @@ void Board::loadJerusalem()
 	m_staticMapObject.push_back(staticObject(getSpriteSetting(sf::Vector2f{800,500},jeruland1),*m_world.get()));
 	m_staticMapObject.push_back(staticObject(getSpriteSetting(sf::Vector2f{50,300},jeruland1),*m_world.get()));
 	m_staticMapObject.push_back(staticObject(getSpriteSetting(sf::Vector2f{300,400},jeruland1),*m_world.get()));
-	m_staticMapObject.push_back(staticObject(getSpriteSetting(sf::Vector2f{100,550},westrenWall),*m_world.get()));
+	/*m_staticMapObject.push_back(staticObject(getSpriteSetting(sf::Vector2f{100,550},westrenWall),*m_world.get()));
 	m_staticMapObject.push_back(staticObject(getSpriteSetting(sf::Vector2f{500,450},lionGate),*m_world.get()));
-	m_staticMapObject.push_back(staticObject(getSpriteSetting(sf::Vector2f{1000,350},daviaTower),*m_world.get()));
+	m_staticMapObject.push_back(staticObject(getSpriteSetting(sf::Vector2f{1000,350},daviaTower),*m_world.get()));*/
 	
 }
 void Board::loadDesert()
@@ -63,10 +63,10 @@ void Board::loadDesert()
 	m_staticMapObject.push_back(staticObject(getSpriteSetting(sf::Vector2f{ 10,200 }, desertLand3), *m_world.get()));
 	m_staticMapObject.push_back(staticObject(getSpriteSetting(sf::Vector2f{ 700,250 }, desertLand3), *m_world.get()));
 	m_staticMapObject.push_back(staticObject(getSpriteSetting(sf::Vector2f{ 1000,300 }, desertLand7), *m_world.get()));
-	m_staticMapObject.push_back(staticObject(getSpriteSetting(sf::Vector2f{ 100,550 }, camel), *m_world.get()));
+	/*m_staticMapObject.push_back(staticObject(getSpriteSetting(sf::Vector2f{ 100,550 }, camel), *m_world.get()));
 	m_staticMapObject.push_back(staticObject(getSpriteSetting(sf::Vector2f{ 750,600 }, cactus), *m_world.get()));
 	m_staticMapObject.push_back(staticObject(getSpriteSetting(sf::Vector2f{ 500,450 }, tent), *m_world.get()));
-	m_staticMapObject.push_back(staticObject(getSpriteSetting(sf::Vector2f{ 1000,550 }, waterWall), *m_world.get()));
+	m_staticMapObject.push_back(staticObject(getSpriteSetting(sf::Vector2f{ 1000,550 }, waterWall), *m_world.get()));*/
 
 }
 

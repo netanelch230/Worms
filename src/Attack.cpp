@@ -2,5 +2,5 @@
 
 void Attack::explode()
 {
-	m_body->GetWorld()->DestroyBody(m_body);
+	//m_body->GetWorld()->DestroyBody(m_body);
 }

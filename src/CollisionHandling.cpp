@@ -17,43 +17,48 @@ namespace {
 
     void grenade_worm(AbsObject& grenade, AbsObject& worm)
     {
-        auto gren = static_cast<Grenade&>(grenade);
-        auto wrm = static_cast<Worm&>(worm);
-        gren.explode();
-        //wrm.
+        auto i = static_cast<Grenade&>(grenade);
+        auto j = static_cast<Worm&>(worm);
+        i.explode();
+        j.takeOffPoints(50);
     }
 
-    void worm_grande(AbsObject& object1, AbsObject& object2)            
+    void worm_grande(AbsObject& worm, AbsObject& granade)            
     {
-
+        grenade_worm(granade, worm);
     }
 
-    void sheep_worm(AbsObject& object1, AbsObject& object2)
+    void sheep_worm(AbsObject& sheep, AbsObject& worm)
     {
-
+        auto i = static_cast<Sheep&>(sheep);
+        auto j = static_cast<Worm&>(worm);
+        i.explode();
+        j.takeOffPoints(100);
     }
 
-    void worm_sheep(AbsObject& object1, AbsObject& object2)
+    void worm_sheep(AbsObject& worm, AbsObject& sheep)
     {
-
+        sheep_worm(sheep, worm);
     }
 
-    void axe_worm(AbsObject& object1, AbsObject& object2)
+    void axe_worm(AbsObject& axe, AbsObject& worm)
     {
-
+        auto i= static_cast<Axe&>(axe);
+        auto j = static_cast<Worm&>(worm);
+        j.takeOffPoints(90);
     }
 
-    void worm_axe(AbsObject& object1, AbsObject& object2)
+    void worm_axe(AbsObject& worm, AbsObject& axe)
     {
-
+        axe_worm(axe, worm);
     }
     void Grenade_staticObject(AbsObject& Grenade, AbsObject& staticObject)
     {
 
     }
-    void staticObject_Grenade(AbsObject& object1, AbsObject& object2)
+    void staticObject_Grenade(AbsObject& staticObject, AbsObject& granade)
     {
-
+          
     }
 
 
@@ -97,14 +102,16 @@ namespace {
         return mapEntry->second;
     }
     
-}
-
-void processCollision(AbsObject& object1, AbsObject& object2)
+}   
+void processCollision(AbsObject* object1, AbsObject* object2)
 {
-    auto phf = lookup(typeid(object1), typeid(object2));
-    if (!phf)
+    auto obj1 = *object1;
+    AbsObject obj2 = *object2;
+    auto phf = lookup(typeid(obj1), typeid(obj2));
+    if (phf)
     {
+        phf(*object1, *object2);
         //  throw UnknownCollision(object1, object2);
     }
-    phf(object1, object2);
+    
 }

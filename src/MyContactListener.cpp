@@ -19,6 +19,6 @@ void MyContactListener::BeginContact(b2Contact* contact)
 	
 	if (objectA != nullptr && objectB != nullptr)
 	{
-		processCollision(*objectA, *objectB);
+		processCollision(objectA, objectB);
 	}
 }

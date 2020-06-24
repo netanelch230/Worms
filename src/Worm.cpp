@@ -6,9 +6,9 @@ void Worm::move(float time)
 	m_body->ApplyForce(forc(), m_body->GetWorldCenter(), true);
 }
 
-void Worm::takeOffPoints()
+void Worm::takeOffPoints(int i)
 {
-	//kill;
+	m_life -= i;
 }
 
 b2Vec2 Worm::forc()

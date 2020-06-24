@@ -25,6 +25,7 @@ AbsObject::AbsObject(spriteSetting sset,b2World& world,bool whichtype)
     fixtureDef.density	= 0.7f;
 
     m_body->CreateFixture(&fixtureDef);
+	m_body->SetUserData(this);
 	m_sprite.setTexture(&sset.picture);
 	m_sprite.setSize(sset.size);
 }
