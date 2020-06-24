@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include"Animation.h"
 #include <box2d/box2d.h>
-
+#include "Enum.h"
 //class Sheep;
 //class Stinky;
 //class Axe;
@@ -26,9 +26,9 @@ public:
 	AbsObject(spriteSetting,b2World& world,bool whichtype);
 	b2Body* getBody() { return m_body; };
 	virtual void draw(sf::RenderWindow& window);
-	virtual bool touch(sf::Vector2f location);
+	virtual bool touch(sf::Vector2f location) const;
 	//void update(float deltaTime);
-	 sf::Vector2f getPosition();
+	 sf::Vector2f getPosition() const;
 
 
 protected:
@@ -37,6 +37,6 @@ protected:
 	float  m_radius;
 	 sf::Vector2f m_size;
 
-	 float getRotation();
+	 float getRotation() const;
 
 };

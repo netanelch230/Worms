@@ -10,6 +10,7 @@ AnimationObject::AnimationObject(spriteSetting sset, sf::Vector2u imageCount,
 void AnimationObject::setAnimation(sf::Texture& photo, sf::Vector2u imageCount, float switchTime, int distance=1)
 {
 	m_sprite.setTexture(&photo);
+	m_sprite.setSize({ 100,100 });
 	Animation animation(&photo, imageCount, switchTime, distance);
 	m_animation = animation;
 

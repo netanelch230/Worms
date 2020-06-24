@@ -2,9 +2,10 @@
 #include<SFML/Graphics.hpp>
 
 //==============================const timer======================================
-//int m_time = 0;
 
 //============================player enums=======================================
+const auto wormTextBoxCorLeft = sf::Vector2f{ 17, -25 };
+const auto wormTextBoxCorRight = sf::Vector2f{ -17, -25 };
 
 //===========================time for round data================================
 const auto timeForRoundPosition = sf::Vector2f{ 50, 650 };
@@ -45,7 +46,9 @@ const int countOfFont = 3;
 const int countOfMusic = 5;
 const auto sizeOfIcon = sf::Vector2f{ 20,30 };
 const auto sizeOfWorm = sf::Vector2f { 40,40 };
+//===========================================location of tool bar==================================
 
+const auto toolBarXCoordinate = 984;
 //=======================================locations on Board=========================================
 
 const auto featuresCoordinates = sf::Vector2f{ 216, 104 };

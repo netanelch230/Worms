@@ -153,7 +153,6 @@ void Player::chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& features
 	}	
 }
 
-
 /*this function will check if the player didn't choose a feature from the tool bar
 and if he chosed a feature we'll set the animation of the feature (switch from regular
 worm to worm with feature)*/
@@ -182,7 +181,6 @@ void Player::checkClick(sf::Vector2f clickLocation,
 			break;
 		}
 	}
-	
 }
 
 //---------------------------------------------

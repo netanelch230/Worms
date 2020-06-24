@@ -59,15 +59,12 @@ void Controller::restartFeaturesLocation()
 	{
 		if (i % colsInTable == 0 && i > 0)
 			j++;
-		
-		m_featuresLocation[i].x = 984 + (i % colsInTable) * squareSize;
+		m_featuresLocation[i].x = toolBarXCoordinate + (i % colsInTable) * squareSize;
 		m_featuresLocation[i].y = j * squareSize;
 	}
 
 	for (auto i = 0; i < m_featuresLocation.size(); i++)
-	{
 		std::cout << m_featuresLocation[i].x << " " << m_featuresLocation[i].y << std::endl;
-	}
 }
 
 void Controller::defineBoard()   
@@ -76,7 +73,6 @@ void Controller::defineBoard()
 	m_world = std::make_unique<b2World>(m_gravity);
 	Board u(m_menu.getInput().m_background, m_world);
 	m_board = u;
-
 }
 
 
