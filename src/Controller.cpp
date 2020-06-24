@@ -25,12 +25,12 @@ void Controller::run()
 {
 	while (m_window.isOpen())
 	{
-		m_world->SetContactListener(&m_contactListener);
 		m_window.clear();
 		m_board.draw(m_window);
 		drawPlayer();
 		m_window.display();
 		exitGame();
+		m_world->SetContactListener(&m_contactListener);
 		for (auto& i : m_player)
 			i->run(m_window, m_event, m_player, m_featuresMenu,m_featuresLocation);
 	}
@@ -45,7 +45,7 @@ void Controller::restartPlayers()
 	for (auto& it : m_player)
 	{
 		auto i = std::make_unique<Player>(name[j], m_menu.getInput().m_playersColor[j],
-			m_world,std::make_shared<Board>(m_board));
+			*m_world,m_board);
 		it.swap(i);
 		j++;
 	}
@@ -70,9 +70,8 @@ void Controller::restartFeaturesLocation()
 void Controller::defineBoard()   
 {
 	b2Vec2 m_gravity(0.0f, 1.2f);
-	m_world = std::make_unique<b2World>(m_gravity);
-	Board u(m_menu.getInput().m_background, m_world);
-	m_board = u;
+	m_world = std::make_unique <b2World> (m_gravity);
+	m_board.createBord(*m_world, m_menu.getInput().m_background);
 }
 
 

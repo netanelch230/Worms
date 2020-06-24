@@ -15,8 +15,8 @@ using animationData = std::pair<int, sf::Vector2u>;
 class Player
 {
 public:
-	Player(std::string name, sf::Color color, std::shared_ptr<b2World> m_world,
-		std::shared_ptr<Board> board);
+	Player(std::string name, sf::Color color, b2World& world,
+		Board& board);
 	std::string getName() { return m_name; }
 	//~Player();
 	void run(sf::RenderWindow& window, sf::Event& event, 
@@ -27,7 +27,7 @@ public:
 	
 private:
 
-	std::shared_ptr<b2World> m_world;
+	b2World& m_world;
 	std::vector<std::unique_ptr<Worm>> m_worms; // initialize the size of the vector
 	std::string m_name; // will be read from sfml
 	sf::Vector2f m_location;
@@ -37,7 +37,7 @@ private:
 	sf::Clock m_roundTimer;
 	sf::Text m_timeForRound;
 	std::unique_ptr<Features> m_feature;
-	std::shared_ptr<Board> m_board;
+	Board& m_board;
 
 
 	void checkIfEventOccured(sf::RenderWindow& window, sf::Event& event);

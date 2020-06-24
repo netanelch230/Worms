@@ -16,7 +16,7 @@ public:
 	
 private:
 	
-	std::shared_ptr<b2World> m_world;
+	std::unique_ptr <b2World> m_world;
 	sf::RenderWindow m_window = sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Worms");
 	sf::RectangleShape m_featuresMenu;
 	std::vector<sf::Vector2f> m_featuresLocation;
