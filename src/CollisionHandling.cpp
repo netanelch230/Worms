@@ -105,9 +105,7 @@ namespace {
 }   
 void processCollision(AbsObject* object1, AbsObject* object2)
 {
-    auto obj1 = *object1;
-    AbsObject obj2 = *object2;
-    auto phf = lookup(typeid(obj1), typeid(obj2));
+    auto phf = lookup(typeid(*object1), typeid(*object2));
     if (phf)
     {
         phf(*object1, *object2);

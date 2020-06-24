@@ -9,7 +9,7 @@
 and the color of the group,
 world is the physical world of the player
 */
-Player::Player(std::string name, sf::Color color, std::shared_ptr<b2World> world,std::shared_ptr<Board> board) :
+Player::Player(std::string name, sf::Color color, b2World & world,Board& board) :
 	m_name(name), m_color(color), m_world(world),m_board(board)
 {
 	creatWorms();
@@ -94,8 +94,8 @@ void Player::drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::un
 	,sf::RectangleShape& featuresMenu) const
 {
 	window.clear();
-	m_world->Step(TIMESTEP, VELITER, POSITER);
-	m_board->draw(window);
+	m_world.Step(TIMESTEP, VELITER, POSITER);
+	m_board.draw(window);
 	if (m_drawWeaponMenu)
 		window.draw(featuresMenu);
 
@@ -258,7 +258,7 @@ void Player::creatWorms()
 	for (auto& it : m_worms)
 	{
 		auto loc = randomLocation(WIDTH-10,HEIGHT-10);
-		auto i = std::make_unique<Worm>(loc, m_name, m_color, *m_world.get());
+		auto i = std::make_unique<Worm>(loc, m_name, m_color, m_world);
 		it.swap(i);
 	}
 }
@@ -350,16 +350,16 @@ void Player::getFeaturesName(int index)
 	switch (index)
 	{
 	case animaiton_sheep:
-		m_feature = std::make_unique<Sheep>(*m_world.get(), wormPosition);
+		m_feature = std::make_unique<Sheep>(m_world, wormPosition);
 		break;
 	case animation_grenade:
-		m_feature = std::make_unique<Grenade>(*m_world.get(), wormPosition);
+		m_feature = std::make_unique<Grenade>(m_world, wormPosition);
 		break;
 	case animation_flick:
-		m_feature = std::make_unique<Flick>(*m_world.get(), wormPosition);
+		m_feature = std::make_unique<Flick>(m_world, wormPosition);
 		break;
 	case animation_axe:
-		m_feature = std::make_unique<Axe>(*m_world.get(), wormPosition);
+		m_feature = std::make_unique<Axe>(m_world, wormPosition);
 		break;
 	case animation_teleporter:
 		m_feature = std::make_unique<Transform>();
@@ -368,7 +368,7 @@ void Player::getFeaturesName(int index)
 		m_feature = std::make_unique<WhiteFlag>();
 		break;
 	case animation_stinky:
-		m_feature = std::make_unique<Stinky>(*m_world.get(), wormPosition);
+		m_feature = std::make_unique<Stinky>(m_world, wormPosition);
 		break;
 	case animation_skip:
 		m_feature = std::make_unique<Pass>();

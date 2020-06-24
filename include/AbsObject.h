@@ -29,7 +29,7 @@ public:
 	virtual bool touch(sf::Vector2f location) const;
 	//void update(float deltaTime);
 	 sf::Vector2f getPosition() const;
-
+	 virtual ~AbsObject() = default;
 
 protected:
 	sf::RectangleShape m_sprite;

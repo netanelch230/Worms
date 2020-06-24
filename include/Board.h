@@ -7,16 +7,17 @@
 class Board
 {
 public:
-	Board(int type, std::shared_ptr <b2World> world);
 	Board() = default;
+	void createBord(b2World& world, int type = jeruBack);
 	void draw(sf::RenderWindow& window) const;
+	~Board() = default;
+
 private:
-	void loadBorders();
-	void loadJerusalem();
-	void loadDesert();
+	void loadBorders(b2World& world);
+	void loadJerusalem(b2World& world);
+	void loadDesert(b2World& world);
 	spriteSetting getSpriteSetting(sf::Vector2f position, int pic) const;
 
-	std::vector<staticObject> m_staticMapObject;
+	std::vector<std::unique_ptr<staticObject>> m_staticMapObject;
 	sf::RectangleShape m_backGround;
-	std::shared_ptr <b2World> m_world;
 };
