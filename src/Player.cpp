@@ -40,6 +40,8 @@ void Player::run(sf::RenderWindow& window,
 		drawBoardAndAnimation(window, groupPlayers, featuresMenu);
 		if (m_drawWeaponMenu) // in here we'll call the draw weapon menu and in addition we'll handle the click of menu
 			chooseWeapon(window, featuresMenu, featuresLocation, groupPlayers);
+		for(auto&i:m_worms)
+			i->destroy();
 	}
 }
 
@@ -107,7 +109,10 @@ void Player::drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::un
 		group->draw(window);
 	}
 	if (m_feature && m_drawfeatur)
+	{
+		//m_feature->up
 		m_feature->draw(window);
+	}
 	window.display();
 }
 
@@ -342,7 +347,7 @@ void Player::handleTeleporter(sf::RenderWindow& window)
 
 void Player::getFeaturesName(int index)
 {
-	auto wormPosition = m_worms[m_currWormPlayer]->getPosition();
+	auto wormPosition = m_worms[m_currWormPlayer]->getPosition() + sf::Vector2f{ 100,0 };
 	
 	switch (index)
 	{

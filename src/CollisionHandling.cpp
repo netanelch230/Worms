@@ -19,20 +19,20 @@ namespace {
     {
         auto i = static_cast<Grenade&>(grenade);
         auto j = static_cast<Worm&>(worm);
-        i.explode();
-        j.takeOffPoints(50);
+        i.play();
+        j.takeOffPoints(150);
     }
 
     void worm_grande(AbsObject& worm, AbsObject& granade)            
     {
         grenade_worm(granade, worm);
     }
-
+//=============================================================
     void sheep_worm(AbsObject& sheep, AbsObject& worm)
     {
         auto i = static_cast<Sheep&>(sheep);
         auto j = static_cast<Worm&>(worm);
-        i.explode();
+        i.play();
         j.takeOffPoints(100);
     }
 
@@ -40,7 +40,7 @@ namespace {
     {
         sheep_worm(sheep, worm);
     }
-
+//=============================================================
     void axe_worm(AbsObject& axe, AbsObject& worm)
     {
         auto i= static_cast<Axe&>(axe);
@@ -52,6 +52,7 @@ namespace {
     {
         axe_worm(axe, worm);
     }
+//=============================================================
     void Grenade_staticObject(AbsObject& Grenade, AbsObject& staticObject)
     {
 
@@ -60,17 +61,22 @@ namespace {
     {
           
     }
-
-
+//=============================================================
+    void sheep_staticObject(AbsObject& sheep, AbsObject& staticObject)
+    {
+        auto i= static_cast<Sheep&>(sheep);
+        i.changeDirection();
+    } 
+    void staticObject_sheep(AbsObject& staticObject, AbsObject& sheep)
+    {
+        sheep_staticObject(sheep, staticObject);
+    }
+//=============================================================
     using HitFunctionPtr = void (*)(AbsObject&, AbsObject&);
     using Key = std::pair<std::type_index, std::type_index>;
     using HitMap = std::map<Key, HitFunctionPtr>;
 
-
-
     
-    //---------------------------------------------
-    //----------------------------------------------------------------------
     HitMap initializeCollisionMap()
     {
         HitMap phm;
@@ -79,12 +85,15 @@ namespace {
 
         phm[Key(typeid(Sheep), typeid(Worm))] = &sheep_worm;
         phm[Key(typeid(Worm), typeid(Sheep))] = &worm_sheep;
+        
+        phm[Key(typeid(Sheep), typeid(staticObject))] = &sheep_staticObject;
+        phm[Key(typeid(staticObject), typeid(Sheep))] = &staticObject_sheep;
 
         phm[Key(typeid(Axe), typeid(Worm))] = &axe_worm;
         phm[Key(typeid(Worm), typeid(Axe))] = &worm_axe;
 
         phm[Key(typeid(Grenade), typeid(staticObject))] = &Grenade_staticObject;
-        phm[Key(typeid(Worm), typeid(Grenade))] = &staticObject_Grenade;
+        phm[Key(typeid(staticObject), typeid(Grenade))] = &staticObject_Grenade;
 
         /* phm[Key(typeid(Flick), typeid(Worm   ))] = &flick_worm;
          phm[Key(typeid(Worm), typeid(Flick    ))] = &worm_flick;*/

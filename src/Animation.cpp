@@ -29,5 +29,12 @@ void Animation::update(int row, float deltaTime)
 		m_rect.left = currentImage.x * m_rect.width;
 		m_rect.top = currentImage.y * m_rect.height;
 	}
+	
+}
+
+bool Animation::isDead()
+{
+	return currentImage.y == m_imageCount.y && !m_restartAnimation;
+		
 }
 

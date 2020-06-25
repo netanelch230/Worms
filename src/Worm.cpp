@@ -1,6 +1,8 @@
 #include "Worm.h"
 #include <iostream>
 
+
+
 void Worm::move(float time)
 {
 	m_body->ApplyForce(forc(), m_body->GetWorldCenter(), true);
@@ -9,6 +11,14 @@ void Worm::move(float time)
 void Worm::takeOffPoints(int i)
 {
 	m_life -= i;
+	m_is_dead = m_life <= 0 ? false : true;
+
+}
+
+void Worm::destroy()
+{
+	/*if (m_is_dead)
+		this->setAnimation(AnimationSet{ animation_die,WormDieImageCount,false,1 }, 0.03f);*/
 }
 
 b2Vec2 Worm::forc()
@@ -28,9 +38,6 @@ b2Vec2 Worm::forc()
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		return b2Vec2{ 0,-0.5 };
 
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		return b2Vec2{ 0,0.5 };
-
 	else
 		return b2Vec2{ 0,0 };
 }
@@ -40,20 +47,20 @@ Worm::Worm(sf::Vector2f& location, std::string name, sf::Color color,  b2World& 
 	AnimationObject(spriteSetting{ location,sizeOfWorm,
 			Resources::instance().getTexture(animation_worm) }, sf::Vector2u{ 1,36 },world,true,1)
 {
-	m_name.setFont(Resources::instance().getfont(name_font));
-	m_name.setString(name+'\n'+"   "+std::to_string(m_life));
-	m_name.setFillColor(color);
-	m_name.setPosition(location + sf::Vector2f{ 10, -15 });
-	m_name.setScale(0.5, 0.5);
-	m_name.setStyle(sf::Text::Bold);
-	
-	m_textBox.setPosition(m_name.getPosition());
-	m_textBox.setFillColor(sf::Color::Black);
-	m_textBox.setOutlineColor(sf::Color::White);
-	m_textBox.setOutlineThickness(2);
-	const auto rect = m_textBox.getLocalBounds();
-	m_textBox.setOrigin(rect.width / 2, rect.height / 2);
-	m_textBox.setSize({ rect.width / 2, rect.height / 2 });
+	//m_name.setFont(Resources::instance().getfont(name_font));
+	//m_name.setString(name+'\n'+"   "+std::to_string(m_life));
+	//m_name.setFillColor(color);
+	//m_name.setPosition(location + sf::Vector2f{ 10, -15 });
+	//m_name.setScale(0.5, 0.5);
+	//m_name.setStyle(sf::Text::Bold);
+	//
+	//m_textBox.setPosition(m_name.getPosition());
+	//m_textBox.setFillColor(sf::Color::Black);
+	//m_textBox.setOutlineColor(sf::Color::White);
+	//m_textBox.setOutlineThickness(2);
+	//const auto rect = m_textBox.getLocalBounds();
+	//m_textBox.setOrigin(rect.width / 2, rect.height / 2);
+	//m_textBox.setSize({ rect.width / 2, rect.height / 2 });
 }
 
 /*this function will draw each worm on the board and will set it's animatior

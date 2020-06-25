@@ -10,9 +10,10 @@ public:
 	void setAnimation(AnimationSet animset,float switchTime);
 	//~AnimationObject();
 	void update(float deltaTime);
-
+	virtual void destroy();
 protected:
 	Animation m_animation;
 	unsigned int m_row;
+    bool m_is_dead;
 
 };

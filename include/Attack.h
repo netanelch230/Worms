@@ -11,7 +11,8 @@ public:
 		:Features(animationSet),
 		AnimationObject(sset, imageCount, world, true, distanceToObject) {}
 	void draw(sf::RenderWindow& window) { AbsObject::draw(window); }
-	void explode();
-	
+	virtual void play() = 0;
+	void destroy();
+	b2Vec2 force(int i);
 private:
 };

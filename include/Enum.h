@@ -69,6 +69,9 @@ const auto skipImageCount = sf::Vector2u{ 1,9 };
 const auto sheepImageCount = sf::Vector2u{ 1,36 };
 const auto teleporterImageCount = sf::Vector2u{ 1,36 };
 const auto wormImageCount = sf::Vector2u{ 1,36 };
+const auto WormDieImageCount = sf::Vector2u{ 1,60 };
+const auto exGrenadeImageCount = sf::Vector2u{ 1,12 };
+
 
 const auto sizeOfShelf = sf::Vector2f{ 70,50 };
 const auto sizeOfStone = sf::Vector2f{ 50,50 };
@@ -137,7 +140,7 @@ enum desertMap
 
 
 
-enum featuresAnim
+enum featuresWormAnim
 {
 	animation_worm=28,
 	animaiton_sheep,
@@ -147,25 +150,30 @@ enum featuresAnim
 	animation_teleporter,
 	animation_whiteFlag,
 	animation_stinky,
-	animation_skip
+	animation_skip,
+	animation_die
 };
 
 
-enum features
+enum featuresWeaponesAnim
 {
-	sheep=37,
+	sheep=38,
 	grenade,
-	flick,
-	axe,
-	teleporter,
-	whiteFlag,
 	stinky,
-	skip
+	flik,
+	axe,
+};
+
+enum weaponsEffect
+{
+	exGrenade=43,
+	exSheep,
+	exStinky
 };
 
 enum menuHeadlines
 {
-	gameFormatHeadline = 45,
+	gameFormatHeadline = 46,
 	gameMapHeadline,
 	playersNamesHeadline,
 	groupAmountHeadlines

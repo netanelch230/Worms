@@ -11,5 +11,6 @@ class Stinky :public Attack
 			AnimationSet{ animation_stinky,stinkyImageCount,false,1 },
 			spriteSheetGrenadeSize) {}
 			virtual void applyFeatures(float time) {};
+			virtual void play() override {};
 	private:
 };

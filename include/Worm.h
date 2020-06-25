@@ -11,6 +11,7 @@ public:
 	virtual void draw(sf::RenderWindow& window);
 	void move(float time);
 	void takeOffPoints(int i);
+	virtual void destroy() override;
 	//~Worm();
 
 private:

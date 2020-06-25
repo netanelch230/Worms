@@ -71,6 +71,29 @@ void Controller::defineBoard()
 {
 	b2Vec2 m_gravity(0.0f, 1.2f);
 	m_world = std::make_unique <b2World> (m_gravity);
+
+	////// Create borders for the screen so dragon cannot escape
+	//float widthInMeters = m_window.getSize().x / 30;
+	//float heightInMeters = m_window.getSize().y / 30;
+	//b2Vec2 lowerLeftCorner = b2Vec2(0, 0);
+	//b2Vec2 lowerRightCorner = b2Vec2(widthInMeters, 0);
+	//b2Vec2 upperLeftCorner = b2Vec2(0, heightInMeters);
+	//b2Vec2 upperRightCorner = b2Vec2(widthInMeters, heightInMeters);
+
+	//b2BodyDef screenBorderDef;
+	//screenBorderDef.position.Set(0, 0);
+	//b2Body* screenBorderBody = m_world->CreateBody(&screenBorderDef);
+	//b2EdgeShape screenBorderShape;
+
+	//screenBorderShape.Set(lowerLeftCorner, lowerRightCorner);
+	//screenBorderBody->CreateFixture(&screenBorderShape, 0);
+	//screenBorderShape.Set(lowerRightCorner, upperRightCorner);
+	//screenBorderBody->CreateFixture(&screenBorderShape, 0);
+	//screenBorderShape.Set(upperRightCorner, upperLeftCorner);
+	//screenBorderBody->CreateFixture(&screenBorderShape, 0);
+	//screenBorderShape.Set(upperLeftCorner, lowerLeftCorner);
+	//screenBorderBody->CreateFixture(&screenBorderShape, 0);
+
 	m_board.createBord(*m_world, m_menu.getInput().m_background);
 }
 

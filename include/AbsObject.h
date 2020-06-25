@@ -32,7 +32,7 @@ public:
 	 virtual ~AbsObject() = default;
 
 protected:
-	sf::RectangleShape m_sprite;
+	sf::Sprite m_sprite;
 	b2Body* m_body;
 	float  m_radius;
 	 sf::Vector2f m_size;
