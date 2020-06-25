@@ -8,12 +8,12 @@ AbsObject::AbsObject(spriteSetting sset,b2World& world,bool whichtype)
     b2PolygonShape polygonShape;
     b2FixtureDef fixtureDef;
     b2BodyDef bodyDef;
+
     if(whichtype)
         bodyDef.type = b2_dynamicBody;
     else
        bodyDef.type = b2_staticBody;
-      
-    
+       
     bodyDef.position.Set(sset.position.x * MPP, sset.position.y * MPP);
     m_body = world.CreateBody(&bodyDef);
     m_body->SetFixedRotation(true);
@@ -26,8 +26,10 @@ AbsObject::AbsObject(spriteSetting sset,b2World& world,bool whichtype)
 
     m_body->CreateFixture(&fixtureDef);
 	m_body->SetUserData(this);
-	m_sprite.setTexture(&sset.picture);
-	m_sprite.setSize(sset.size);
+	m_sprite.setTexture(sset.picture);
+    
+    m_sprite.setOrigin(sset.size.x/2, sset.size.y / 2);
+	
 }
 
 void AbsObject::draw(sf::RenderWindow& window)
@@ -53,6 +55,33 @@ float AbsObject::getRotation() const
     float angle = m_body->GetAngle();
     return ((angle * 180.f) / 3.14);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

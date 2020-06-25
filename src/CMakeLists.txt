@@ -12,4 +12,6 @@
 "Button.cpp"
 "Board.cpp"
 "MyContactListener.cpp"
-"CollisionHandling.cpp")
+"CollisionHandling.cpp"
+"Grenade.cpp"
+"sheep.cpp")

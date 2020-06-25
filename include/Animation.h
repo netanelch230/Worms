@@ -8,6 +8,7 @@ public:
 	Animation(Animation& ani) = default;
 	void update(int row, float deltaTime);
 	sf::IntRect getrect() { return m_rect; };
+	bool isDead();
 
 private:
 	bool m_restartAnimation = true;

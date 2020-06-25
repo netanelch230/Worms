@@ -10,6 +10,7 @@ public:
 			AnimationSet{ animation_axe,spriteSheetGrenadeSize,false,1 },
 			GreenGrenadeImageCount ) {}
 	virtual void applyFeatures(float time) {};
+	virtual void play() override {};
 	
 
 private:

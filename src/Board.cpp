@@ -33,16 +33,16 @@ void Board::draw(sf::RenderWindow& window) const
 void Board::loadBorders(b2World& world)
 {
 
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(spriteSetting{ {0,650},{3000,1},
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(spriteSetting{ {650,700},{1280,1},
 		Resources::instance().getTexture(jeruland1) },world));
 	m_staticMapObject[0]->setTranspert();
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(spriteSetting{ {0,0},{2400,1},
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(spriteSetting{ {650,0},{2400,1},
 		Resources::instance().getTexture(jeruland1) },world));
 	m_staticMapObject[1]->setTranspert();
-	m_staticMapObject.push_back(std::make_unique<staticObject>(spriteSetting{ {10,0},{1,2000},
+	m_staticMapObject.push_back(std::make_unique<staticObject>(spriteSetting{ {0,350},{1,2000},
 		Resources::instance().getTexture(jeruland1) },world));
 	m_staticMapObject[2]->setTranspert();
-	m_staticMapObject.push_back(std::make_unique<staticObject>(spriteSetting{ {1270,0},{1,2000},
+	m_staticMapObject.push_back(std::make_unique<staticObject>(spriteSetting{ {1280,350},{1,2000},
 		Resources::instance().getTexture(jeruland1) },world));
 	m_staticMapObject[3]->setTranspert();
 
@@ -55,9 +55,9 @@ void Board::loadJerusalem(b2World& world)
 	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{800,500},jeruland1),world));
 	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{50,300},jeruland1),world));
 	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{300,400},jeruland1),world));
-	/*m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{100,550},westrenWall),*world.get()));
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{500,450},lionGate),*world.get()));
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{1000,350},daviaTower),*world.get()));*/
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{100,550},westrenWall),world));
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{500,550},lionGate),world));
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{1000,500},daviaTower),world));
 	
 }
 void Board::loadDesert(b2World& world)

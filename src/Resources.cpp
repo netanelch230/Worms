@@ -54,7 +54,14 @@ void Resources::loadPicture()
 	m_picture[animation_flick].loadFromFile("flick.png");
 	m_picture[animation_teleporter].loadFromFile("mahbet.png");
 	m_picture[animation_skip].loadFromFile("pass.png");
+	m_picture[animation_die].loadFromFile("wdie.png");
 	m_picture[grenade].loadFromFile("GRENADE1.png");
+	m_picture[stinky].loadFromFile("stinkyWalk.png");
+	m_picture[sheep].loadFromFile("sheepWalk.png");
+	m_picture[exGrenade].loadFromFile("exGrenade.png");
+	m_picture[exSheep].loadFromFile("exSheep.png");
+	m_picture[exStinky].loadFromFile("exStinky.png");
+	
 
 	//load menu headlines and start game button
 	m_picture[playgameButton].loadFromFile("play.png");
