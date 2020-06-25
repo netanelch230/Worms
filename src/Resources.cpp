@@ -49,7 +49,7 @@ void Resources::loadPicture()
 	m_picture[animaiton_sheep].loadFromFile("sheep.png");
 	m_picture[animation_axe].loadFromFile("axe.png");
 	m_picture[animation_stinky].loadFromFile("boesh.png");
-	m_picture[animation_whiteFlag].loadFromFile("whiteFlag.png");
+	m_picture[animation_whiteFlag].loadFromFile("wsurndrd.png");
 	m_picture[animation_grenade].loadFromFile("greenGrenade.png");
 	m_picture[animation_flick].loadFromFile("flick.png");
 	m_picture[animation_teleporter].loadFromFile("mahbet.png");

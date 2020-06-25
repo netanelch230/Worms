@@ -1,13 +1,13 @@
 #include <SFML/Graphics.hpp>
+#include "AnimationSet.h"
 
 class Animation 
 {
 public:
-	Animation(sf::Texture* tex, sf::Vector2u imageCount, float switchtime, int distance);
+	Animation(sf::Texture* tex, sf::Vector2u imageCount, float switchtime, int distance, bool restart = true);
 	Animation(Animation& ani) = default;
 	void update(int row, float deltaTime);
 	sf::IntRect getrect() { return m_rect; };
-	void setRestartAnimation(bool ani) { m_restartAnimation = ani; }
 
 private:
 	bool m_restartAnimation = true;

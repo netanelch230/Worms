@@ -10,9 +10,11 @@ const auto spriteSheetGrenadeSize = sf::Vector2u{ 1, 32 };
 class Grenade :public Attack 
 {
 public:
-	Grenade(b2World& world, sf::Vector2f position) :Attack(world, spriteSetting{ position,
-	grenadeSize,Resources::instance().getTexture(grenade) },
- spriteSheetGrenadeSize,GreenGrenadeImageCount,animation_grenade) {
+	Grenade(b2World& world, sf::Vector2f position) :
+		Attack(world, 
+			spriteSetting{ position,grenadeSize,Resources::instance().getTexture(grenade) },
+			AnimationSet{ animation_grenade,spriteSheetGrenadeSize,false,1 },
+			GreenGrenadeImageCount) {
     m_body->SetFixedRotation(false);
 }
 	virtual void applyFeatures(float time) {

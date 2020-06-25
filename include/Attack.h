@@ -6,15 +6,12 @@
 class Attack :public Features , public AnimationObject
 {
 public:
-	Attack(b2World& world, spriteSetting sset, sf::Vector2u imageCount,
-							 sf::Vector2u imagecountWorm, int place, 
-		int distanceToWorm=1,int distanceToObject=1)
-		:Features(imagecountWorm, place,distanceToWorm),
+	Attack(b2World& world, spriteSetting sset, AnimationSet animationSet,
+		sf::Vector2u imageCount,int distanceToObject=1)
+		:Features(animationSet),
 		AnimationObject(sset, imageCount, world, true, distanceToObject) {}
 	void draw(sf::RenderWindow& window) { AbsObject::draw(window); }
 	void explode();
-	//virtual void applyFeatures(float time) = 0;
 	
 private:
-	//int m_count;
 };
