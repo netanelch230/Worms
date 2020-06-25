@@ -5,9 +5,11 @@
 
 class Flick :public Attack {
 public:
-	Flick(b2World& world, sf::Vector2f position) :Attack(world, spriteSetting{ position,
-	grenadeSize,Resources::instance().getTexture(flick) },
- spriteSheetGrenadeSize,flickImageCount,animation_flick) {}
+	Flick(b2World& world, sf::Vector2f position) :
+		Attack(world,
+			spriteSetting{ position,grenadeSize,Resources::instance().getTexture(flick) },
+			AnimationSet{ animation_flick,flickImageCount,false,1 },
+			spriteSheetGrenadeSize) {}
 	virtual void applyFeatures(float time) {};
 
 };

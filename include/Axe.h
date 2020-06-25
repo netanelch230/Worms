@@ -4,9 +4,11 @@
 class Axe :public Attack
 {
 public:
-	Axe(b2World& world, sf::Vector2f position) :Attack(world, spriteSetting{ position,
-	 grenadeSize,Resources::instance().getTexture(axe) },
-		spriteSheetGrenadeSize, GreenGrenadeImageCount, animation_axe) {}
+	Axe(b2World& world, sf::Vector2f position) :
+		Attack(world,
+			spriteSetting{ position,grenadeSize,Resources::instance().getTexture(axe) },
+			AnimationSet{ animation_axe,spriteSheetGrenadeSize,false,1 },
+			GreenGrenadeImageCount ) {}
 	virtual void applyFeatures(float time) {};
 	
 

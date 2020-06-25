@@ -140,11 +140,7 @@ void Player::chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& features
 					auto location = locatin(window, event); //will return where pressed on board
 					checkClick(location, featuresLocation);
 					//handleFeatureChoosing(featureToCreate, currWorm, window);
-					auto place = m_feature->getPlace();
-					auto imageCount = m_feature->getImageCount();
-					auto distance = m_feature->getDistance();
-					m_worms[m_currWormPlayer]->setAnimation(Resources::instance().getTexture(place),
-						imageCount, 0.05f, distance);
+					m_worms[m_currWormPlayer]->setAnimation(m_feature->getAnimationSet(), 0.05f);
 				}
 				m_drawWeaponMenu = false;
 				break;
@@ -160,8 +156,8 @@ void Player::handleFeatureChoosing(animationData featureToCreate, int currWorm, 
 {
 	if (featureToCreate.first == -1)
 		return;
-	m_worms[currWorm]->setAnimation(Resources::instance().getTexture(featureToCreate.first),
-		featureToCreate.second, animationSwitchTime, 1);
+	//m_worms[currWorm]->setAnimation(Resources::instance().getTexture(featureToCreate.first),
+	//	featureToCreate.second, animationSwitchTime, 1);
 	handleCollision(featureToCreate.first, window);
 }
 
@@ -299,9 +295,10 @@ void Player::handleCollision(int wep, sf::RenderWindow& window)
 
 void Player::handleWhiteFlag(sf::RenderWindow& window)
 {
+	WhiteFlag s;
 	for (auto& i : m_worms)
 	{
-		i->setAnimation(Resources::instance().getTexture(animation_whiteFlag), whiteFlagImageCount, 0.03f, 1);
+		i->setAnimation(s.getAnimationSet(), 0.03f);
 	}
 }
 
