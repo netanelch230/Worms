@@ -22,7 +22,6 @@ class AbsObject
 {
 public:
 	
-	AbsObject() {};
 	AbsObject(spriteSetting,b2World& world,bool whichtype);
 	b2Body* getBody() { return m_body; };
 	virtual void draw(sf::RenderWindow& window);

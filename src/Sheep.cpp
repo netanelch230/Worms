@@ -1,20 +1,13 @@
 #pragma once
 #include "Sheep.h"
-#include "..\include\Sheep.h"
 
-void Sheep::applyFeatures(float time)
+
+void Sheep::applyFeatures()
 {
-	if (m_sprite.getScale() == LEFT)
-		force(left);
-	else if (m_sprite.getScale() == RIGHT)
-		force(right);
+	AnimationObject::setAnimation({ exSheep,sf::Vector2u{1,20},false,1 }, 0.03);
 }
 
-void Sheep::changeDirection()
+void Sheep::play()
 {
-
-	if (m_sprite.getScale() == LEFT)
-		m_sprite.setScale(RIGHT);
-	else if (m_sprite.getScale() == RIGHT)
-		m_sprite.setScale(LEFT);
+	
 }

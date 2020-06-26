@@ -15,11 +15,11 @@ void AnimationObject::setAnimation(AnimationSet animset, float switchTime)
 {
 	
 	m_sprite.setTexture(Resources::instance().getTexture(animset.photo));
+	m_sprite.setSize
 	//m_sprite.setSize({ 100,100 });
 	Animation animation(&Resources::instance().getTexture(animset.photo),
 		animset.imageCount, switchTime, animset.distance, animset.restart);
 	m_animation = animation;
-
 }
 
 void AnimationObject::update(float deltaTime)

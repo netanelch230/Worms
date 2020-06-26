@@ -1,16 +1,16 @@
 #pragma once
-#include"Attack.h"
+#include"MovingAttack.h"
 #include"Resources.h"
 
 
-class Stinky :public Attack
+class Stinky :public MovingAttack
 {
 	public:
 		Stinky(b2World& world, sf::Vector2f position) :
-			Attack(world, spriteSetting{ position,grenadeSize,Resources::instance().getTexture(stinky) },
+			MovingAttack(world, spriteSetting{ position,grenadeSize,Resources::instance().getTexture(stinky) },
 			AnimationSet{ animation_stinky,stinkyImageCount,false,1 },
 			spriteSheetGrenadeSize) {}
-			virtual void applyFeatures(float time) {};
+			virtual void applyFeatures() {};
 			virtual void play() override {};
 	private:
 };

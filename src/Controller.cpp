@@ -31,9 +31,30 @@ void Controller::run()
 		m_window.display();
 		exitGame();
 		m_world->SetContactListener(&m_contactListener);
+		bool whiteFlag = false;
+
+		for (auto i = 0; i < m_player.size(); i++)
+		{
+			m_player[i]->run(m_window, m_event, m_player, m_featuresMenu, m_featuresLocation, whiteFlag);
+			if (whiteFlag)
+			{
+				m_player.erase(m_player.begin() + i);
+				whiteFlag = false;
+			}
+		}
+		/*
 		for (auto& i : m_player)
-			i->run(m_window, m_event, m_player, m_featuresMenu,m_featuresLocation);
+		{
+			i->run(m_window, m_event, m_player, m_featuresMenu, m_featuresLocation);
+			if (flag)
+			{
+				
+			}
+		}
+		*/
 	}
+}
+
 }
 
 void Controller::restartPlayers()   

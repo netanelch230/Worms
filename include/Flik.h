@@ -1,16 +1,16 @@
 #pragma once
-#include"Attack.h"
+#include"NonMovingAttack.h"
 #include"Enum.h"
 
 
-class Flick :public Attack {
+class Flick :public NonMovingAttack {
 public:
 	Flick(b2World& world, sf::Vector2f position) :
-		Attack(world,
+		NonMovingAttack(world,
 			spriteSetting{ position,grenadeSize,Resources::instance().getTexture(animation_flick) },
 			AnimationSet{ animation_flick,flickImageCount,false,1 },
 			spriteSheetGrenadeSize) {}
-	virtual void applyFeatures(float time) {};
+	virtual void applyFeatures() {};
 	virtual void play() override {};
 };
 

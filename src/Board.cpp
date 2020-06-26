@@ -55,9 +55,9 @@ void Board::loadJerusalem(b2World& world)
 	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{800,500},jeruland1),world));
 	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{50,300},jeruland1),world));
 	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{300,400},jeruland1),world));
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{100,550},westrenWall),world));
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{500,550},lionGate),world));
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{1000,500},daviaTower),world));
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{100,600},westrenWall),world));
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{500,600},lionGate),world));
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{1000,600},daviaTower),world));
 	
 }
 void Board::loadDesert(b2World& world)

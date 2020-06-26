@@ -1,16 +1,15 @@
 #pragma once
-#include"Attack.h"
+#include"MovingAttack.h"
 
-class Sheep :public Attack 
+class Sheep :public MovingAttack 
 {
 public:
 	Sheep(b2World& world, sf::Vector2f position) :
-		Attack(world, spriteSetting{ position,sf::Vector2f{1,1},Resources::instance().getTexture(sheep) },
+		MovingAttack(world, spriteSetting{ position,sf::Vector2f{1,1},Resources::instance().getTexture(sheep) },
 		AnimationSet{ animaiton_sheep,sheepImageCount,false,1 },
-			sf::Vector2u{ 1,32 }) {}
-	virtual void applyFeatures(float time);
-	virtual void play() override {};
-	void changeDirection();
+			sf::Vector2u{ 1,8 },1) {}
+	virtual void applyFeatures();
+	virtual void play() override;
 private:
 
 

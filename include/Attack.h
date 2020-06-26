@@ -13,6 +13,7 @@ public:
 	void draw(sf::RenderWindow& window) { AbsObject::draw(window); }
 	virtual void play() = 0;
 	void destroy();
-	b2Vec2 force(int i);
+	void update();
 private:
+	sf::Clock m_timeAnimation;
 };

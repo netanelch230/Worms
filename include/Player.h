@@ -38,8 +38,12 @@ private:
 	sf::Text m_timeForRound;
 	std::unique_ptr<Features> m_feature;
 	Board& m_board;
+	bool m_skipTurn = false;
+	bool m_whiteFlag = false;
 
 
+
+	void moveWeaponeFearures();
 	void checkIfEventOccured(sf::RenderWindow& window, sf::Event& event);
 	void handleCollision(int wep, sf::RenderWindow& window);
 	void handleTeleporter(sf::RenderWindow& window);
