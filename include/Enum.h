@@ -30,7 +30,7 @@ const int gameFormatOptions = 2;
 const int colorsOptions = 4;
 const int backgroundOptions = 2;
 
-const int timeOfRound = 10;
+const int timeOfRound = 45;
 //=======================================locations on menu=========================================
 const float playersBottonX = 300;
 const float playersBottonXRatio = 150;
@@ -46,6 +46,9 @@ const int countOfFont = 3;
 const int countOfMusic = 5;
 const auto sizeOfIcon = sf::Vector2f{ 20,30 };
 const auto sizeOfWorm = sf::Vector2f { 40,40 };
+const auto sizeOfPassWorm = sf::Vector2f{ 100,100 };
+const auto sizeOfWhiteFlagWorm = sf::Vector2f{ 100,100 };
+
 //===========================================location of tool bar==================================
 
 const auto toolBarXCoordinate = 984;
@@ -66,7 +69,7 @@ const auto axeImageCount = sf::Vector2u{ 1,15 };
 const auto stinkyImageCount = sf::Vector2u{ 1,10 };
 const auto GreenGrenadeImageCount = sf::Vector2u{ 1,32 };
 const auto skipImageCount = sf::Vector2u{ 1,9 };
-const auto sheepImageCount = sf::Vector2u{ 1,36 };
+const auto sheepImageCount = sf::Vector2u{ 1,8 };
 const auto teleporterImageCount = sf::Vector2u{ 1,36 };
 const auto wormImageCount = sf::Vector2u{ 1,36 };
 const auto WormDieImageCount = sf::Vector2u{ 1,60 };

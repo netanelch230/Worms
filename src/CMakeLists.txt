@@ -14,4 +14,5 @@
 "MyContactListener.cpp"
 "CollisionHandling.cpp"
 "Grenade.cpp"
-"sheep.cpp")
+"sheep.cpp"
+"MovingAttack.cpp")

@@ -2,7 +2,7 @@
 
 
 Grenade::Grenade(b2World& world, sf::Vector2f position):
-		Attack(world, 
+		NonMovingAttack(world, 
 			spriteSetting{ position,grenadeSize,Resources::instance().getTexture(grenade) },
 			AnimationSet{ animation_grenade,spriteSheetGrenadeSize,false,1 },
 			GreenGrenadeImageCount)
@@ -11,7 +11,7 @@ Grenade::Grenade(b2World& world, sf::Vector2f position):
 }
 
 
-void Grenade::applyFeatures(float time)
+void Grenade::applyFeatures()
 {
 	auto pos = m_body->GetWorldCenter();
 		if (m_sprite.getScale() == LEFT)

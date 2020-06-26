@@ -1,15 +1,15 @@
 #pragma once
-#include"Attack.h"
+#include"NonMovingAttack.h"
 
-class Axe :public Attack
+class Axe :public NonMovingAttack
 {
 public:
 	Axe(b2World& world, sf::Vector2f position) :
-		Attack(world,
+		NonMovingAttack(world,
 			spriteSetting{ position,grenadeSize,Resources::instance().getTexture(axe) },
 			AnimationSet{ animation_axe,spriteSheetGrenadeSize,false,1 },
 			GreenGrenadeImageCount ) {}
-	virtual void applyFeatures(float time) {};
+	virtual void applyFeatures() {};
 	virtual void play() override {};
 	
 

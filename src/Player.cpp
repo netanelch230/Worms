@@ -28,7 +28,8 @@ void Player::run(sf::RenderWindow& window,
 	sf::Event& event,
 	std::vector<std::unique_ptr<Player>>& groupPlayers,
 	sf::RectangleShape& featuresMenu,
-	std::vector<sf::Vector2f> featuresLocation)
+	std::vector<sf::Vector2f> featuresLocation,
+	bool &whiteFlag)
 {	
 	Timer::setTime(timeOfRound);			// set time of player's turn.
 	m_currWormPlayer = rand() % wormsLimit;	//randomize the current worm that will play now
@@ -38,11 +39,23 @@ void Player::run(sf::RenderWindow& window,
 		checkIfEventOccured(window, event);
 		wormMove();
 		drawBoardAndAnimation(window, groupPlayers, featuresMenu);
+		moveWeaponeFearures();
 		if (m_drawWeaponMenu) // in here we'll call the draw weapon menu and in addition we'll handle the click of menu
 			chooseWeapon(window, featuresMenu, featuresLocation, groupPlayers);
 		for(auto&i:m_worms)
 			i->destroy();
 	}
+		m_end = false;
+	m_worms[m_currWormPlayer]->setAnimation({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);
+	whiteFlag = m_whiteFlag;
+
+}
+
+void Player::moveWeaponeFearures()
+{
+	if (m_feature && m_drawfeatur)
+		if (auto i = dynamic_cast<MovingAttack*>(m_feature.get()))
+			i->moveWeapone();
 }
 
 /*this function will check if an event has occured from the player and will
@@ -55,37 +68,36 @@ void Player::checkIfEventOccured(sf::RenderWindow& window, sf::Event& event)
 {
 	if (window.pollEvent(event))//wait for event from the player
 	{
-		switch(event.type)
+		switch (event.type)
 		{
-			case sf::Event::MouseButtonPressed:
-				case sf::Mouse::Button::Right:
-					m_drawWeaponMenu = true; // set to true so we'll draw the weapon menu after the case!
-					break;
-				case sf::Event::Closed:
-					window.close();
-					break;
-				break;
-			case sf::Event::KeyPressed:
-				case sf::Keyboard::Space:
-					m_force.restart();
-					//in here netanel, karin and yair needs to handle box-2d
-					break;
-				break;
-		}
-		switch (event.key.code)
-		{
-			case sf::Keyboard::Space:
-				switch (event.type)
+		case sf::Event::MouseButtonPressed:
+		case sf::Mouse::Button::Right:
+			m_drawWeaponMenu = true; // set to true so we'll draw the weapon menu after the case!
+			break;
+		case sf::Event::Closed:
+			window.close();
+			break;
+			break;
+		case sf::Event::KeyPressed:
+			if (event.key.code == sf::Keyboard::Space)
+			{
+				if (m_drawfeatur == false)
 				{
-					case::sf::Event::KeyReleased:
-						case::sf::Keyboard::Space:
-							auto time = m_force.getElapsedTime().asSeconds();
-							m_drawfeatur = true;
- 							m_feature->applyFeatures(time);
-							break;
-						break;
+					m_drawfeatur = true;
+					break;
 				}
-				break;
+				else
+					m_feature->applyFeatures();
+				if (m_skipTurn)
+				{
+					m_worms[m_currWormPlayer]->setAnimation({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);
+					m_end = true;
+					m_skipTurn = false;
+					//handleFeatureChoosing(featureToCreate, currWorm, window);
+				}
+			}
+			break;
+
 		}
 	}
 }
@@ -109,8 +121,8 @@ void Player::drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::un
 		group->draw(window);
 	}
 	if (m_feature && m_drawfeatur)
-	{
-		//m_feature->up
+	{	
+		//m_feature->update();
 		m_feature->draw(window);
 	}
 	window.display();
@@ -300,11 +312,11 @@ void Player::handleCollision(int wep, sf::RenderWindow& window)
 
 void Player::handleWhiteFlag(sf::RenderWindow& window)
 {
-	WhiteFlag s;
+	/*WhiteFlag s;
 	for (auto& i : m_worms)
 	{
 		i->setAnimation(s.getAnimationSet(), 0.03f);
-	}
+	}*/
 }
 
 void Player::handleSkip(sf::RenderWindow& window)
@@ -347,7 +359,7 @@ void Player::handleTeleporter(sf::RenderWindow& window)
 
 void Player::getFeaturesName(int index)
 {
-	auto wormPosition = m_worms[m_currWormPlayer]->getPosition() + sf::Vector2f{ 100,0 };
+	auto wormPosition = m_worms[m_currWormPlayer]->getPosition() + sf::Vector2f{ 0,5 };
 	
 	switch (index)
 	{
