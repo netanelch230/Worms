@@ -45,7 +45,7 @@ const int amuntOfPicture = 100;
 const int countOfFont = 3;
 const int countOfMusic = 5;
 const auto sizeOfIcon = sf::Vector2f{ 20,30 };
-const auto sizeOfWorm = sf::Vector2f { 40,40 };
+const auto sizeOfWorm = sf::Vector2f { 20,20 };
 const auto sizeOfPassWorm = sf::Vector2f{ 100,100 };
 const auto sizeOfWhiteFlagWorm = sf::Vector2f{ 100,100 };
 
@@ -89,6 +89,18 @@ const auto sheepImageCount = sf::Vector2u{ 1,8 };
 const auto teleporterImageCount = sf::Vector2u{ 1,36 };
 const auto wormImageCount = sf::Vector2u{ 1,36 };
 const auto WormDieImageCount = sf::Vector2u{ 1,60 };
+const auto wormAnimationAxe= sf::Vector2u{ 1,15 };
+
+
+
+const auto artilaryimagecount= sf::Vector2u{ 1,30 };
+const auto patrol= sf::Vector2u{ 1,20 };
+const auto callartilary= sf::Vector2u{ 1,10	 };
+
+const auto dinamitstop= sf::Vector2u{ 1,10	 };
+const auto dinamitbegin= sf::Vector2u{ 1,10	 };
+
+
 
 const auto exGrenadeImageCount = sf::Vector2u{ 1,12 };
 const auto exSheepImageCount = sf::Vector2u{ 1,20 };
@@ -165,13 +177,14 @@ enum desertMap
 
 enum featuresWormAnim
 {
-	animation_worm = 28,
-	animation_axe,
-	animation_whiteFlag,
-	animation_flick,
-	animation_grenade,
-	animation_skip,
+	animation_worm=28,
 	animaiton_sheep,
+	animation_grenade,
+	animation_artilary,
+	animation_begin_dinamit,
+	animation_end_dinamit,
+	animation_whiteFlag,
+	animation_skip,
 	animation_stinky,
 	animation_teleporter,
 	animation_die
@@ -180,36 +193,37 @@ enum featuresWormAnim
 
 enum featuresWeaponesAnim
 {
-	sheep=38,
+	sheep=39,
 	grenade,
 	stinky,
 	flik,
-	axe,
+	dinamit,
+	artileri
 };
 
 enum weaponsEffect
 {
-	exGrenade=43,
+	exGrenade=45,
 	exSheep,
 	exStinky
 };
 
 enum menuHeadlines
 {
-	gameFormatHeadline = 46,
+	gameFormatHeadline = 48,
 	gameMapHeadline,
 	playersNamesHeadline,
 	groupAmountHeadlines
 };
 
 enum arrow {
-	greenArrow=50,
+	greenArrow=53,
 	blueArrow,
 	redArrow
 };
 
 enum featuresToolbar {
-	axeIconButton= 53,
+	axeIconButton= 56,
 	flagIconButton,
 	flickIconButton,
 	grenadeIconButton,

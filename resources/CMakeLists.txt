@@ -20,9 +20,7 @@ configure_file ("featuresToolbar/stinkyIconButton.png" ${CMAKE_BINARY_DIR} COPYO
 configure_file ("featuresToolbar/teleportIconButton.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("Animation/wormAnimation/worm.png" ${CMAKE_BINARY_DIR} COPYONLY)
-configure_file ("Animation/wormAnimation/pass.png" ${CMAKE_BINARY_DIR} COPYONLY)
-configure_file ("Animation/wormAnimation/axe.png" ${CMAKE_BINARY_DIR} COPYONLY)
-configure_file ("Animation/wormAnimation/boesh.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Animation/wormAnimation/stinky.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/wormAnimation/sheep.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/wormAnimation/whiteFlag.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/wormAnimation/greenGrenade.png" ${CMAKE_BINARY_DIR} COPYONLY)
@@ -32,6 +30,13 @@ configure_file ("Animation/wormAnimation/arrowBlue.png" ${CMAKE_BINARY_DIR} COPY
 configure_file ("Animation/wormAnimation/arrowGreen.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/wormAnimation/telleporter.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
+configure_file ("Animation/wormAnimation/dinamitbegin.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Animation/wormAnimation/dinamitsof.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Animation/wormAnimation/callArtilery.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
+configure_file ("Animation/weaponesAnimation/artilary.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Animation/weaponesAnimation/dynamite.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Animation/weaponesAnimation/petrol4.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/weaponesAnimation/exGrenade.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/weaponesAnimation/exSheep.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/weaponesAnimation/exStinky.png" ${CMAKE_BINARY_DIR} COPYONLY)

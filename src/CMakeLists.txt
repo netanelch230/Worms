@@ -16,4 +16,6 @@
 "Grenade.cpp"
 "sheep.cpp"
 "MovingAttack.cpp"
-"FeaturesToolBar.cpp")
+"FeaturesToolBar.cpp"
+"Artilary.cpp")
+

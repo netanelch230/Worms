@@ -77,6 +77,7 @@ private:
 	bool timesUp();
 	int getColorArrow();
 	void definArrow();
+	void checkHealth();
 	
 };
 

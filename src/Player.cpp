@@ -1,4 +1,4 @@
-#include "Player.h"
+	#include "Player.h"
 #include <iostream>
 #include "MyQueryCallback.h"
 
@@ -40,7 +40,7 @@ void Player::run(sf::RenderWindow& window,
 	// while the turn is not over - keep playing, or while the player didnt picked feature-weapon
 	m_arrow.setPosition(m_worms[m_currWormPlayer]->getPosition());
 	Timer::setTime(timeOfRound);			// set time of player's turn.
-	
+	checkHealth();
 	while (!timesUp()) //needs to be change
 	{
 		checkIfEventOccured(window, event);
@@ -146,7 +146,13 @@ void Player::drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::un
 	{	
 		m_feature->update();
 		m_feature->draw(window);
-		if (m_feature->destroy(Timer::getTime()));
+
+		if (m_feature->destroy(Timer::getTime()))
+		{
+			m_feature.reset();
+			m_drawfeatur = false;
+		}
+
 	}
 	window.draw(m_arrow);
 	/*m_arrow.update(0.03);
@@ -338,11 +344,11 @@ void Player::handleCollision(int wep, sf::RenderWindow& window)
 		break;
 	case animation_grenade:
 		break;
-	case animation_flick:
+	case animation_artilary:
 		break;
-	case animation_axe:
-		//figure the player who werw attacked and change his life to helf
-		break;
+	//case animation_dinamit:
+	//	//figure the player who werw attacked and change his life to helf
+	//	break;
 	case animation_teleporter:
 	{
 		handleTeleporter(window);
@@ -420,12 +426,18 @@ void Player::getFeaturesName(int index)
 		break;
 	case animation_whiteFlag:
 		m_feature = std::make_unique<WhiteFlag>();
+
 		break;
-	case animation_flick:
-		m_feature = std::make_unique<Flick>(m_world, wormPosition);
+	case animation_artilary:
+		m_feature = std::make_unique<Artilary>(m_world, wormPosition);
 		break;
+
 	case animation_grenade:
 		m_feature = std::make_unique<Grenade>(m_world, wormPosition);
+
+	case animation_begin_dinamit:
+		m_feature = std::make_unique<Dinamit>(m_world, wormPosition);
+
 		break;
 	case animation_skip:
 		m_feature = std::make_unique<Pass>();
@@ -443,3 +455,8 @@ void Player::getFeaturesName(int index)
 	}
 }
 
+void Player::checkHealth()
+{
+	for (auto& j : m_worms)
+		j->checkHealth();
+}

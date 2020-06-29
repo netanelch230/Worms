@@ -47,18 +47,25 @@ void Resources::loadPicture()
 	//load animations!
 	m_picture[animation_worm].loadFromFile("worm.png");
 	m_picture[animaiton_sheep].loadFromFile("sheep.png");
-	m_picture[animation_axe].loadFromFile("axe.png");
+  
 	m_picture[animation_whiteFlag].loadFromFile("whiteFlag.png");
-	m_picture[animation_flick].loadFromFile("flick.png");
 	m_picture[animation_grenade].loadFromFile("greenGrenade.png");
+
+	m_picture[animation_begin_dinamit].loadFromFile("dinamitBegin.png");
+	m_picture[animation_end_dinamit].loadFromFile("dinamitsof.png");
+	m_picture[animation_artilary].loadFromFile("callartilery.png");
+	m_picture[animation_teleporter].loadFromFile("mahbet.png");
+
 	m_picture[animation_skip].loadFromFile("pass.png");
 	m_picture[animation_stinky].loadFromFile("boesh.png");
 	m_picture[animation_teleporter].loadFromFile("telleporter.png");
 
 	m_picture[animation_die].loadFromFile("wdie.png");
+	
 	m_picture[grenade].loadFromFile("GRENADE1.png");
-	m_picture[stinky].loadFromFile("stinkyWalk.png");
 	m_picture[sheep].loadFromFile("sheepWalk.png");
+	m_picture[dinamit].loadFromFile("dynamite.png");
+	
 	m_picture[exGrenade].loadFromFile("exGrenade.png");
 	m_picture[exSheep].loadFromFile("exSheep.png");
 	m_picture[exStinky].loadFromFile("exStinky.png");

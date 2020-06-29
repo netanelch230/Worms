@@ -1,4 +1,5 @@
 #include "MovingAttack.h"
+#include <Worm.h>
 
 void MovingAttack::moveWeapone()
 {
@@ -41,13 +42,16 @@ void MovingAttack::featureExplosion(b2World& world)
 	b2AABB aabb;
 	aabb.lowerBound = center - b2Vec2(blastRadius, blastRadius);
 	aabb.upperBound = center + b2Vec2(blastRadius, blastRadius);
-	world.QueryAABB(&queryCallback, aabb);
+    world.QueryAABB(&queryCallback, aabb);
 
 	//check which of these bodies have their center of mass within the blast radius
 	for (auto i : queryCallback.getFoundBodies())
 	{
 		b2Body* body = i;
-		b2Vec2 bodyCom = body->GetWorldCenter();
+		b2Vec2 bodyCom = body->GetWorldCenter();	
+		auto data = i->GetUserData();
+
+		blastPoint(data);
 
 		if ((bodyCom - center).Length() >= blastRadius)
 			continue;
@@ -55,6 +59,13 @@ void MovingAttack::featureExplosion(b2World& world)
 		applyBlastImpulse(body, center, bodyCom, blastPower);
 	}
 
+}
+
+void MovingAttack::blastPoint(void* data)
+{
+	if (auto k = static_cast<AbsObject*> (data))
+		if (auto z = dynamic_cast<Worm*>(k))
+			z->takeOffPoints(50);
 }
 
 void MovingAttack::applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower)
