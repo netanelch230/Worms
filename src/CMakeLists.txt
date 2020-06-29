@@ -15,4 +15,5 @@
 "CollisionHandling.cpp"
 "Grenade.cpp"
 "sheep.cpp"
-"MovingAttack.cpp")
+"MovingAttack.cpp"
+"FeaturesToolBar.cpp")

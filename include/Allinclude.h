@@ -16,5 +16,5 @@
 #include "WhiteFlag.h"
 #include "Pass.h"
 #include "Board.h"
-
+#include "FeaturesToolBar.h"
 #include "staticObject.h"

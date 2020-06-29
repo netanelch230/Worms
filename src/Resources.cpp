@@ -48,12 +48,13 @@ void Resources::loadPicture()
 	m_picture[animation_worm].loadFromFile("worm.png");
 	m_picture[animaiton_sheep].loadFromFile("sheep.png");
 	m_picture[animation_axe].loadFromFile("axe.png");
-	m_picture[animation_stinky].loadFromFile("boesh.png");
-	m_picture[animation_whiteFlag].loadFromFile("wsurndrd.png");
-	m_picture[animation_grenade].loadFromFile("greenGrenade.png");
+	m_picture[animation_whiteFlag].loadFromFile("whiteFlag.png");
 	m_picture[animation_flick].loadFromFile("flick.png");
-	m_picture[animation_teleporter].loadFromFile("mahbet.png");
+	m_picture[animation_grenade].loadFromFile("greenGrenade.png");
 	m_picture[animation_skip].loadFromFile("pass.png");
+	m_picture[animation_stinky].loadFromFile("boesh.png");
+	m_picture[animation_teleporter].loadFromFile("telleporter.png");
+
 	m_picture[animation_die].loadFromFile("wdie.png");
 	m_picture[grenade].loadFromFile("GRENADE1.png");
 	m_picture[stinky].loadFromFile("stinkyWalk.png");
@@ -73,6 +74,16 @@ void Resources::loadPicture()
 	//load thhw arrow
 	m_picture[greenArrow].loadFromFile("arrowGreen.png");
 	m_picture[blueArrow].loadFromFile("arrowBlue.png");
+
+	m_picture[axeIconButton].loadFromFile("axeIconButton.png");
+	m_picture[flagIconButton].loadFromFile("flagIconButton.png");
+	m_picture[flickIconButton].loadFromFile("flickIconButton.png");
+	m_picture[grenadeIconButton].loadFromFile("grenadeIconButton.png");
+	m_picture[passIconButton].loadFromFile("passIconButton.png");
+	m_picture[sheepIconButton].loadFromFile("sheepIconButton.png");
+	m_picture[stinkyIconButton].loadFromFile("stinkyIconButton.png");
+	m_picture[teleportIconButton].loadFromFile("teleportIconButton.png");
+
 }
 
 void Resources::loadFont()

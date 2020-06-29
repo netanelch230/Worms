@@ -10,9 +10,10 @@
 and the color of the group,
 world is the physical world of the player
 */
-Player::Player(std::string name, sf::Color color, b2World & world,Board& board) :
-	m_name(name), m_color(color), m_world(world),m_board(board)
+Player::Player(std::string name, sf::Color color, b2World & world,Board& board, FeaturesToolBar& featuresMenu):
+	m_name(name), m_color(color), m_world(world),m_board(board), m_featuresMenu(featuresMenu)
 {
+	
 	creatWorms();
 	loadTimer();
 	definArrow();
@@ -29,8 +30,6 @@ that will play out of the worms vector.
 void Player::run(sf::RenderWindow& window,
 	sf::Event& event,
 	std::vector<std::unique_ptr<Player>>& groupPlayers,
-	sf::RectangleShape& featuresMenu,
-	std::vector<sf::Vector2f> featuresLocation,
 	bool &whiteFlag)
 {	
 	static int count = 0;
@@ -46,10 +45,10 @@ void Player::run(sf::RenderWindow& window,
 	{
 		checkIfEventOccured(window, event);
 		wormMove();
-		drawBoardAndAnimation(window, groupPlayers, featuresMenu);
+		drawBoardAndAnimation(window, groupPlayers);
 		moveWeaponeFearures();
 		if (m_drawWeaponMenu) // in here we'll call the draw weapon menu and in addition we'll handle the click of menu
-			chooseWeapon(window, featuresMenu, featuresLocation, groupPlayers);
+			chooseWeapon(window, groupPlayers);
 		for(auto&i:m_worms)
 			i->destroy();
 		
@@ -64,6 +63,12 @@ void Player::explosion()
 {
 	if (auto i = dynamic_cast<MovingAttack*>(m_feature.get()))
 		i->featureExplosion(m_world);
+}
+
+void Player::checkButtonFeaturesMenu(sf::Vector2f& location)
+{
+	//std::vector < std::unique_ptr <Button> > m_featuresVec = m_featuresMenu.getFeaturesVec();
+
 }
 
 void Player::moveWeaponeFearures()
@@ -122,14 +127,13 @@ void Player::checkIfEventOccured(sf::RenderWindow& window, sf::Event& event)
 
 /*this function will draw the board and all the animations
 and objects+all the of the physical elements.*/
-void Player::drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::unique_ptr<Player>>& groupPlayers
-	,sf::RectangleShape& featuresMenu)
+void Player::drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::unique_ptr<Player>>& groupPlayers)
 {
 	window.clear();
 	m_world.Step(TIMESTEP, VELITER, POSITER);
 	m_board.draw(window);
 	if (m_drawWeaponMenu)
-		window.draw(featuresMenu);
+		m_featuresMenu.drawFeaturesMenu(window);
 
 	window.draw(m_timeForRound);
 
@@ -140,10 +144,9 @@ void Player::drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::un
 	}
 	if (m_feature && m_drawfeatur)
 	{	
-		//m_feature->update();
+		m_feature->update();
 		m_feature->draw(window);
-		if (m_feature->destroy(Timer::getTime()))
-			;
+		if (m_feature->destroy(Timer::getTime()));
 	}
 	window.draw(m_arrow);
 	/*m_arrow.update(0.03);
@@ -159,13 +162,12 @@ void Player::draw(sf::RenderWindow& window) const
 		i->draw(window);
 }
 
-void Player::chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& featuresMenu,
-	std::vector<sf::Vector2f> featuresLocation,
+void Player::chooseWeapon(sf::RenderWindow& window,
 	std::vector<std::unique_ptr<Player>>& groupPlayers)
 {
 	while (m_drawWeaponMenu && !timesUp()) // while we still want to use the weapon Menu
 	{
-		drawBoardAndAnimation(window, groupPlayers, featuresMenu);
+		drawBoardAndAnimation(window, groupPlayers);
 		if (auto event = sf::Event{}; window.pollEvent(event))
 		{
 			if (event.type == sf::Event::MouseButtonPressed)
@@ -178,7 +180,12 @@ void Player::chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& features
 				else if (event.mouseButton.button == sf::Mouse::Left)
 				{
 					auto location = locatin(window, event); //will return where pressed on board
-					checkClick(location, featuresLocation);
+					if (event.mouseButton.button == sf::Event::MouseMoved)
+					{
+						checkButtonFeaturesMenu(location);
+					}
+					
+					checkClick(location);
 					//handleFeatureChoosing(featureToCreate, currWorm, window);
 					m_worms[m_currWormPlayer]->setAnimation(m_feature->getAnimationSet(), 0.05f);
 				}
@@ -206,17 +213,20 @@ This function is handling the player click on the weapons tool bar and will chec
 the player is asking to use. in addition after getting the feature's type we'll create
 the Object for the rellevant feature.
 */
-void Player::checkClick(sf::Vector2f clickLocation,
-	std::vector<sf::Vector2f> featuresLocation)
+void Player::checkClick(sf::Vector2f clickLocation)
 {
-	for (auto i = featuresLocation.begin(); i != featuresLocation.end(); ++i)
+	std::vector < std::unique_ptr <Button>> &m_featuresVec = m_featuresMenu.getFeaturesVec();
+	
+	for (int i = 0; i < featuresAmount; i++)
 	{
-		if (abs(clickLocation.x - i->x) < squareSize && abs(clickLocation.y - i->y) < squareSize)
+		if (m_featuresVec[i]->contains(clickLocation))
 		{
-			getFeaturesName(std::distance(featuresLocation.begin(), i) + featureDistance);
+			getFeaturesName(i+ featureDistance);
 			break;
 		}
 	}
+	
+	
 }
 
 //---------------------------------------------
@@ -405,29 +415,29 @@ void Player::getFeaturesName(int index)
 	
 	switch (index)
 	{
-	case animaiton_sheep:
-		m_feature = std::make_unique<Sheep>(m_world, wormPosition);
-		break;
-	case animation_grenade:
-		m_feature = std::make_unique<Grenade>(m_world, wormPosition);
-		break;
-	case animation_flick:
-		m_feature = std::make_unique<Flick>(m_world, wormPosition);
-		break;
 	case animation_axe:
 		m_feature = std::make_unique<Axe>(m_world, wormPosition);
-		break;
-	case animation_teleporter:
-		m_feature = std::make_unique<Transform>();
 		break;
 	case animation_whiteFlag:
 		m_feature = std::make_unique<WhiteFlag>();
 		break;
-	case animation_stinky:
-		m_feature = std::make_unique<Stinky>(m_world, wormPosition);
+	case animation_flick:
+		m_feature = std::make_unique<Flick>(m_world, wormPosition);
+		break;
+	case animation_grenade:
+		m_feature = std::make_unique<Grenade>(m_world, wormPosition);
 		break;
 	case animation_skip:
 		m_feature = std::make_unique<Pass>();
+		break;
+	case animaiton_sheep:
+		m_feature = std::make_unique<Sheep>(m_world, wormPosition);
+		break;
+	case animation_stinky:
+		m_feature = std::make_unique<Stinky>(m_world, wormPosition);
+		break;
+	case animation_teleporter:
+		m_feature = std::make_unique<Transform>();
 		break;
 		m_feature = nullptr;
 	}

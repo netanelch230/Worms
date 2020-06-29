@@ -52,10 +52,26 @@ const auto sizeOfWhiteFlagWorm = sf::Vector2f{ 100,100 };
 //===========================================location of tool bar==================================
 
 const auto toolBarXCoordinate = 984;
-//=======================================locations on Board=========================================
+//=======================================locations of tool bar on Board=============================
 
+const auto axeIcon = sf::Vector2f{ 216, 104 };
+const auto flagIcon = sf::Vector2f{ 248, 104 };
+const auto flickIcon = sf::Vector2f{ 280, 104 };
+const auto grenadeIcon = sf::Vector2f{ 312, 104 };
+const auto passIcon = sf::Vector2f{ 216, 136 };
+const auto sheepIcon = sf::Vector2f{ 216, 168 };
+const auto stinkyIcon = sf::Vector2f{ 216, 200 };
+const auto teleportIcon = sf::Vector2f{ 216, 232 };
+
+const float feautersX = 1000.0;
+const float feautersY = 80.0;
+const int feauterSize = 32;
 const auto featuresCoordinates = sf::Vector2f{ 216, 104 };
 
+//========================================number of features button=================================
+
+const auto featuresAmount = 8;
+const auto featuresEnum = 53;
 //=======================================locations on Board=========================================
 
 const int rowsInTable = 2;
@@ -149,15 +165,15 @@ enum desertMap
 
 enum featuresWormAnim
 {
-	animation_worm=28,
-	animaiton_sheep,
-	animation_grenade,
-	animation_flick,
+	animation_worm = 28,
 	animation_axe,
-	animation_teleporter,
 	animation_whiteFlag,
-	animation_stinky,
+	animation_flick,
+	animation_grenade,
 	animation_skip,
+	animaiton_sheep,
+	animation_stinky,
+	animation_teleporter,
 	animation_die
 };
 
@@ -192,6 +208,16 @@ enum arrow {
 	redArrow
 };
 
+enum featuresToolbar {
+	axeIconButton= 53,
+	flagIconButton,
+	flickIconButton,
+	grenadeIconButton,
+	passIconButton,
+	sheepIconButton,
+	stinkyIconButton,
+	teleportIconButton
+};
 enum sides
 {
 	jump,

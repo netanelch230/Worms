@@ -15,13 +15,12 @@ using animationData = std::pair<int, sf::Vector2u>;
 class Player
 {
 public:
-	Player(std::string name, sf::Color color, b2World& world,
-		Board& board);
+	Player(std::string name, sf::Color color, b2World& world, Board& board, FeaturesToolBar& featuresMenu);
 	std::string getName() { return m_name; }
-	//~Player();
+	~Player() = default;
 	void run(sf::RenderWindow& window, sf::Event& event, 
 		std::vector<std::unique_ptr<Player>>& groupPlayers,
-			sf::RectangleShape &featuresMenu,std::vector<sf::Vector2f> featuresLocation, bool& whiteFlag);
+		 bool& whiteFlag);
 	void draw(sf::RenderWindow& window) const;					//draw all the worms
 	//void loadFeatures(const sf::Texture& tex, const sf::Vector2f& pos);
 	
@@ -38,6 +37,8 @@ private:
 	sf::Text m_timeForRound;
 	std::unique_ptr<Features> m_feature;
 	Board& m_board;
+	FeaturesToolBar &m_featuresMenu;
+
 	bool m_skipTurn = false;
 	bool m_whiteFlag = false;
 	bool m_end;
@@ -50,6 +51,7 @@ private:
 	void applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower);
 	void explosion();
 
+	void checkButtonFeaturesMenu(sf::Vector2f &location);
 	void moveWeaponeFearures();
 	void checkIfEventOccured(sf::RenderWindow& window, sf::Event& event);
 	void handleCollision(int wep, sf::RenderWindow& window);
@@ -58,15 +60,13 @@ private:
 	void handleWhiteFlag(sf::RenderWindow& window);
 	void handleSkip(sf::RenderWindow & window);
 
-	void drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::unique_ptr<Player>>& groupPlayers, 
-		sf::RectangleShape& featuresMenu);
+	void drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::unique_ptr<Player>>& groupPlayers);
 	bool m_drawWeaponMenu = false; //if pressed right click we'll update to true and we'll print the weapon menu
 	bool m_drawfeatur = false;
-	void chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& featuresMenu,
-		std::vector<sf::Vector2f> featuresLocation,
+	void chooseWeapon(sf::RenderWindow& window,
 		std::vector<std::unique_ptr<Player>>& groupPlayers);
 
-	void checkClick(sf::Vector2f clickLocation, std::vector<sf::Vector2f> featuresLocation);
+	void checkClick(sf::Vector2f clickLocation);
 	void getFeaturesName(int index);
 
 	void wormMove();
