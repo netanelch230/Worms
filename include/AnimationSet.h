@@ -6,7 +6,7 @@ struct AnimationSet
 {
 	int photo;
 	sf::Vector2u imageCount; 
-	bool restart; //האם לרוץ על האנמציה מספר פעמים
-	int distance;//מרחק בין האנימציות של התולעים
+	bool restart; //means if we need to run again on the animation
+	int distance;//distance of animations 
 	sf::Vector2f sizeOfAni;
 };

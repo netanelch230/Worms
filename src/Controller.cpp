@@ -8,16 +8,9 @@ Controller::Controller()
 	{
 		defineBoard();
 		restartPlayers();
-		restartFeaturesMenu();
 	}
 }
 
-void Controller::restartFeaturesMenu()
-{
-	//m_featuresMenu.setTexture(&Resources::instance().getTexture(featuresMenu));
-	//m_featuresMenu.setSize(featuresCoordinates);
-	//m_featuresMenu.setPosition({ 984, 0 });*/
-}
 
 void Controller::run()
 {
@@ -32,7 +25,7 @@ void Controller::run()
 		bool whiteFlag = false; //this will handle the case we'll get white flag- we'll delete the current group.
 		for (auto i = 0; i < m_player.size(); i++)
 		{
-			m_player[i]->run(m_window, m_event, m_player, whiteFlag);
+			m_player[i]->run(m_event, m_player, whiteFlag);
 			if (whiteFlag)
 			{
 				m_player.erase(m_player.begin() + i);//delete current group.
@@ -53,7 +46,7 @@ void Controller::restartPlayers()
 	for (auto& it : m_player)
 	{
 		auto i = std::make_unique<Player>(name[j], m_menu.getInput().m_playersColor[j],
-			*m_world,m_board, m_featuresToolBar);
+			*m_world,m_board, m_featuresToolBar,m_window);
 		it.swap(i);
 		j++;
 	}
@@ -94,7 +87,7 @@ void Controller::defineBoard()
 void Controller::drawPlayer()
 {
 	for (auto& i : m_player)
-		i->draw(m_window);
+		i->draw();
 }
 
 void Controller::exitGame()
@@ -106,4 +99,9 @@ void Controller::exitGame()
 			m_window.close();
 			break;
 		}
+}
+
+sf::RenderWindow& Controller::getWindow()
+{
+	return m_window;
 }

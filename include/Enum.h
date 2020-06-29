@@ -2,7 +2,7 @@
 #include<SFML/Graphics.hpp>
 
 //==============================const timer======================================
-
+const auto oneRound = 3;
 //============================player enums=======================================
 const auto wormTextBoxCorLeft = sf::Vector2f{ 17, -25 };
 const auto wormTextBoxCorRight = sf::Vector2f{ -17, -25 };
@@ -17,10 +17,10 @@ const auto LEFT = sf::Vector2f{ 1,1 };
 //=====================================animation features==============
 const auto animationSwitchTime = 0.03f;
 //================================================================================
-const int colorAmount = 4;
+const int colorAmount = 3;
 const int recSize = 50;
-const int maxTextFields = 4;
-// 4 groups is the maximum
+const int maxTextFields = 3;
+// 3 groups is the maximum
 
 const int minGroupIndex = 0;
 const int maxGroupIndex = 3;
@@ -32,9 +32,7 @@ const int backgroundOptions = 2;
 
 const int timeOfRound = 45;
 //=======================================locations on menu=========================================
-const float playersBottonX = 300;
 const float playersBottonXRatio = 150;
-const float playersBottonY = 200;
 const float gameFormatX = 10;
 
 const size_t wormsLimit = 5;
@@ -48,21 +46,13 @@ const auto sizeOfIcon = sf::Vector2f{ 20,30 };
 const auto sizeOfWorm = sf::Vector2f { 20,20 };
 const auto sizeOfPassWorm = sf::Vector2f{ 100,100 };
 const auto sizeOfWhiteFlagWorm = sf::Vector2f{ 100,100 };
+const auto sizeOfTelleporterWorm = sf::Vector2f{ 100,100 };
+const auto sizeOfWalkWorm = sf::Vector2f{ 100,100 };
 
 //===========================================location of tool bar==================================
 
 const auto toolBarXCoordinate = 984;
-//=======================================locations of tool bar on Board=============================
-
-const auto axeIcon = sf::Vector2f{ 216, 104 };
-const auto flagIcon = sf::Vector2f{ 248, 104 };
-const auto flickIcon = sf::Vector2f{ 280, 104 };
-const auto grenadeIcon = sf::Vector2f{ 312, 104 };
-const auto passIcon = sf::Vector2f{ 216, 136 };
-const auto sheepIcon = sf::Vector2f{ 216, 168 };
-const auto stinkyIcon = sf::Vector2f{ 216, 200 };
-const auto teleportIcon = sf::Vector2f{ 216, 232 };
-
+//=======================================locations of tool bar on Board============================
 const float feautersX = 1000.0;
 const float feautersY = 80.0;
 const int feauterSize = 32;
@@ -76,23 +66,16 @@ const auto featuresEnum = 53;
 
 const int rowsInTable = 2;
 const int colsInTable = 4;
-const int squareSize = 50;
 
 //=======================const of image count of features==============================
-const auto flickImageCount = sf::Vector2u{ 1,17 };
-const auto whiteFlagImageCount = sf::Vector2u{ 1,16 };
-const auto axeImageCount = sf::Vector2u{ 1,15 };
+const auto whiteFlagImageCount = sf::Vector2u{ 1,10 };
 const auto stinkyImageCount = sf::Vector2u{ 1,10 };
 const auto GreenGrenadeImageCount = sf::Vector2u{ 1,32 };
 const auto skipImageCount = sf::Vector2u{ 1,9 };
 const auto sheepImageCount = sf::Vector2u{ 1,8 };
-const auto teleporterImageCount = sf::Vector2u{ 1,36 };
+const auto teleporterImageCount = sf::Vector2u{ 1,10 };
 const auto wormImageCount = sf::Vector2u{ 1,36 };
 const auto WormDieImageCount = sf::Vector2u{ 1,60 };
-const auto wormAnimationAxe= sf::Vector2u{ 1,15 };
-
-
-
 const auto artilaryimagecount= sf::Vector2u{ 1,30 };
 const auto patrol= sf::Vector2u{ 1,20 };
 const auto callartilary= sf::Vector2u{ 1,10	 };
@@ -139,21 +122,17 @@ enum menuPictures
 {
 	menuPic1,
 	menuPic2,
-	playWithFriendsPic,
-	playWithComputerPic,
 	backGround1pic,
 	backGround2pic,
 	start,
 	exitGame,
-	p1,
-	p2,
-	p3,
-	p4
+	playTwo,
+	playThree
 };
 
 enum jerusalemMap
 {
-	featuresMenu = 12,
+	featuresMenu = 8,
 	jeruland1,
 	westrenWall,
 	lionGate,
@@ -163,7 +142,7 @@ enum jerusalemMap
 
 enum desertMap
 {
-	cactus=18,
+	cactus=14,
 	camel,
 	desertBack,
 	desertLand3,
@@ -177,7 +156,7 @@ enum desertMap
 
 enum featuresWormAnim
 {
-	animation_worm=28,
+	animation_worm=22,
 	animaiton_sheep,
 	animation_grenade,
 	animation_artilary,
@@ -193,7 +172,7 @@ enum featuresWormAnim
 
 enum featuresWeaponesAnim
 {
-	sheep=39,
+	sheep=33,
 	grenade,
 	stinky,
 	flik,
@@ -203,27 +182,27 @@ enum featuresWeaponesAnim
 
 enum weaponsEffect
 {
-	exGrenade=45,
+	exGrenade=39,
 	exSheep,
 	exStinky
 };
 
 enum menuHeadlines
 {
-	gameFormatHeadline = 48,
+	gameFormatHeadline = 42,
 	gameMapHeadline,
 	playersNamesHeadline,
 	groupAmountHeadlines
 };
 
 enum arrow {
-	greenArrow=53,
+	greenArrow=46,
 	blueArrow,
 	redArrow
 };
 
 enum featuresToolbar {
-	axeIconButton= 56,
+	axeIconButton= 49,
 	flagIconButton,
 	flickIconButton,
 	grenadeIconButton,

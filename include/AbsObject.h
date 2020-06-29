@@ -17,7 +17,7 @@ struct spriteSetting
 	sf::Texture& picture;
 };
     static float PPM = 64.f;                     /////convert to world cords
-	static  float MPP = 0.015625f;                //////convert to world cords
+	static float MPP = 0.015625f;                //////convert to world cords
 class AbsObject
 {
 public:

@@ -15,13 +15,14 @@ using animationData = std::pair<int, sf::Vector2u>;
 class Player
 {
 public:
-	Player(std::string name, sf::Color color, b2World& world, Board& board, FeaturesToolBar& featuresMenu);
+	Player(std::string name, sf::Color color, b2World& world, Board& board, 
+		FeaturesToolBar& featuresMenu,sf::RenderWindow& window);
 	std::string getName() { return m_name; }
 	~Player() = default;
-	void run(sf::RenderWindow& window, sf::Event& event, 
+	void run(sf::Event& event, 
 		std::vector<std::unique_ptr<Player>>& groupPlayers,
 		 bool& whiteFlag);
-	void draw(sf::RenderWindow& window) const;					//draw all the worms
+	void draw() const;					//draw all the worms
 	//void loadFeatures(const sf::Texture& tex, const sf::Vector2f& pos);
 	
 private:
@@ -38,6 +39,7 @@ private:
 	std::unique_ptr<Features> m_feature;
 	Board& m_board;
 	FeaturesToolBar &m_featuresMenu;
+	sf::RenderWindow& m_window;
 
 	bool m_skipTurn = false;
 	bool m_whiteFlag = false;
@@ -45,26 +47,22 @@ private:
 	int m_currWormPlayer = 0;
 	sf::Clock m_force; // will handle the force of using weapon - physical element.
 	//create object for the enum class so we'll be able to used it in the Player's function 
-	//AnimationObject m_arrow;
 	sf::Sprite m_arrow;
 
-	void applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower);
 	void explosion();
 
 	void checkButtonFeaturesMenu(sf::Vector2f &location);
 	void moveWeaponeFearures();
-	void checkIfEventOccured(sf::RenderWindow& window, sf::Event& event);
-	void handleCollision(int wep, sf::RenderWindow& window);
-	void handleTeleporter(sf::RenderWindow& window);
-	void handleFeatureChoosing(animationData featureToCreate, int currWorm, sf::RenderWindow& window);
-	void handleWhiteFlag(sf::RenderWindow& window);
-	void handleSkip(sf::RenderWindow & window);
-
-	void drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::unique_ptr<Player>>& groupPlayers);
+	void checkIfEventOccured(sf::Event& event);
+	void handleCollision(int wep);
+	void handleTeleporter();
+	void handleFeatureChoosing();
+	void handleWhiteFlag();
+	void handleSkip();
+	void drawBoardAndAnimation(std::vector<std::unique_ptr<Player>>& groupPlayers);
 	bool m_drawWeaponMenu = false; //if pressed right click we'll update to true and we'll print the weapon menu
 	bool m_drawfeatur = false;
-	void chooseWeapon(sf::RenderWindow& window,
-		std::vector<std::unique_ptr<Player>>& groupPlayers);
+	void chooseWeapon(std::vector<std::unique_ptr<Player>>& groupPlayers);
 
 	void checkClick(sf::Vector2f clickLocation);
 	void getFeaturesName(int index);
@@ -73,11 +71,13 @@ private:
 	void update();
 	void loadTimer();
 	void creatWorms();
-	sf::Vector2f locatin(sf::RenderWindow&, sf::Event&) const;
+	sf::Vector2f locatin(sf::Event&) const;
 	bool timesUp();
 	int getColorArrow();
 	void definArrow();
 	void checkHealth();
+		void handleSkipTurn();
+
 	
 };
 

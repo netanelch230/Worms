@@ -13,21 +13,20 @@ class Controller
 public:
 	Controller();
 	~Controller() {};
-	void run();                   //main function
+	void run(); //function that will run the player
 	
 private:
 	
 	std::unique_ptr <b2World> m_world;
 	sf::RenderWindow m_window = sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Worms");
-	//sf::RectangleShape m_featuresMenu;
 	std::vector<std::unique_ptr<Player>> m_player;
 	sf::Event m_event;
 	GameMenu m_menu;
 	Board m_board;
 	MyContactListener m_contactListener;
+	sf::RenderWindow& getWindow();
 	FeaturesToolBar m_featuresToolBar;
 	
-	void restartFeaturesMenu();
 	void restartPlayers();        //build the player from menuInput
 	void defineBoard();     //define the arrbackground from menuInput
 	void drawPlayer();
