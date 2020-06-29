@@ -26,17 +26,17 @@ b2Vec2 Worm::forc()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		m_sprite.setScale(RIGHT);
-		return b2Vec2{ 0.5,0 };
+		return b2Vec2{ 0.1,0 };
 	}
 
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		m_sprite.setScale(LEFT);
-		return b2Vec2{ -0.5,0 };
+		return b2Vec2{ -0.1,0 };
 	}
 
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		return b2Vec2{ 0,-0.5 };
+		return b2Vec2{ 0,-0.1 };
 
 	else
 		return b2Vec2{ 0,0 };
@@ -45,10 +45,11 @@ b2Vec2 Worm::forc()
 
 Worm::Worm(sf::Vector2f& location, std::string name, sf::Color color,  b2World& world) :
 	AnimationObject(spriteSetting{ location,sizeOfWorm,
-			Resources::instance().getTexture(animation_worm) }, sf::Vector2u{ 1,36 },world,true,1)
+			Resources::instance().getTexture(animation_worm) }, sf::Vector2u{ 1,36 },world,true,1),
+	m_name_string(name)
 {
 	m_name.setFont(Resources::instance().getfont(name_font));
-	m_name.setString(name+'\n'+"   "+std::to_string(m_life));
+	m_name.setString(m_name_string +'\n'+"   "+std::to_string(m_life));
 	m_name.setFillColor(color);
 	m_name.setPosition(location + sf::Vector2f{ 10, -15 });
 	m_name.setScale(0.5, 0.5);
@@ -68,6 +69,7 @@ and in addition will display the current animation of the board'*/
 void Worm::draw(sf::RenderWindow& window)
 {
 	AnimationObject::draw(window);
+	m_name.setString(m_name_string +'\n'+"   "+std::to_string(m_life));
 	m_name.setPosition(getPosition() + getCurrentMove()); //convert to world cords
 	m_name.setRotation(getRotation());
 	m_textBox.setPosition(getPosition() + getCurrentMove());   //convert to world cords
@@ -86,3 +88,8 @@ sf::Vector2f Worm::getCurrentMove()
 	return wormTextBoxCorLeft;
 }
 
+void Worm::checkHealth()
+{
+	if (!m_health)
+		takeOffPoints(5);
+}

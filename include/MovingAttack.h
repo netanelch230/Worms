@@ -21,6 +21,6 @@ private:
 	b2Vec2 m_leftForce;
 	sf::Clock m_timeMoving;
 	
-	
+	void blastPoint(void* data);
 	void applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower);
 };

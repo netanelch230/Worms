@@ -13,14 +13,17 @@ public:
 	void takeOffPoints(int i);
 	virtual void destroy() override;
 	//~Worm();
+	void setHelth() { m_health = false; }
+	void checkHealth();
 
 private:
-	bool health = true;
+	bool m_health = true;
 	int m_life= NumOfLife;
 	sf::Text m_name;
 	sf::RectangleShape m_textBox;
 	sf::Vector2f getCurrentMove();
 	b2Vec2 forc();
+	std::string m_name_string;
 	
 };
 

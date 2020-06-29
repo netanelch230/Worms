@@ -3,10 +3,10 @@
 
 
 AbsObject::AbsObject(spriteSetting sset,b2World& world,bool whichtype)
-{
+{    
     // Create body static box2D
     b2PolygonShape polygonShape;
-    b2FixtureDef fixtureDef;
+    b2FixtureDef fixtureDef; 
     b2BodyDef bodyDef;
 
     if(whichtype)
@@ -17,7 +17,7 @@ AbsObject::AbsObject(spriteSetting sset,b2World& world,bool whichtype)
     bodyDef.position.Set(sset.position.x * MPP, sset.position.y * MPP);
     m_body = world.CreateBody(&bodyDef);
     m_body->SetFixedRotation(true);
-    polygonShape.SetAsBox( sset.size.x/2 * MPP, sset.size.y/2 * MPP);
+    polygonShape.SetAsBox( sset.size.x/2 * MPP, sset.size.y/2 * MPP); 
 
     fixtureDef.shape = &polygonShape;
     fixtureDef.friction = 0.8f;

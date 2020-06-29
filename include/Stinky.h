@@ -9,7 +9,7 @@ class Stinky :public MovingAttack
 		Stinky(b2World& world, sf::Vector2f position) :
 			MovingAttack(world, spriteSetting{ position,grenadeSize,Resources::instance().getTexture(stinky) },
 			AnimationSet{ animation_stinky,stinkyImageCount,false,1, sizeOfStinky },
-				stinkyAnimationImageCaount,28, { -0.1,2 }, {0.1,2}) {}
+				stinkyAnimationImageCaount,28, { -0.1,0 }, {0.1,0}) {}
 		virtual void applyFeatures() {
 			AnimationObject::setAnimation({ exSheep,exSheepImageCount,false,1 }, 0.03);
 		};
