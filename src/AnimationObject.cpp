@@ -4,9 +4,7 @@
 AnimationObject::AnimationObject(spriteSetting sset, sf::Vector2u imageCount,
 	b2World& world,bool whichtype, int distance) :
 	m_animation(&sset.picture, imageCount, 0.03f,distance), m_row(0),
-	AbsObject(sset,world,whichtype)
-{
-}
+	AbsObject(sset,world,whichtype){}
 
 void AnimationObject::setAnimation(AnimationSet animset, float switchTime)
 {
@@ -14,6 +12,7 @@ void AnimationObject::setAnimation(AnimationSet animset, float switchTime)
 	Animation animation(&Resources::instance().getTexture(animset.photo),
 		animset.imageCount, switchTime, animset.distance, animset.restart);
 	m_animation = animation;
+	//m_sprite.setSize(animset.sizeOfAni);
 }
 
 void AnimationObject::update(float deltaTime)

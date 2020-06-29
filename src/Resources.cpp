@@ -12,17 +12,13 @@ void Resources::loadPicture()
 {
 	m_picture[menuPic1].loadFromFile("menuBackground1.png");
 	m_picture[menuPic2].loadFromFile("menuBackground2.png");
-	m_picture[playWithFriendsPic].loadFromFile("PlayWithFriends.png");
-	m_picture[playWithComputerPic].loadFromFile("PlayWithComputer.png");
 	m_picture[backGround1pic].loadFromFile("jerusalemButton.PNG");
 	m_picture[backGround2pic].loadFromFile("desertButton.png");
 	m_picture[start].loadFromFile("start.png");
 	m_picture[exitGame].loadFromFile("exit.png");
-
-	m_picture[p1].loadFromFile("p1.png");
-	m_picture[p2].loadFromFile("p2.png");
-	m_picture[p3].loadFromFile("p3.png");
-	m_picture[p4].loadFromFile("p4.png");
+	m_picture[playTwo].loadFromFile("p2.png");
+	m_picture[playThree].loadFromFile("p3.png");
+;
 
 	
 	m_picture[featuresMenu].loadFromFile("featuresMenu.png");
@@ -54,11 +50,9 @@ void Resources::loadPicture()
 	m_picture[animation_begin_dinamit].loadFromFile("dinamitBegin.png");
 	m_picture[animation_end_dinamit].loadFromFile("dinamitsof.png");
 	m_picture[animation_artilary].loadFromFile("callartilery.png");
-	m_picture[animation_teleporter].loadFromFile("mahbet.png");
+	m_picture[animation_teleporter].loadFromFile("telleporter.png");
 
 	m_picture[animation_skip].loadFromFile("pass.png");
-	m_picture[animation_stinky].loadFromFile("boesh.png");
-	m_picture[animation_teleporter].loadFromFile("telleporter.png");
 
 	m_picture[animation_die].loadFromFile("wdie.png");
 	

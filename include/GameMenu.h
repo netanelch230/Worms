@@ -11,9 +11,8 @@
 struct Input
 {
 	unsigned int m_numOfPlayers;
-	bool m_gameFormat = true;			 // with copmuter or not
-	unsigned int m_background = backGround1pic;
-	std::vector<std::string> m_playerName;
+	unsigned int m_background = jeruBack;
+	std::vector<std::string> m_playerName ;
 	std::vector<sf::Color> m_playersColor;
 };
 
@@ -28,7 +27,10 @@ public:
 	~GameMenu() = default;
 
 private:
-
+	void setPlayerTextFeatures();
+	void handleKeyPressedEvenet(sf::Event& event);
+	void handlePlayersAmountClick(sf::Vector2f location);
+	void handleMouseMovedEvent(sf::RenderWindow& window, sf::Vector2f mousePos, sf::Event &event);
 	bool optionsEvents(sf::RenderWindow& window);
 	bool updatePress(sf::Vector2f location);
 	bool checkEvent(sf::RenderWindow& window);
@@ -37,16 +39,17 @@ private:
 	void buildButtons();
 	void setPlayerTextField();
 	sf::RectangleShape createRectangleShape(int row) const;
-	void setTextFieldsHeadlines();
-	void setHeadLine(const int index, std::string headLine);
 	void initializeColors();
 	void setResources();
 	void setMenuParameters();
+	void checkTextFieldClick(sf::Vector2f location);
 
-	int m_groupAmount = 0;
-	int m_currGroup = 0;
+	int m_groupAmount = 0; // this variable will handle the amount of groups we currently have
+	int m_currGroup = 0; //this variable will handle the current text field of the current group
+	int m_currentGroupAmount = 0;
+	bool m_textFieldPressed = false; // we'll set this variable to true if player pressed on text field
 	bool m_startGame = false;
-
+	bool handleSecondMenu(sf::RenderWindow& window);
 	std::vector<sf::Text> m_playerText;
 	std::vector<sf::String> m_playerInput;
 
@@ -55,15 +58,12 @@ private:
 	std::vector<sf::Text> m_headLines;
 
 	std::vector<sf::RectangleShape> m_groupColors;
-	std::vector<sf::RectangleShape> m_gameFormat;
 	std::vector<sf::RectangleShape> m_background;
 
 	sf::Sprite m_spriteBackgraound1;
 	sf::Sprite m_spriteBackgraound2;
 	sf::Sprite m_spritePlay;
 	sf::Sprite m_spriteExit;
-	sf::Sprite m_spriteComp;
-	sf::Sprite m_spriteFriend;
 	sf::Sprite m_spriteMap1;
 	sf::Sprite m_spriteMap2;
 	sf::Sprite m_playGame;
@@ -72,13 +72,9 @@ private:
 
 	std::unique_ptr<Button> m_playButton;	// play button
 	std::unique_ptr<Button> m_exitButton;	// exit button
-	std::unique_ptr<Button> m_playWithComp;
-	std::unique_ptr<Button> m_playWithFriend;
 	std::unique_ptr<Button> m_map1;
 	std::unique_ptr<Button> m_map2;
 	std::unique_ptr<Button> m_playGameButton;
 	std::vector < std::unique_ptr <Button>> m_playersButtons;
-
 	Input m_menuParameters;
-
 };

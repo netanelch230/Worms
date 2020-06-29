@@ -29,39 +29,59 @@ in addition, there are two options for background
 the first one is Jerusalem, the second is the Desert.*/
 bool GameMenu::run(sf::RenderWindow& window)
 {
-	drawFirstMenu(window);
-	while (!(m_startGame = optionsEvents(window)))
+	while (true)
 	{
-		if (window.isOpen())
-			drawFirstMenu(window);
-		else
-			return false;
-	}
-	if (m_startGame)
-	{
-		while (window.isOpen())//if were here it means the player wants to start
+		try
 		{
-			drawSecondMenu(window);
-
-			if (checkEvent(window))
-				return true;
+			while (!(m_startGame = optionsEvents(window)))
+			{
+				if (window.isOpen())
+					drawFirstMenu(window);
+				else
+					return false;
+			}
+			if (m_startGame)
+			{
+				if (handleSecondMenu(window))
+					return true;
+			}
 		}
+		catch (std::exception& ex)
+		{
+			std::cerr << ex.what() << '\n';
+			//keep handling the second menu
+		}
+		catch (...)
+		{
+			std::cout << "in exception of game menu" << std::endl;
+		}
+		//this is in case we got an exception, so after catching the exception we'll call the second menu again.
 	}
 	return false;
 }
 
+bool GameMenu::handleSecondMenu(sf::RenderWindow& window)
+{
+	while (window.isOpen())//if were here it means the player wants to start
+	{
+		drawSecondMenu(window);
+
+		if (checkEvent(window))
+			return true;
+	}
+}
 sf::Color GameMenu::getColor(int colorNum) const
 {
 	switch (colorNum)
 	{
-	case red:
+	case 0:
 		return sf::Color::Red;
-	case yellow:
-		return sf::Color::Red + sf::Color::Blue;
-	case blue:
-		return sf::Color::Blue;
-	case green:
+	case 1:
 		return sf::Color::Green;
+	case 2:
+		return sf::Color::Blue;
+	case 3:
+		return sf::Color::Red + sf::Color::Blue;
 	}
 }
 
@@ -82,12 +102,9 @@ bool GameMenu::optionsEvents(sf::RenderWindow& window)
 			case sf::Event::MouseButtonPressed:
 				if (event.mouseButton.button == sf::Mouse::Button::Left)	//if we pressed on left mouse
 				{
-					//we need to save mouse position
 					mousePos = window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y }); //the mouse position
-
 					if (m_playButton->contains(mousePos))	//clicked on play button
 						return true; //close the game menu and start to play
-
 					else if (m_exitButton->contains(mousePos))	//clicked on exit button
 					{
 						window.close();
@@ -110,18 +127,24 @@ bool GameMenu::optionsEvents(sf::RenderWindow& window)
 			}
 		}
 	}
-	return true;
+	return false;
 }
 
-bool GameMenu::updatePress(sf::Vector2f location)
+/*this function will check if the player has pressed on the amount of players buttons - if so,
+it will initialize the amount of the players and the amount of text fields that we're asking for.*/
+void GameMenu::handlePlayersAmountClick(sf::Vector2f location)
 {
 	for (auto i = 0; i < m_playersButtons.size(); i++)
 	{
 		if (m_playersButtons[i]->contains(location))
 		{
 			initializeColors();
-			m_groupAmount = i;
-			for (int j = 0; j <= i; j++)
+			m_groupAmount = i+2;
+			m_playerText.resize(m_groupAmount);
+			m_playerInput.resize(m_groupAmount);
+			setPlayerTextFeatures();
+			m_currentGroupAmount = 0;
+			for (int j = 0; j < m_groupAmount; j++)
 			{
 				m_textFields[j].setFillColor(sf::Color::White);
 				m_groupColors[j].setFillColor(getColor(j));
@@ -129,22 +152,25 @@ bool GameMenu::updatePress(sf::Vector2f location)
 			break;
 		}
 	}
+}
+//in this function we're checking if we pressed on the players menu
+bool GameMenu::updatePress(sf::Vector2f location)
+{
+	handlePlayersAmountClick(location);
+	checkTextFieldClick(location);
 	if (m_map1->contains(location))
 		m_menuParameters.m_background = jeruBack;
 
 	if (m_map2->contains(location))
 		m_menuParameters.m_background = desertBack;
 
-	if(m_playWithComp->contains(location))
-		m_menuParameters.m_gameFormat = true;
-
-	if(m_playWithFriend->contains(location))
-		m_menuParameters.m_gameFormat = false;
-
 	if (m_playGameButton->contains(location))
 	{
-		setMenuParameters();
-		return true;
+		if (m_groupAmount > 0)
+		{
+			setMenuParameters();
+			return true;
+		}
 	}
 	return false;
 }
@@ -152,6 +178,7 @@ bool GameMenu::updatePress(sf::Vector2f location)
 bool GameMenu::checkEvent(sf::RenderWindow& window)
 {
 	sf::Vector2f mousePos; //our mouse position
+	
 	while (window.isOpen())
 	{
 		auto event = sf::Event{};
@@ -164,19 +191,7 @@ bool GameMenu::checkEvent(sf::RenderWindow& window)
 				return false;
 
 			case sf::Event::TextEntered:
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-					m_currGroup++;
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
-				{
-					m_playerInput[m_currGroup].erase(m_playerInput[m_currGroup].getSize() - 1,
-						m_playerInput[m_currGroup].getSize());
-					m_playerText[m_currGroup].setString(m_playerInput[m_currGroup]);
-				}
-				else if (m_currGroup <= m_groupAmount)
-				{
-					m_playerInput[m_currGroup] += event.text.unicode;
-					m_playerText[m_currGroup].setString(m_playerInput[m_currGroup]);
-				}
+				handleKeyPressedEvenet(event);
 				return false;
 
 			case sf::Event::MouseButtonPressed:
@@ -186,48 +201,94 @@ bool GameMenu::checkEvent(sf::RenderWindow& window)
 					mousePos = window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y }); //the mouse position
 					return updatePress(mousePos);
 				}
-				return true;
-
-			case sf::Event::MouseMoved:	//if the mouse only move (with out press)
+				return false;
+			case sf::Event::MouseMoved:	//if the mouse only move (without press)
 				mousePos = window.mapPixelToCoords({ event.mouseMove.x, event.mouseMove.y });
-
-				if (m_playWithComp->contains(mousePos))//mouse on play button place
-					m_playWithComp->moveButton(posPlayCompButton);//bold play button
-				else
-					m_playWithComp->unMoveButton(posPlayCompButton);
-
-				if (m_playWithFriend->contains(mousePos))
-					m_playWithFriend->moveButton(posPlayFriendButton);	
-				else
-					m_playWithFriend->unMoveButton(posPlayFriendButton);
-
-				if (m_map1->contains(mousePos))
-					m_map1->moveButton(map1Button);	
-				else
-					m_map1->unMoveButton(map1Button);
-				if (m_map2->contains(mousePos))
-					m_map2->moveButton(map2Button);	
-				else
-					m_map2->unMoveButton(map2Button);
-				if (m_playGameButton->contains(mousePos))
-					m_playGameButton->moveButton(playButtonPos);	
-				else
-					m_playGameButton->unMoveButton(playButtonPos);
-
-				for (int i=0; i<m_playersButtons.size(); i++)
-				{
-					if (m_playersButtons[i]->contains(mousePos))
-						m_playersButtons[i]->moveButton({ playerButtonPos.x + (i * playerDistance), playerButtonPos.y });
-
-					else
-						m_playersButtons[i]->unMoveButton({ playerButtonPos.x + (i * playerDistance), playerButtonPos.y });
-				}
+				handleMouseMovedEvent(window, mousePos, event);
 				return false;
 			}
 		}
 	}
 }
 
+void GameMenu::handleKeyPressedEvenet(sf::Event& event)
+{
+
+	if (m_textFieldPressed)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		{
+			m_textFieldPressed = false; //this means that the player finished 
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
+		{
+			m_playerInput[m_currGroup].erase(m_playerInput[m_currGroup].getSize() - 1, m_playerInput[m_currGroup].getSize());
+			m_playerText[m_currGroup].setString(m_playerInput[m_currGroup]);
+		}
+		else if (event.type == sf::Event::TextEntered)
+		{
+			if (event.text.unicode < 128) 
+			{
+				char charEntered = static_cast<char>(event.text.unicode);
+				if ((charEntered >= 'A' && charEntered <= 'Z')
+					|| (charEntered >= 'a' && charEntered <= 'z')
+					|| (charEntered >= '0' && charEntered <= '9')
+					|| charEntered == ' ')
+				{
+					m_playerInput[m_currGroup] += event.text.unicode;
+					m_playerText[m_currGroup].setString(m_playerInput[m_currGroup]);
+				}
+			}
+		}
+	}
+	else
+	{
+		throw std::exception("exception - don't type on screen!");
+	}
+	
+}
+void GameMenu::handleMouseMovedEvent(sf::RenderWindow& window, sf::Vector2f mousePos, sf::Event &event)
+{
+	mousePos = window.mapPixelToCoords({ event.mouseMove.x, event.mouseMove.y });
+
+	if (m_map1->contains(mousePos))
+		m_map1->moveButton(map1Button);
+	else
+		m_map1->unMoveButton(map1Button);
+	if (m_map2->contains(mousePos))
+		m_map2->moveButton(map2Button);
+	else
+		m_map2->unMoveButton(map2Button);
+	if (m_playGameButton->contains(mousePos))
+		m_playGameButton->moveButton(playButtonPos);
+	else
+		m_playGameButton->unMoveButton(playButtonPos);
+
+	for (int i = 0; i < m_playersButtons.size(); i++)
+	{
+		if (m_playersButtons[i]->contains(mousePos))
+			m_playersButtons[i]->moveButton({ playerButtonPos.x + (i * playerDistance), playerButtonPos.y });
+
+		else
+			m_playersButtons[i]->unMoveButton({ playerButtonPos.x + (i * playerDistance), playerButtonPos.y });
+	}
+}
+
+void GameMenu::checkTextFieldClick(sf::Vector2f location)
+{
+	for (auto i = 0; i < m_textFields.size(); i++)
+	{
+		if (m_textFields[i].getGlobalBounds().contains(location))
+		{
+			m_textFieldPressed = true; 
+			m_currentGroupAmount++;
+			m_currGroup = i; // this will handle the curr_text field group!! :)
+			break;
+		}
+		m_textFieldPressed = false;
+	}
+	
+}
 void GameMenu::drawFirstMenu(sf::RenderWindow& window) const
 {
 	window.clear();
@@ -242,8 +303,6 @@ void GameMenu::drawSecondMenu(sf::RenderWindow& window) const
 {
 	window.clear();
 	window.draw(m_spriteBackgraound2);
-	m_playWithComp->draw(window);
-	m_playWithFriend->draw(window);
 	m_map1->draw(window);
 	m_map2->draw(window);
 	m_playGameButton->draw(window);
@@ -251,7 +310,7 @@ void GameMenu::drawSecondMenu(sf::RenderWindow& window) const
 	for (int i = 0; i < m_playersButtons.size(); i++)
 		m_playersButtons[i]->draw(window);
 
-	for (auto i = 0; i <= m_groupAmount; i++)
+	for (auto i = 0; i < m_groupAmount; i++)
 	{
 		window.draw(m_groupColors[i]);
 		window.draw(m_textFields[i]);
@@ -260,15 +319,11 @@ void GameMenu::drawSecondMenu(sf::RenderWindow& window) const
 	for (auto i = 0; i < m_hedlinesSprite.size(); i++)
 		window.draw(m_hedlinesSprite[i]);
 
+	//std::cout << "in draw second menu - m_playerTextSize is : " << m_playerText.size() << std::endl;
 	for (auto i = 0; i < m_playerText.size(); ++i)
 	{
 		window.draw(m_playerText[i]);
 	}
-
-	//draw all head lines!
-	for (auto i : m_headLines)
-		window.draw(i);
-
 	window.display();
 }
 
@@ -276,16 +331,14 @@ void GameMenu::buildButtons()
 {
 	m_playButton = std::make_unique <Button>(m_spritePlay, posPlayButton);
 	m_exitButton = std::make_unique <Button>(m_spriteExit, posExitButton);
-	m_playWithComp = std::make_unique <Button>(m_spriteComp, posPlayCompButton);
-	m_playWithFriend = std::make_unique <Button>(m_spriteFriend, posPlayFriendButton);
 	m_map1 = std::make_unique <Button>(m_spriteMap1, map1Button);
 	m_map2 = std::make_unique <Button>(m_spriteMap2, map2Button);
 	m_playGameButton = std::make_unique <Button>(m_playGame, playButtonPos);
 
-	m_playersButtons.resize(4);
+	m_playersButtons.resize(2);
 	for (auto i = 0; i < m_playersSprite.size(); i++)
 	{
-		m_playersButtons [i] = std::make_unique <Button>(m_playersSprite[i], m_playersSprite[i].getPosition());
+		m_playersButtons[i] = std::make_unique <Button>(m_playersSprite[i], m_playersSprite[i].getPosition());
 	}
 }
 
@@ -305,10 +358,17 @@ void GameMenu::setPlayerTextField()
 	for (auto i = 0; i < maxTextFields; i++)
 		m_textFields.push_back(createRectangleShape(i));
 
+	//set the text field - text!
+	setPlayerTextFeatures();
+}
+
+void GameMenu::setPlayerTextFeatures()
+{
 	int j = 0;
 	//set the text field - text!
 	for (auto i = 0; i < m_playerText.size(); i++)
 	{
+		m_playerText[i].setFont(Resources::instance().getfont(menu_font));
 		m_playerText[i].setCharacterSize(25);
 		m_playerText[i].setFillColor(sf::Color::Black);
 		m_playerText[i].setStyle(sf::Text::Bold);
@@ -317,7 +377,6 @@ void GameMenu::setPlayerTextField()
 		j += 70;
 	}
 }
-
 sf::RectangleShape GameMenu::createRectangleShape(int row) const
 {
 	sf::RectangleShape rec;
@@ -325,27 +384,6 @@ sf::RectangleShape GameMenu::createRectangleShape(int row) const
 	rec.setSize(sf::Vector2f{ 150, 40 });
 	rec.setPosition(500, 380 + (row * 70));
 	return rec;
-}
-
-void GameMenu::setTextFieldsHeadlines()
-{
-	m_headLines.resize(maxHeadlines);
-	int currHeadLine = 0;
-	setHeadLine(currHeadLine++, "Choose game format");
-	m_headLines[gameFormat].setPosition(gameFormatX, 150);
-	setHeadLine(currHeadLine++, "Choose game background");
-	m_headLines[gameBackground].setPosition(900, 150);
-	setHeadLine(currHeadLine++, "Choose number of players");
-	m_headLines[numberOfPlayers].setPosition(440, 170);
-}
-
-void GameMenu::setHeadLine(const int index, std::string headLine)
-{
-	m_headLines[index].setString(headLine);
-	m_headLines[index].setCharacterSize(30);
-	m_headLines[index].setFillColor(sf::Color::Black);
-	m_headLines[index].setStyle(sf::Text::Bold);
-	m_headLines[index].setOrigin(0, 10);
 }
 
 /*in this function were setting all the squares of group colors to the
@@ -375,8 +413,6 @@ void GameMenu::setResources()
 
 	m_spriteBackgraound1.setTexture(Resources::instance().getTexture(menuPic1));
 	m_spriteBackgraound2.setTexture(Resources::instance().getTexture(menuPic2));
-	m_spriteComp.setTexture(Resources::instance().getTexture(playWithComputerPic));
-	m_spriteFriend.setTexture(Resources::instance().getTexture(playWithFriendsPic));
 	m_spriteExit.setTexture(Resources::instance().getTexture(exitGame));
 	m_spritePlay.setTexture(Resources::instance().getTexture(start));
 	m_spriteMap1.setTexture(Resources::instance().getTexture(backGround1pic));
@@ -384,33 +420,38 @@ void GameMenu::setResources()
 	m_playGame.setTexture(Resources::instance().getTexture(playgameButton));
 
 	sf::Sprite s;
-	m_playersSprite.resize(4);
+	m_playersSprite.resize(2);
 	for (auto i = 0; i < m_playersSprite.size(); i++)
 	{
-		m_playersSprite[i].setTexture(Resources::instance().getTexture(i + 8));
-		m_playersSprite[i].setPosition(playersBottonX + (i * playersBottonXRatio), playersBottonY);
+		m_playersSprite[i].setTexture(Resources::instance().getTexture(i + playTwo));
+		m_playersSprite[i].setPosition(playerButtonPos.x + (i * playersBottonXRatio), playerButtonPos.y);
 	}
-	m_hedlinesSprite.resize(4);
+	m_hedlinesSprite.resize(3);
 	for (auto i = 0; i < m_hedlinesSprite.size(); i++)
 	{
-		m_hedlinesSprite[i].setTexture(Resources::instance().getTexture(i + 47));
+		m_hedlinesSprite[i].setTexture(Resources::instance().getTexture(i + 42));
 	}
-	
-	m_hedlinesSprite[0].setPosition(gameFormatPos);
-	m_hedlinesSprite[1].setPosition(gameMapPos);
-	m_hedlinesSprite[2].setPosition(groupNamePos);
-	m_hedlinesSprite[3].setPosition(playersAmountPos);
+	m_hedlinesSprite[0].setPosition(gameMapPos);
+	m_hedlinesSprite[1].setPosition(groupNamePos);
+	m_hedlinesSprite[2].setPosition(playersAmountPos);
 }
 
 void GameMenu::setMenuParameters()
 {
-	m_groupAmount++;
+	m_groupAmount;
 	m_menuParameters.m_playersColor.resize(m_groupAmount);
 	m_menuParameters.m_playerName.resize(m_groupAmount);
 	m_menuParameters.m_numOfPlayers = m_groupAmount;
 	for (auto i = 0; i < m_groupAmount; ++i)
 	{
-		m_menuParameters.m_playerName[i] = std::string(m_playerInput[i]);
+		if (std::string(m_playerInput[i]).length() != 0)
+			m_menuParameters.m_playerName[i] = std::string(m_playerInput[i]);
+		else //insert default group name. 
+		{
+			std::string str = "User";
+			str += std::to_string(i+1);//concatenation
+			m_menuParameters.m_playerName[i] = str;
+		}
 		m_menuParameters.m_playersColor[i] = getColor(i);
 	}
 }
