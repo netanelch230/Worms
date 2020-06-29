@@ -52,10 +52,26 @@ const auto sizeOfWhiteFlagWorm = sf::Vector2f{ 100,100 };
 //===========================================location of tool bar==================================
 
 const auto toolBarXCoordinate = 984;
-//=======================================locations on Board=========================================
+//=======================================locations of tool bar on Board=============================
 
+const auto axeIcon = sf::Vector2f{ 216, 104 };
+const auto flagIcon = sf::Vector2f{ 248, 104 };
+const auto flickIcon = sf::Vector2f{ 280, 104 };
+const auto grenadeIcon = sf::Vector2f{ 312, 104 };
+const auto passIcon = sf::Vector2f{ 216, 136 };
+const auto sheepIcon = sf::Vector2f{ 216, 168 };
+const auto stinkyIcon = sf::Vector2f{ 216, 200 };
+const auto teleportIcon = sf::Vector2f{ 216, 232 };
+
+const float feautersX = 1000.0;
+const float feautersY = 80.0;
+const int feauterSize = 32;
 const auto featuresCoordinates = sf::Vector2f{ 216, 104 };
 
+//========================================number of features button=================================
+
+const auto featuresAmount = 8;
+const auto featuresEnum = 53;
 //=======================================locations on Board=========================================
 
 const int rowsInTable = 2;
@@ -167,17 +183,17 @@ enum featuresWormAnim
 	animation_artilary,
 	animation_begin_dinamit,
 	animation_end_dinamit,
-	animation_teleporter,
 	animation_whiteFlag,
-	animation_stinky,
 	animation_skip,
+	animation_stinky,
+	animation_teleporter,
 	animation_die
 };
 
 
 enum featuresWeaponesAnim
 {
-	sheep=38,
+	sheep=39,
 	grenade,
 	stinky,
 	flik,
@@ -187,25 +203,35 @@ enum featuresWeaponesAnim
 
 enum weaponsEffect
 {
-	exGrenade=44,
+	exGrenade=45,
 	exSheep,
 	exStinky
 };
 
 enum menuHeadlines
 {
-	gameFormatHeadline = 47,
+	gameFormatHeadline = 48,
 	gameMapHeadline,
 	playersNamesHeadline,
 	groupAmountHeadlines
 };
 
 enum arrow {
-	greenArrow=52,
+	greenArrow=53,
 	blueArrow,
 	redArrow
 };
 
+enum featuresToolbar {
+	axeIconButton= 56,
+	flagIconButton,
+	flickIconButton,
+	grenadeIconButton,
+	passIconButton,
+	sheepIconButton,
+	stinkyIconButton,
+	teleportIconButton
+};
 enum sides
 {
 	jump,

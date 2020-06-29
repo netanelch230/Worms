@@ -11,7 +11,7 @@ public:
 	bool contains(const sf::Vector2f& pos) const;	//check if the position of the mouse is on the button
 	void moveButton(sf::Vector2f position);//when the user press on button
 	void unMoveButton(sf::Vector2f position);//return the button 
-	virtual ~Button() = default; //destructor
+	~Button() = default; //destructor
 
 private:
 	sf::Sprite m_button;

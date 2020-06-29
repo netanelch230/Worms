@@ -14,6 +14,7 @@
 #include "WhiteFlag.h"
 #include "Pass.h"
 #include "Board.h"
+#include "FeaturesToolBar.h"
 #include"Dinamit.h"
 #include"Artilary.h"
 #include "staticObject.h"
