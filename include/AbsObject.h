@@ -6,7 +6,7 @@
 #include "Enum.h"
 //class Sheep;
 //class Stinky;
-//class Axe;
+//class Dinamit;
 //class Flik;
 
 

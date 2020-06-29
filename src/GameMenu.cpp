@@ -393,7 +393,7 @@ void GameMenu::setResources()
 	m_hedlinesSprite.resize(4);
 	for (auto i = 0; i < m_hedlinesSprite.size(); i++)
 	{
-		m_hedlinesSprite[i].setTexture(Resources::instance().getTexture(i + 46));
+		m_hedlinesSprite[i].setTexture(Resources::instance().getTexture(i + 47));
 	}
 	
 	m_hedlinesSprite[0].setPosition(gameFormatPos);
