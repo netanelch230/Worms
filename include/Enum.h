@@ -73,11 +73,15 @@ const auto sheepImageCount = sf::Vector2u{ 1,8 };
 const auto teleporterImageCount = sf::Vector2u{ 1,36 };
 const auto wormImageCount = sf::Vector2u{ 1,36 };
 const auto WormDieImageCount = sf::Vector2u{ 1,60 };
+
 const auto exGrenadeImageCount = sf::Vector2u{ 1,12 };
+const auto exSheepImageCount = sf::Vector2u{ 1,20 };
 
+const auto stinkyAnimationImageCaount= sf::Vector2u{ 1,7 };
 
-const auto sizeOfShelf = sf::Vector2f{ 70,50 };
-const auto sizeOfStone = sf::Vector2f{ 50,50 };
+const auto arrowImageCount = sf::Vector2u{ 1,30 };
+
+const auto sizeOfStinky = sf::Vector2f{ 54,36 };
 
 
 const auto posPlayButton = sf::Vector2f{ 850, 300 };
@@ -90,7 +94,7 @@ const auto playerButtonPos = sf::Vector2f{ 300, 200 };
 const auto playButtonPos = sf::Vector2f{ 950, 580 };
 
 const int playerDistance = 150;
-const int playgameButton = 50;
+const int playgameButton = 90;
 
 const auto gameFormatPos = sf::Vector2f{ 5, 120 };
 const auto gameMapPos = sf::Vector2f{ 900, 120 };
@@ -182,6 +186,12 @@ enum menuHeadlines
 	groupAmountHeadlines
 };
 
+enum arrow {
+	greenArrow=50,
+	blueArrow,
+	redArrow
+};
+
 enum sides
 {
 	jump,
@@ -205,11 +215,12 @@ enum font
 	menu_font,
 	name_font
 };
+
 enum color
 {
+	red,
 	yellow,
 	blue,
-	red,
 	green
 };
 

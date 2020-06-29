@@ -55,33 +55,3 @@ float AbsObject::getRotation() const
     float angle = m_body->GetAngle();
     return ((angle * 180.f) / 3.14);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

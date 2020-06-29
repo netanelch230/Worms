@@ -55,7 +55,7 @@ void Controller::run()
 	}
 }
 
-}
+
 
 void Controller::restartPlayers()   
 {

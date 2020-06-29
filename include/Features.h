@@ -12,7 +12,7 @@ public:
 	virtual void draw(sf::RenderWindow& window) = 0;
 	AnimationSet getAnimationSet() { return m_animationSet; }
 	virtual void update() = 0;
-
+	virtual bool destroy(int time) { return false; }
 private:
 	AnimationSet m_animationSet;
 };

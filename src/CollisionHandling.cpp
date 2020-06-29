@@ -32,6 +32,7 @@ namespace {
     {
         auto i = static_cast<Sheep&>(sheep);
         auto j = static_cast<Worm&>(worm);
+        
         i.play();
         j.takeOffPoints(100);
     }

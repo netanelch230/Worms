@@ -12,7 +12,7 @@ public:
 		AnimationObject(sset, imageCount, world, true, distanceToObject) {}
 	void draw(sf::RenderWindow& window) { AbsObject::draw(window); }
 	virtual void play() = 0;
-	void destroy();
+	bool destroy(int time);
 	void update();
 private:
 	sf::Clock m_timeAnimation;

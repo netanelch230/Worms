@@ -18,8 +18,9 @@ configure_file ("Animation/wormAnimation/sheep.png" ${CMAKE_BINARY_DIR} COPYONLY
 configure_file ("Animation/wormAnimation/whiteFlag.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/wormAnimation/greenGrenade.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/wormAnimation/flick.png" ${CMAKE_BINARY_DIR} COPYONLY)
-#configure_file ("Animation/wsurndrd.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/wormAnimation/wdie.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Animation/wormAnimation/arrowBlue.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Animation/wormAnimation/arrowGreen.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("Animation/weaponesAnimation/exGrenade.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/weaponesAnimation/exSheep.png" ${CMAKE_BINARY_DIR} COPYONLY)

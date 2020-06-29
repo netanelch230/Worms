@@ -34,7 +34,6 @@ void Animation::update(int row, float deltaTime)
 
 bool Animation::isDead()
 {
-	return currentImage.y == m_imageCount.y && !m_restartAnimation;
-		
+	return currentImage.y == m_imageCount.y && !m_restartAnimation;		
 }
 
