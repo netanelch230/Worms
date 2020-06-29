@@ -21,14 +21,14 @@ struct spriteSetting
 class AbsObject
 {
 public:
-	
+	AbsObject() = default;
 	AbsObject(spriteSetting,b2World& world,bool whichtype);
-	b2Body* getBody() { return m_body; };
 	virtual void draw(sf::RenderWindow& window);
 	virtual bool touch(sf::Vector2f location) const;
 	//void update(float deltaTime);
 	 sf::Vector2f getPosition() const;
 	 virtual ~AbsObject() = default;
+	 b2Body* getBody() { return m_body; };
 
 protected:
 	sf::Sprite m_sprite;

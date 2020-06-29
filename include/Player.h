@@ -21,7 +21,7 @@ public:
 	//~Player();
 	void run(sf::RenderWindow& window, sf::Event& event, 
 		std::vector<std::unique_ptr<Player>>& groupPlayers,
-			sf::RectangleShape &featuresMenu,std::vector<sf::Vector2f> featuresLocation);
+			sf::RectangleShape &featuresMenu,std::vector<sf::Vector2f> featuresLocation, bool& whiteFlag);
 	void draw(sf::RenderWindow& window) const;					//draw all the worms
 	//void loadFeatures(const sf::Texture& tex, const sf::Vector2f& pos);
 	
@@ -40,8 +40,15 @@ private:
 	Board& m_board;
 	bool m_skipTurn = false;
 	bool m_whiteFlag = false;
+	bool m_end;
+	int m_currWormPlayer = 0;
+	sf::Clock m_force; // will handle the force of using weapon - physical element.
+	//create object for the enum class so we'll be able to used it in the Player's function 
+	//AnimationObject m_arrow;
+	sf::Sprite m_arrow;
 
-
+	void applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower);
+	void explosion();
 
 	void moveWeaponeFearures();
 	void checkIfEventOccured(sf::RenderWindow& window, sf::Event& event);
@@ -52,7 +59,7 @@ private:
 	void handleSkip(sf::RenderWindow & window);
 
 	void drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::unique_ptr<Player>>& groupPlayers, 
-		sf::RectangleShape& featuresMenu) const;
+		sf::RectangleShape& featuresMenu);
 	bool m_drawWeaponMenu = false; //if pressed right click we'll update to true and we'll print the weapon menu
 	bool m_drawfeatur = false;
 	void chooseWeapon(sf::RenderWindow& window, sf::RectangleShape& featuresMenu,
@@ -68,11 +75,8 @@ private:
 	void creatWorms();
 	sf::Vector2f locatin(sf::RenderWindow&, sf::Event&) const;
 	bool timesUp();
-
-
-	int m_currWormPlayer;
-	sf::Clock m_force; // will handle the force of using weapon - physical element.
-	//create object for the enum class so we'll be able to used it in the Player's function 
+	int getColorArrow();
+	void definArrow();
 	
 };
 

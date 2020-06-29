@@ -54,13 +54,13 @@ sf::Color GameMenu::getColor(int colorNum) const
 {
 	switch (colorNum)
 	{
-	case 0:
+	case red:
 		return sf::Color::Red;
-	case 1:
+	case yellow:
 		return sf::Color::Red + sf::Color::Blue;
-	case 2:
+	case blue:
 		return sf::Color::Blue;
-	case 3:
+	case green:
 		return sf::Color::Green;
 	}
 }

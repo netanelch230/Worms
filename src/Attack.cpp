@@ -1,10 +1,14 @@
 #include"Attack.h"
 
 
-void Attack::destroy()
+bool Attack::destroy(int time)
 {
-	if (m_is_dead)
+	if (m_is_dead || time == timeOfRound)
+	{
 		m_body->GetWorld()->DestroyBody(m_body);
+		return true;
+	}
+	return false;
 }
 
 

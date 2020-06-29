@@ -2,24 +2,14 @@
 
 
 Grenade::Grenade(b2World& world, sf::Vector2f position):
-		NonMovingAttack(world, 
+		MovingAttack(world, 
 			spriteSetting{ position,grenadeSize,Resources::instance().getTexture(grenade) },
 			AnimationSet{ animation_grenade,spriteSheetGrenadeSize,false,1 },
-			GreenGrenadeImageCount)
+			GreenGrenadeImageCount,1, { 250.f, 250.f }, { -250.f, 250.f })
 {
     m_body->SetFixedRotation(false);
 }
-
-
-void Grenade::applyFeatures()
-{
-	auto pos = m_body->GetWorldCenter();
-		if (m_sprite.getScale() == LEFT)
-			m_body->ApplyForce({ 250.f, 250.f }, pos, true);
-		else if(m_sprite.getScale() == RIGHT)
-			m_body->ApplyForce({ -250.f, 250.f }, pos, true);
-}
-
+//54*36
 void Grenade::play()
 {
 	m_bomb.restart();

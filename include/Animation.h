@@ -4,6 +4,7 @@
 class Animation 
 {
 public:
+	Animation() {}
 	Animation(sf::Texture* tex, sf::Vector2u imageCount, float switchtime, int distance, bool restart = true);
 	Animation(Animation& ani) = default;
 	void update(int row, float deltaTime);

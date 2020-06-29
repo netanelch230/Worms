@@ -7,13 +7,17 @@ class AnimationObject:public AbsObject
 public:
 	AnimationObject(spriteSetting sset, sf::Vector2u imageCount, b2World& world,
 		bool whichtype, int distance = 0);
+	AnimationObject()= default;
+	 virtual void destroy();
 	void setAnimation(AnimationSet animset,float switchTime);
-	//~AnimationObject();
+	bool isDead() { return m_is_dead; };
 	void update(float deltaTime);
-	virtual void destroy();
+	void setPosition(sf::Vector2f position);
+	virtual ~AnimationObject()= default;
+
 protected:
 	Animation m_animation;
 	unsigned int m_row;
-    bool m_is_dead;
+	bool m_is_dead = false;
 
 };

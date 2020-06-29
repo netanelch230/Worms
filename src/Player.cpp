@@ -1,5 +1,6 @@
 #include "Player.h"
 #include <iostream>
+#include "MyQueryCallback.h"
 
 //---------------------------------------------
 //========================changes for c-tor
@@ -14,6 +15,7 @@ Player::Player(std::string name, sf::Color color, b2World & world,Board& board) 
 {
 	creatWorms();
 	loadTimer();
+	definArrow();
 }
 //---------------------------------------------
 /*
@@ -31,9 +33,15 @@ void Player::run(sf::RenderWindow& window,
 	std::vector<sf::Vector2f> featuresLocation,
 	bool &whiteFlag)
 {	
-	Timer::setTime(timeOfRound);			// set time of player's turn.
-	m_currWormPlayer = rand() % wormsLimit;	//randomize the current worm that will play now
+	static int count = 0;
+	count++;
+	if (count == wormsLimit - 1)
+		count = 0;
+	m_currWormPlayer = count;	//randomize the current worm that will play now
 	// while the turn is not over - keep playing, or while the player didnt picked feature-weapon
+	m_arrow.setPosition(m_worms[m_currWormPlayer]->getPosition());
+	Timer::setTime(timeOfRound);			// set time of player's turn.
+	
 	while (!timesUp()) //needs to be change
 	{
 		checkIfEventOccured(window, event);
@@ -44,11 +52,18 @@ void Player::run(sf::RenderWindow& window,
 			chooseWeapon(window, featuresMenu, featuresLocation, groupPlayers);
 		for(auto&i:m_worms)
 			i->destroy();
+		
 	}
 		m_end = false;
 	m_worms[m_currWormPlayer]->setAnimation({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);
 	whiteFlag = m_whiteFlag;
 
+}
+
+void Player::explosion()
+{
+	if (auto i = dynamic_cast<MovingAttack*>(m_feature.get()))
+		i->featureExplosion(m_world);
 }
 
 void Player::moveWeaponeFearures()
@@ -87,7 +102,10 @@ void Player::checkIfEventOccured(sf::RenderWindow& window, sf::Event& event)
 					break;
 				}
 				else
+				{
+					explosion();
 					m_feature->applyFeatures();
+				}
 				if (m_skipTurn)
 				{
 					m_worms[m_currWormPlayer]->setAnimation({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);
@@ -105,7 +123,7 @@ void Player::checkIfEventOccured(sf::RenderWindow& window, sf::Event& event)
 /*this function will draw the board and all the animations
 and objects+all the of the physical elements.*/
 void Player::drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::unique_ptr<Player>>& groupPlayers
-	,sf::RectangleShape& featuresMenu) const
+	,sf::RectangleShape& featuresMenu)
 {
 	window.clear();
 	m_world.Step(TIMESTEP, VELITER, POSITER);
@@ -124,7 +142,12 @@ void Player::drawBoardAndAnimation(sf::RenderWindow& window, std::vector<std::un
 	{	
 		//m_feature->update();
 		m_feature->draw(window);
+		if (m_feature->destroy(Timer::getTime()))
+			;
 	}
+	window.draw(m_arrow);
+	/*m_arrow.update(0.03);
+	m_arrow.draw(window);*/
 	window.display();
 }
 
@@ -197,12 +220,12 @@ void Player::checkClick(sf::Vector2f clickLocation,
 }
 
 //---------------------------------------------
-
 //this function will move the worm according to the player action.''
 void Player::wormMove()
 {
-	float time = m_wormsTime.restart().asSeconds();
+	float time = m_wormsTime.restart().asSeconds();	
 	m_worms[m_currWormPlayer]->move(time);
+	m_arrow.setPosition(m_worms[m_currWormPlayer]->getPosition() + sf::Vector2f{ -20,-60 });
 }
 
 //---------------------------------------------
@@ -242,6 +265,25 @@ bool Player::timesUp()
 			return true;
 	}
 	return false;
+}
+
+int Player::getColorArrow()
+{
+	if(m_color==sf::Color::Red)
+		return redArrow;
+	else if (m_color == sf::Color::Blue)
+		return blueArrow;
+	else if (m_color == sf::Color::Green)
+		return greenArrow;
+}	
+
+void Player::definArrow()
+{
+	//AnimationObject d(spriteSetting{ m_worms[m_currWormPlayer]->getPosition() ,sf::Vector2f{1,1},
+	//	Resources::instance().getTexture(getColorArrow()) }, arrowImageCount, m_world, true);
+	//m_arrow = d;
+	//m_world.DestroyBody(m_arrow.getBody());
+	m_arrow.setTexture(Resources::instance().getTexture(blueArrow));
 }
 
 /*
@@ -390,3 +432,4 @@ void Player::getFeaturesName(int index)
 		m_feature = nullptr;
 	}
 }
+
