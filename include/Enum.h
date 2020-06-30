@@ -76,13 +76,12 @@ const auto sheepImageCount = sf::Vector2u{ 1,10 };
 const auto teleporterImageCount = sf::Vector2u{ 1,10 };
 const auto wormImageCount = sf::Vector2u{ 1,36 };
 const auto WormDieImageCount = sf::Vector2u{ 1,60 };
-const auto artilaryimagecount= sf::Vector2u{ 1,30 };
+const auto artilaryimagecount= sf::Vector2u{ 1,10 };
 const auto patrol= sf::Vector2u{ 1,20 };
-const auto callartilary= sf::Vector2u{ 1,10	 };
-//const auto walkImageCount = sf::Vector2u{ 1,10 };
-
-const auto dinamitstop= sf::Vector2u{ 1,10	 };
-const auto dinamitbegin= sf::Vector2u{ 1,10	 };
+const auto callartilary= sf::Vector2u{ 1,9 };
+const auto walkImageCount = sf::Vector2u{ 1,10 };
+const auto dinamitstop= sf::Vector2u{ 1,17};
+const auto dinamitbegin= sf::Vector2u{ 1,17};
 
 
 

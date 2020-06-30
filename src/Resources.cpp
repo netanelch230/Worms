@@ -45,12 +45,14 @@ void Resources::loadPicture()
 	m_picture[animation_grenade].loadFromFile("greenGrenade.png");
 	m_picture[animation_begin_dinamit].loadFromFile("wormDinamitBegin.png");
 	m_picture[animation_end_dinamit].loadFromFile("wormDinamitSof.png");
-	m_picture[animation_artilary].loadFromFile("wormAritilery.png");
+	m_picture[animation_artilary].loadFromFile("callRocketAnimation.png");
 	m_picture[animation_teleporter].loadFromFile("telleporter.png");
 	m_picture[animation_walk].loadFromFile("wwalkd.png");
 	m_picture[animation_skip].loadFromFile("pass.png");
 	m_picture[animation_die].loadFromFile("wdie.png");
-	
+	m_picture[animation_stinky].loadFromFile("stinkyAnimation.png");
+
+
 	m_picture[grenade].loadFromFile("GRENADE1.png");
 	m_picture[sheep].loadFromFile("sheepWalk.png");
 	m_picture[dinamit].loadFromFile("dynamite.png");

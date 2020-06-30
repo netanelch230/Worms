@@ -6,7 +6,7 @@ class AnimationObject:public AbsObject
 {
 public:
 	AnimationObject(spriteSetting sset, sf::Vector2u imageCount, b2World& world,
-		bool whichtype, int distance = 0);
+		bool whichtype, int distance = 0, float switchTime = 0.03f);
 	AnimationObject()= default;
 	 virtual void destroy();
 	void setAnimation(AnimationSet animset,float switchTime);

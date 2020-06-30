@@ -10,13 +10,13 @@ public:
 	void update(int row, float deltaTime);
 	sf::IntRect getrect() { return m_rect; };
 	bool isDead();
-
+	void setSwitchTime(float switchTime) { m_switchtime = switchTime; }
 private:
 	bool m_restartAnimation = true;
 	sf::IntRect m_rect;
 	sf::Vector2u m_imageCount;
 	sf::Vector2u currentImage;
 	float m_totaltime;
-	float m_switchtime;
+	float m_switchtime = animationSwitchTime;
 	int m_distance;
 };

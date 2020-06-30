@@ -8,9 +8,9 @@ class Attack :public Features , public AnimationObject
 {
 public:
 	Attack(b2World& world, spriteSetting sset, AnimationSet animationSet,
-		sf::Vector2u imageCount,int distanceToObject=1)
+		sf::Vector2u imageCount,int distanceToObject=1, float switchTime= 0.03f)
 		:Features(animationSet),
-		AnimationObject(sset, imageCount, world, true, distanceToObject) {}
+		AnimationObject(sset, imageCount, world, true, distanceToObject, switchTime) {}
 	void draw(sf::RenderWindow& window) { AbsObject::draw(window); }
 	virtual void play() {};
 	
