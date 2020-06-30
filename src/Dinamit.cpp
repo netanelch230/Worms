@@ -1,5 +1,6 @@
 #pragma once
 #include"Dinamit.h"
+#include <iostream>
 
 Dinamit::Dinamit(b2World& world, sf::Vector2f position):
 NonMovingAttack(world,
@@ -13,24 +14,29 @@ NonMovingAttack(world,
 bool Dinamit::runFeature(sf::Event& event, sf::RenderWindow& window,
 	bool& drawFeatur,const sf::Vector2f& wormPosition)
 {
-	switch (event.type)
+	if (window.pollEvent(event))
 	{
-	case sf::Event::KeyPressed:
-		if (event.key.code == sf::Keyboard::Space)
+		switch (event.type)
 		{
-			drawFeatur = true;
-			setPosition(wormPosition);
-			m_timer.restart();
+		case sf::Event::KeyPressed:
+			if (event.key.code == sf::Keyboard::Space)
+			{
+				std::cout << "in";
+				drawFeatur = true;
+				setPosition(wormPosition);
+				m_timer.restart();
+			}
+			break;
 		}
-		break;
 	}
 	if (drawFeatur)
 	{
-		if (m_second > 0)
+		if (m_second !=-1)
 		{
 			float time = m_timer.getElapsedTime().asSeconds();
+			std::cout<< time << std::endl;
 			
-			if (time >= 1)
+			if (time >= 1.f)
 			{
 				m_second--;
 				m_timer.restart();

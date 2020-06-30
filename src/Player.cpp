@@ -43,7 +43,7 @@ void Player::run(sf::Event& event,
 	checkHealth();
 	while (!timesUp() && !m_end) //needs to be change
 	{
-		checkIfEventOccured();
+		checkIfEventOccured(event);
 		wormMove();
 		drawBoardAndAnimation(groupPlayers);
 		moveWeaponeFearures();
@@ -83,7 +83,7 @@ this means the player wants to use a feature from the feature's tool bar.
 right after handling this case, it will check if the player pressed on 
 space click - this means he's wants to exert power and shoot or 
 throw grenade (one of the options).*/
-void Player::checkIfEventOccured()
+void Player::checkIfEventOccured(sf::Event& event)
 {
 	/*
 	if (m_telleporter)
@@ -98,8 +98,13 @@ void Player::checkIfEventOccured()
 		return;
 	}
 	*/
-	if (auto event = sf::Event{}; m_window.pollEvent(event))//wait for event from the player
-	{
+	//if (m_window.pollEvent(event))					//wait for event from the player
+	//{
+		if (m_feature)
+			m_featureAlive = m_feature->runFeature(event, m_window, m_drawfeatur,
+				m_worms[m_currWormPlayer]->getPosition());
+
+		if(m_window.pollEvent(event)){
 		if (event.type == sf::Event::Closed)
 		{
 			m_window.close();
@@ -108,17 +113,17 @@ void Player::checkIfEventOccured()
 		switch (event.type)
 		{
 		case sf::Event::MouseButtonPressed:
-		case sf::Mouse::Button::Right:
-			m_drawWeaponMenu = true; // set to true so we'll draw the weapon menu after the case!
+			if(event.key.code== sf::Mouse::Button::Right)
+				m_drawWeaponMenu = true; // set to true so we'll draw the weapon menu after the case!
 			break;
-
-		case sf::Mouse::Button::Left:
+			
+		/*case sf::Mouse::Button::Left:		
 			if (m_telleporter)
 			{
 				handleTeleporter();
 				m_telleporter = false;
 				break;
-			}
+			}*/
 		case sf::Event::KeyPressed:
 			if (event.key.code == sf::Keyboard::Space)
 			{
@@ -127,33 +132,10 @@ void Player::checkIfEventOccured()
 					handleSkipTurn();
 					break;
 				}
-				if (m_drawfeatur == false)
-				{
-					m_drawfeatur = true;
-					break;
-				}
-				else
-				{
-					explosion();
-					m_feature->applyFeatures();
-				}
-				auto time = m_force.getElapsedTime().asSeconds();
-				m_drawfeatur = true;
+				
 				break;
 			}
-			break;
-
-
-		case sf::Event::Closed:
-			m_window.close();
-			break;
-			break;
-
 		}
-		if (m_feature)
-			m_featureAlive = m_feature->runFeature(event, m_window, m_drawfeatur,
-				m_worms[m_currWormPlayer]->getPosition());
-
 	}
 }
 
@@ -452,7 +434,7 @@ void Player::getFeaturesName(int index)
 		m_feature = std::make_unique<WhiteFlag>();
 		break;
 	case animation_artilary:
-		m_feature = std::make_unique<Artilary>(m_world, wormPosition);
+		m_feature = std::make_unique<Artilary>(m_world, sf::Vector2f{60,60});
 		break;
 	case animation_grenade:
 		m_feature = std::make_unique<Grenade>(m_world, wormPosition);

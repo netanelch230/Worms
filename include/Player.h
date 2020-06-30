@@ -55,7 +55,7 @@ private:
 
 	void checkButtonFeaturesMenu(sf::Vector2f &location);
 	void moveWeaponeFearures();
-	void checkIfEventOccured();
+	void checkIfEventOccured(sf::Event& event);
 	void handleCollision(int wep);
 	void handleTeleporter();
 	void handleFeatureChoosing();

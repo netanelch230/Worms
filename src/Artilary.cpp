@@ -11,18 +11,27 @@ void Artilary::applyFeatures() {
 	//	}
 }
 
-bool Artilary::runFeature(sf::Event& event,sf::RenderWindow& window,bool& drawFeatur, const sf::Vector2f& wormPosition)
+bool Artilary::runFeature(sf::Event& event, sf::RenderWindow& window, bool& drawFeatur, const sf::Vector2f& wormPosition)
 {
-	switch (event.type)
+	if (!drawFeatur)
 	{
-	case sf::Event::MouseButtonPressed:
-		case sf::Mouse::Button::Left:
-			float MouseX = sf::Mouse::getPosition(window).x;
-			auto pos = sf::Vector2f{ MouseX,0 };
-			setPosition(pos);
-			drawFeatur = true;
-			break;
-		break;
+		if (window.pollEvent(event))
+		{
+			switch (event.type)
+			{
+			case sf::Event::MouseButtonPressed:
+				if (event.key.code == sf::Mouse::Button::Left)
+				{
+					float MouseX = sf::Mouse::getPosition(window).x;
+					auto pos = sf::Vector2f{ MouseX,0 };
+					setPosition(pos);
+					m_body->SetTransform({ MouseX * MPP,20 * MPP }, m_body->GetAngle());
+					drawFeatur = true;
+				}
+				return true;
+				break;
+			}
+		}
 	}
-	return true;
+	
 }
