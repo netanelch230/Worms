@@ -31,6 +31,9 @@ configure_file ("Animation/wormAnimation/wdie.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/wormAnimation/arrowBlue.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/wormAnimation/arrowGreen.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/wormAnimation/telleporter.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Animation/wormAnimation/wormAritilery.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Animation/wormAnimation/wormDinamitBegin.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Animation/wormAnimation/wormDinamitSof.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("Animation/weaponesAnimation/exGrenade.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/weaponesAnimation/exSheep.png" ${CMAKE_BINARY_DIR} COPYONLY)
@@ -38,6 +41,8 @@ configure_file ("Animation/weaponesAnimation/exStinky.png" ${CMAKE_BINARY_DIR} C
 configure_file ("Animation/weaponesAnimation/grenade.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/weaponesAnimation/sheepWalk.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/weaponesAnimation/stinkyWalk.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Animation/weaponesAnimation/artilary.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Animation/weaponesAnimation/dynamite.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("Menu/playersNum.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Menu/gameMap.png" ${CMAKE_BINARY_DIR} COPYONLY)
@@ -66,5 +71,7 @@ configure_file ("negev/desertLand4.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("negev/desertLand7.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("negev/tent.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("negev/waterwall.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
+configure_file ("sound/WARNINGBEEP.wav" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file (C:/SFML/SFML-2.5.1/bin/openal32.dll ${CMAKE_BINARY_DIR} COPYONLY)

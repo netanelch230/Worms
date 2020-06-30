@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
+#include <SFML/Audio.hpp>
+
 
 using picsArray = std::array<sf::Texture, amuntOfPicture>;
 
@@ -19,20 +21,21 @@ public:
 
 	sf::Texture& getTexture(const int& i) { return m_picture[i]; };
 	sf::Font& getfont(const int& i) { return m_font[i]; };
-	//sf::Music& getMusic(int i);
+	sf::SoundBuffer& getMusic(int i) { return m_sound[i]; }
 
 private:
 	Resources() {
 		loadPicture();
 		loadFont();
+		loadSound();
 	};
 	picsArray m_picture;
 	sf::Texture m_featuresMenu;
 	std::array<sf::Font, countOfFont> m_font;
-	//std::array<sf::Music,countOfMusic> m_sound;
+	std::array<sf::SoundBuffer,countOfMusic> m_sound;
 	void loadPicture();
 	void loadFont();
-
+	void loadSound();
 };
 
 sf::Vector2f operator+(sf::Vector2f v1, sf::Vector2f v2);
