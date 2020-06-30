@@ -12,16 +12,41 @@ Grenade::Grenade(b2World& world, sf::Vector2f position):
 //54*36
 void Grenade::play()
 {
-	m_bomb.restart();
-	int second=3;
-	while (second > 0)
+	
+}
+
+bool Grenade::runFeature(sf::Event& event, sf::RenderWindow& window,
+	bool& drawFeatur, const sf::Vector2f& wormPosition)
+{
+	switch (event.type)
 	{
-		float time = m_bomb.getElapsedTime().asSeconds();
-		if (time >= 1)
+	case sf::Event::KeyPressed:
+		if (event.key.code == sf::Keyboard::Space)
 		{
-			second--;
-			m_bomb.restart();
+			drawFeatur = true;
+			setPosition(wormPosition);
+			m_body->ApplyForce(force(), m_body->GetWorldCenter(), true);
+			m_timer.restart();
+		}
+		break;
+	}
+	if (drawFeatur)
+	{
+		if (m_second > 0)
+		{
+			float time = m_timer.getElapsedTime().asSeconds();
+			if (time >= 1)
+			{
+				m_second--;
+				m_timer.restart();
+			}
+		}
+		else {
+			auto world = getBody()->GetWorld();
+			featureExplosion(*world);
+			drawFeatur = false;
+			return false;
 		}
 	}
-	setAnimation(AnimationSet{ exGrenade,exGrenadeImageCount,false,1 }, 0.03f);
+	return true;
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include "Attack.h"
-#include "MyQueryCallback.h"
+
 
 class MovingAttack : public Attack 
 {
@@ -13,7 +13,7 @@ public:
 	b2Vec2 force();
 	~MovingAttack() = default;
 	void changeDirection();
-	void featureExplosion(b2World& world);
+
 
 
 private:
@@ -21,6 +21,4 @@ private:
 	b2Vec2 m_leftForce;
 	sf::Clock m_timeMoving;
 	
-	void blastPoint(void* data);
-	void applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower);
 };

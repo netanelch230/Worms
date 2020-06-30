@@ -13,7 +13,10 @@ public:
 	Grenade(b2World& world, sf::Vector2f position); 
 	virtual void play() override;
 	virtual void applyFeatures() {}
+	bool runFeature(sf::Event& event, sf::RenderWindow& window,
+		bool& drawFeatur, const sf::Vector2f& wormPosition);
 private:
-	sf::Clock m_bomb;
+	sf::Clock m_timer;
+	int m_second = 3;
 
 };

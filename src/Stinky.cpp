@@ -1,18 +1,12 @@
 #pragma once
-#include "Sheep.h"
+#include "Stinky.h"
 
-
-void Sheep::applyFeatures()
-{
-	AnimationObject::setAnimation({ exSheep,exSheepImageCount,false,1 }, 0.03);
-}
-
-bool Sheep::runFeature(sf::Event& event, sf::RenderWindow& window,
+bool Stinky::runFeature(sf::Event& event, sf::RenderWindow& window,
 	bool& drawFeatur, const sf::Vector2f& wormPosition)
 {
 	if (!drawFeatur)
 	{
-		if(event.type==sf::Event::KeyPressed)
+		if (event.type == sf::Event::KeyPressed)
 		{
 			if (event.key.code == sf::Keyboard::Space)
 			{
@@ -38,3 +32,6 @@ bool Sheep::runFeature(sf::Event& event, sf::RenderWindow& window,
 	}
 	return true;
 }
+
+
+

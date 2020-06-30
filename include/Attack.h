@@ -1,7 +1,8 @@
 #pragma once
 #include"Features.h"
 #include"AnimationObject.h"
-
+#include "MyQueryCallback.h"
+#include "Worm.h"
 //--------------class-------------
 class Attack :public Features , public AnimationObject
 {
@@ -11,9 +12,15 @@ public:
 		:Features(animationSet),
 		AnimationObject(sset, imageCount, world, true, distanceToObject) {}
 	void draw(sf::RenderWindow& window) { AbsObject::draw(window); }
-	virtual void play() = 0;
+	virtual void play() {};
+	
 	bool destroy(int time);
+	void featureExplosion(b2World& world);
 	void update();
+
 private:
+
+	void blastPoint(void* data);
+	void applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower);
 	sf::Clock m_timeAnimation;
 };

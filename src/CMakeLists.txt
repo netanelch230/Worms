@@ -17,5 +17,7 @@
 "sheep.cpp"
 "MovingAttack.cpp"
 "FeaturesToolBar.cpp"
-"Artilary.cpp")
+"Artilary.cpp"
+"Dinamit.cpp"
+"Stinky.cpp")
 

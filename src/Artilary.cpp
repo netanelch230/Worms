@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 #include "Artilary.h"
 
 void Artilary::applyFeatures() {
@@ -11,7 +11,7 @@ void Artilary::applyFeatures() {
 	//	}
 }
 
-void Artilary::runFeature(sf::Event& event,sf::RenderWindow& window)
+bool Artilary::runFeature(sf::Event& event,sf::RenderWindow& window,bool& drawFeatur, const sf::Vector2f& wormPosition)
 {
 	switch (event.type)
 	{
@@ -20,8 +20,9 @@ void Artilary::runFeature(sf::Event& event,sf::RenderWindow& window)
 			float MouseX = sf::Mouse::getPosition(window).x;
 			auto pos = sf::Vector2f{ MouseX,0 };
 			setPosition(pos);
+			drawFeatur = true;
 			break;
 		break;
 	}
-	
+	return true;
 }

@@ -18,9 +18,7 @@ void Resources::loadPicture()
 	m_picture[exitGame].loadFromFile("exit.png");
 	m_picture[playTwo].loadFromFile("p2.png");
 	m_picture[playThree].loadFromFile("p3.png");
-;
 
-	
 	m_picture[featuresMenu].loadFromFile("featuresMenu.png");
 
 	//load background and board to Jerusalem map
@@ -43,23 +41,20 @@ void Resources::loadPicture()
 	//load animations!
 	m_picture[animation_worm].loadFromFile("worm.png");
 	m_picture[animaiton_sheep].loadFromFile("sheep.png");
-  
 	m_picture[animation_whiteFlag].loadFromFile("whiteFlag.png");
 	m_picture[animation_grenade].loadFromFile("greenGrenade.png");
-
-	m_picture[animation_begin_dinamit].loadFromFile("dinamitBegin.png");
-	m_picture[animation_end_dinamit].loadFromFile("dinamitsof.png");
-	m_picture[animation_artilary].loadFromFile("callartilery.png");
+	m_picture[animation_begin_dinamit].loadFromFile("wormDinamitBegin.png");
+	m_picture[animation_end_dinamit].loadFromFile("wormDinamitSof.png");
+	m_picture[animation_artilary].loadFromFile("wormAritilery.png");
 	m_picture[animation_teleporter].loadFromFile("telleporter.png");
-
 	m_picture[animation_skip].loadFromFile("pass.png");
-
 	m_picture[animation_die].loadFromFile("wdie.png");
 	
 	m_picture[grenade].loadFromFile("GRENADE1.png");
 	m_picture[sheep].loadFromFile("sheepWalk.png");
 	m_picture[dinamit].loadFromFile("dynamite.png");
-	
+	m_picture[artileri].loadFromFile("artilary.png");
+
 	m_picture[exGrenade].loadFromFile("exGrenade.png");
 	m_picture[exSheep].loadFromFile("exSheep.png");
 	m_picture[exStinky].loadFromFile("exStinky.png");
@@ -91,6 +86,11 @@ void Resources::loadFont()
 	m_font[menu_font].loadFromFile("herist.otf");
 	m_font[name_font].loadFromFile("tahoma.ttf");
 	
+}
+
+void Resources::loadSound()
+{
+	m_sound[timer].loadFromFile("WARNINGBEEP.wav");
 }
 
 sf::Vector2f operator+(sf::Vector2f v1, sf::Vector2f v2)

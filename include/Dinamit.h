@@ -4,15 +4,14 @@
 class Dinamit :public NonMovingAttack
 {
 public:
-	Dinamit(b2World& world, sf::Vector2f position) :
-		NonMovingAttack(world,
-			spriteSetting{ position,grenadeSize,Resources::instance().getTexture(dinamit) },
-			AnimationSet{ animation_begin_dinamit,sf::Vector2u{1,1},false,1 },
-			sf::Vector2u{ 1,1 }) {}
-	virtual void applyFeatures() {};
+	Dinamit(b2World& world, sf::Vector2f position);
+	virtual void applyFeatures() override {};
+	virtual bool runFeature(sf::Event& event, sf::RenderWindow& window, bool& drawFeatur, const sf::Vector2f& wormPosition) override;
 	virtual void play() override {};
 	
 
 private:
-
+	sf::Clock m_timer;
+	int m_second = 5;
+	sf::Sound m_soundTimer;
 };
