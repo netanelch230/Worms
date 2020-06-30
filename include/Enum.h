@@ -101,7 +101,7 @@ const auto posPlayCompButton = sf::Vector2f{ 20, 200 };
 const auto posPlayFriendButton = sf::Vector2f{ 20, 350 };
 const auto map1Button = sf::Vector2f{ 920, 220 };
 const auto map2Button = sf::Vector2f{ 920, 380 };
-const auto playerButtonPos = sf::Vector2f{ 300, 200 };
+const auto playerButtonPos = sf::Vector2f{ 450, 200 };
 const auto playButtonPos = sf::Vector2f{ 950, 580 };
 
 const int playerDistance = 150;
@@ -116,7 +116,7 @@ const auto groupNamePos = sf::Vector2f{ 380, 300 };
 const int amountOfAnimation = 9;
 
 //==============================distance of animation from the beginning================================
-const int featureDistance = 29;
+const int featureDistance = 23;
 //==============================features Animation enums!====================================================
 enum menuPictures
 {
@@ -157,16 +157,18 @@ enum desertMap
 enum featuresWormAnim
 {
 	animation_worm=22,
-	animaiton_sheep,
-	animation_grenade,
+
 	animation_artilary,
-	animation_begin_dinamit,
-	animation_end_dinamit,
 	animation_whiteFlag,
+	animation_begin_dinamit,
+	animation_grenade,
 	animation_skip,
+	animaiton_sheep,
 	animation_stinky,
 	animation_teleporter,
-	animation_die
+
+	animation_die,
+	animation_end_dinamit,
 };
 
 
@@ -189,22 +191,21 @@ enum weaponsEffect
 
 enum menuHeadlines
 {
-	gameFormatHeadline = 42,
-	gameMapHeadline,
+	gameMapHeadline=42,
 	playersNamesHeadline,
 	groupAmountHeadlines
 };
 
 enum arrow {
-	greenArrow=46,
+	greenArrow=45,
 	blueArrow,
 	redArrow
 };
 
 enum featuresToolbar {
-	axeIconButton= 49,
+	artileryIconButton= 48,
 	flagIconButton,
-	flickIconButton,
+	dinamitIconButton,
 	grenadeIconButton,
 	passIconButton,
 	sheepIconButton,

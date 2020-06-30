@@ -31,7 +31,7 @@ void FeaturesToolBar::setSpriteIcons()
 	{
 		for (auto j = 0; j < featuresAmount / 2; j++)
 		{
-			m_featuresSprite[k].setTexture(Resources::instance().getTexture(k + 49));
+			m_featuresSprite[k].setTexture(Resources::instance().getTexture(k + 48));
 			m_featuresSprite[k].setPosition(feautersX + (j * feauterSize), feautersY+ (i* feauterSize));
 			k++;
 		}
