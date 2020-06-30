@@ -177,7 +177,6 @@ enum featuresWeaponesAnim
 	sheep=34,
 	grenade,
 	stinky,
-	flik,
 	dinamit,
 	artileri
 };
@@ -260,5 +259,7 @@ enum menuPress
 	t_startPlay
 };
 
-
+enum sound {
+	timer
+};
 

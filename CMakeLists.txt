@@ -18,8 +18,12 @@ endif ()
 	set (SFML_STATIC_LIBRARIES TRUE)
 	set (SFML_DIR "C:/SFML/SFML-2.5.1/lib/cmake/SFML")
 
-	find_package (SFML 2.5 COMPONENTS graphics REQUIRED)
+	find_package (SFML 2.5 COMPONENTS audio graphics REQUIRED)
 
 
-	target_link_libraries (Worms sfml-graphics sfml-main)
+	target_link_libraries (Worms sfml-graphics sfml-audio sfml-main)
 	target_link_libraries (Worms box2d)
+
+	set_target_properties (sfml-main sfml-system sfml-window sfml-graphics sfml-audio sfml-network PROPERTIES MAP_IMPORTED_CONFIG_RELWITHDEBINFO RELEASE)
+
+

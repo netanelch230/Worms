@@ -11,7 +11,8 @@ and the color of the group,
 world is the physical world of the player
 */
 Player::Player(std::string name, sf::Color color, b2World & world,Board& board, FeaturesToolBar& featuresMenu, sf::RenderWindow &window):
-	m_name(name), m_color(color), m_world(world),m_board(board), m_featuresMenu(featuresMenu), m_window(window)
+	m_name(name), m_color(color), m_world(world),m_board(board), m_featuresMenu(featuresMenu), m_window(window),
+	m_feature(nullptr)
 {
 	
 	creatWorms();
@@ -110,6 +111,7 @@ void Player::checkIfEventOccured()
 		case sf::Mouse::Button::Right:
 			m_drawWeaponMenu = true; // set to true so we'll draw the weapon menu after the case!
 			break;
+
 		case sf::Mouse::Button::Left:
 			if (m_telleporter)
 			{
@@ -141,9 +143,20 @@ void Player::checkIfEventOccured()
 			}
 			break;
 
+
+		case sf::Event::Closed:
+			m_window.close();
+			break;
+			break;
+
 		}
+		if (m_feature)
+			m_featureAlive = m_feature->runFeature(event, m_window, m_drawfeatur,
+				m_worms[m_currWormPlayer]->getPosition());
+
 	}
 }
+
 
 /*this function will draw the board and all the animations
 and objects+all the of the physical elements.*/
@@ -167,7 +180,7 @@ void Player::drawBoardAndAnimation(std::vector<std::unique_ptr<Player>>& groupPl
 		m_feature->update();
 		m_feature->draw(m_window);
 
-		if (m_feature->destroy(Timer::getTime()))
+		if (m_feature->destroy(Timer::getTime()) || !m_featureAlive)
 		{
 			m_feature.reset();
 			m_drawfeatur = false;

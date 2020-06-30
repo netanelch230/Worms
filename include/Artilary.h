@@ -12,7 +12,7 @@ public:
 			artilaryimagecount) {}
 	virtual void applyFeatures();
 	virtual void play() override {};
-	virtual void runFeature(sf::Event& event, sf::RenderWindow& window);
+	bool runFeature(sf::Event& event, sf::RenderWindow& window, bool& drawFeatur, const sf::Vector2f& wormPosition) override;
 };
 
 
