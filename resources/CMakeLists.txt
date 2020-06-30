@@ -36,6 +36,11 @@ configure_file ("Animation/wormAnimation/wormAritilery.png" ${CMAKE_BINARY_DIR} 
 configure_file ("Animation/wormAnimation/wormDinamitBegin.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/wormAnimation/wormDinamitSof.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
+configure_file ("Animation/wormAnimation/callRocketAnimation.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Animation/wormAnimation/stinkyAnimation.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
+
+
 configure_file ("Animation/weaponesAnimation/exGrenade.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/weaponesAnimation/exSheep.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/weaponesAnimation/exStinky.png" ${CMAKE_BINARY_DIR} COPYONLY)

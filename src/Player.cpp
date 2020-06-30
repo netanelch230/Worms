@@ -142,13 +142,6 @@ void Player::checkIfEventOccured()
 				break;
 			}
 			break;
-
-
-		case sf::Event::Closed:
-			m_window.close();
-			break;
-			break;
-
 		}
 		if (m_feature)
 			m_featureAlive = m_feature->runFeature(event, m_window, m_drawfeatur,
@@ -191,6 +184,7 @@ void Player::drawBoardAndAnimation(std::vector<std::unique_ptr<Player>>& groupPl
 	/*m_arrow.update(0.03);
 	m_arrow.draw(window);*/
 	m_window.display();
+	//({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);m_worms[m_currWormPlayer]->setAnimation({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);l
 }
 
 /*this function will draw the worms on the board+animations by using polymorphizm
@@ -248,6 +242,7 @@ if (m_feature == nullptr)
 		return;
 	//in any other case we need to set the animation to the feature's choosing.
 	m_worms[m_currWormPlayer]->setAnimation(m_feature->getAnimationSet(), 0.05f);
+	
 	if (m_feature->getAnimationSet().photo == animation_skip)
 	{
 		m_skipTurn = true;
@@ -441,6 +436,8 @@ void Player::handleTeleporter()
 	Timer::setTime(oneRound);
 
 }
+
+
 
 void Player::getFeaturesName(int index)
 {

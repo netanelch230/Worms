@@ -9,4 +9,5 @@ struct AnimationSet
 	bool restart; //means if we need to run again on the animation
 	int distance;//distance of animations 
 	sf::Vector2f sizeOfAni;
+	float switchTime;
 };

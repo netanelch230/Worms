@@ -2,15 +2,15 @@
 //--------------------------------------------------------------
 
 AnimationObject::AnimationObject(spriteSetting sset, sf::Vector2u imageCount,
-	b2World& world,bool whichtype, int distance) :
-	m_animation(&sset.picture, imageCount, 0.03f,distance), m_row(0),
+	b2World& world,bool whichtype, int distance, float switchTime) :
+	m_animation(&sset.picture, imageCount, switchTime, distance), m_row(0),
 	AbsObject(sset,world,whichtype){}
 
 void AnimationObject::setAnimation(AnimationSet animset, float switchTime)
 {
 	m_sprite.setTexture(Resources::instance().getTexture(animset.photo));
 	Animation animation(&Resources::instance().getTexture(animset.photo),
-		animset.imageCount, switchTime, animset.distance, animset.restart);
+		animset.imageCount, animset.switchTime, animset.distance, animset.restart);
 	m_animation = animation;
 	//m_sprite.resi(animset.sizeOfAni);
 }

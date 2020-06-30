@@ -5,7 +5,7 @@ Dinamit::Dinamit(b2World& world, sf::Vector2f position):
 NonMovingAttack(world,
 	spriteSetting{ position,{20,20},Resources::instance().getTexture(dinamit) },
 	AnimationSet{ animation_begin_dinamit,sf::Vector2u{1,10},false,0 },
-	sf::Vector2u{ 1,14 },0)
+	sf::Vector2u{ 1,17 }, 0)
 {
 	m_soundTimer.setBuffer(Resources::instance().getMusic(timer));
 }
