@@ -133,8 +133,8 @@ namespace {
         phm[Key(typeid(staticObject), typeid(Stinky))] = &staticObject_Stinky;
         
 
-        phm[Key(typeid(AbsObject), typeid(Artilary))] = &AbsObject_artilary;
-        phm[Key(typeid(Artilary), typeid(AbsObject))] = &artilary_AbsObject;
+        phm[Key(typeid(staticObject), typeid(Artilary))] = &AbsObject_artilary;
+        phm[Key(typeid(Artilary), typeid(staticObject))] = &artilary_AbsObject;
 
         
 

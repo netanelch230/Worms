@@ -36,6 +36,7 @@ void Attack::featureExplosion(b2World& world)
 
 		applyBlastImpulse(body, center, bodyCom, blastPower);
 	}
+	m_body->GetWorld()->DestroyBody(m_body);
 }
 
 
