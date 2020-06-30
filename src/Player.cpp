@@ -1,4 +1,4 @@
-	#include "Player.h"
+#include "Player.h"
 #include <iostream>
 #include "MyQueryCallback.h"
 
@@ -40,9 +40,9 @@ void Player::run(sf::Event& event,
 	m_arrow.setPosition(m_worms[m_currWormPlayer]->getPosition());
 	Timer::setTime(timeOfRound);			// set time of player's turn.
 	checkHealth();
-	while (!timesUp()) //needs to be change
+	while (!timesUp() && !m_end) //needs to be change
 	{
-		checkIfEventOccured(event);
+		checkIfEventOccured();
 		wormMove();
 		drawBoardAndAnimation(groupPlayers);
 		moveWeaponeFearures();
@@ -50,9 +50,8 @@ void Player::run(sf::Event& event,
 			chooseWeapon(groupPlayers);
 		for(auto&i:m_worms)
 			i->destroy();
-		
 	}
-		m_end = false;
+	m_end = false;
 	m_worms[m_currWormPlayer]->setAnimation({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);
 	whiteFlag = m_whiteFlag;
 
@@ -83,23 +82,49 @@ this means the player wants to use a feature from the feature's tool bar.
 right after handling this case, it will check if the player pressed on 
 space click - this means he's wants to exert power and shoot or 
 throw grenade (one of the options).*/
-void Player::checkIfEventOccured(sf::Event& event)
+void Player::checkIfEventOccured()
 {
-	if (m_window.pollEvent(event))//wait for event from the player
+	/*
+	if (m_telleporter)
 	{
+		handleTeleporter();
+		m_telleporter = false;
+		m_feature = nullptr;
+	}
+	else if (m_feature != nullptr && m_feature->getAnimationSet().photo == animation_teleporter)
+	{
+		m_telleporter = true;
+		return;
+	}
+	*/
+	if (auto event = sf::Event{}; m_window.pollEvent(event))//wait for event from the player
+	{
+		if (event.type == sf::Event::Closed)
+		{
+			m_window.close();
+			return;
+		}
 		switch (event.type)
 		{
 		case sf::Event::MouseButtonPressed:
 		case sf::Mouse::Button::Right:
 			m_drawWeaponMenu = true; // set to true so we'll draw the weapon menu after the case!
 			break;
-		case sf::Event::Closed:
-			m_window.close();
-			break;
-			break;
+		case sf::Mouse::Button::Left:
+			if (m_telleporter)
+			{
+				handleTeleporter();
+				m_telleporter = false;
+				break;
+			}
 		case sf::Event::KeyPressed:
 			if (event.key.code == sf::Keyboard::Space)
 			{
+				if (m_skipTurn) // in here we'll need to set the worm animation.
+				{
+					handleSkipTurn();
+					break;
+				}
 				if (m_drawfeatur == false)
 				{
 					m_drawfeatur = true;
@@ -109,12 +134,6 @@ void Player::checkIfEventOccured(sf::Event& event)
 				{
 					explosion();
 					m_feature->applyFeatures();
-				}
-				if (m_skipTurn) // in here we'll need to set the worm animation.
-				{
-					m_worms[m_currWormPlayer]->setAnimation({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);
-					m_end = true;
-					m_skipTurn = false;
 				}
 				auto time = m_force.getElapsedTime().asSeconds();
 				m_drawfeatur = true;
@@ -203,8 +222,9 @@ void Player::chooseWeapon(std::vector<std::unique_ptr<Player>>& groupPlayers)
 
 void Player::handleSkipTurn()
 {
-	//m_worms[m_currWormPlayer]->setAnimation({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);
+	m_worms[m_currWormPlayer]->setAnimation({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);
 	m_end = true;
+	m_skipTurn = false;
 }
 /*this function will check if the player didn't choose a feature from the tool bar
 and if he chosed a feature we'll set the animation of the feature (switch from regular
@@ -218,14 +238,21 @@ if (m_feature == nullptr)
 	if (m_feature->getAnimationSet().photo == animation_skip)
 	{
 		m_skipTurn = true;
-		handleSkipTurn();
 		//in here we'll want to handle skip turn and to wait for space from the user
 	}
 	else if (m_feature->getAnimationSet().photo == animation_whiteFlag)
 		handleWhiteFlag();
 
 	else if (m_feature->getAnimationSet().photo == animation_teleporter)
+	{
+		//m_worms[m_currWormPlayer]->setAnimation({ animation_teleporter, sf::Vector2u{ 1,10 }, true, 1, sizeOfWorm }, 0.05f);
+		m_telleporter = true;
+		//m_worms[m_currWormPlayer]->setAnimation(m_feature->getAnimationSet(), 0.05f);
 		handleTeleporter();
+		/*we won't do a thing, cause we'll wait for mouse button press and then we'll move it. 
+		the only thing we'll do is to move the worm.*/
+	}
+
 }
 
 /*
@@ -253,6 +280,7 @@ void Player::wormMove()
 	float time = m_wormsTime.restart().asSeconds();	
 	m_worms[m_currWormPlayer]->move(time);
 	m_arrow.setPosition(m_worms[m_currWormPlayer]->getPosition() + sf::Vector2f{ -20,-60 });
+	//m_worms[m_currWormPlayer]->setAnimation();
 }
 
 //---------------------------------------------
@@ -390,11 +418,15 @@ void Player::handleTeleporter()
 					b2Vec2 loc{ locatin(event).x * MPP, locatin(event).y * MPP };
 					m_worms[m_currWormPlayer]->getBody()->SetTransform(loc, 
 						m_worms[m_currWormPlayer]->getBody()->GetAngle());
+					//m_worms[m_currWormPlayer]->setAnimation({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);
+					break;
 				}
-				break;
 			}
 		}
 	}
+
+	Timer::setTime(oneRound);
+
 }
 
 void Player::getFeaturesName(int index)

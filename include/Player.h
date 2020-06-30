@@ -43,6 +43,7 @@ private:
 
 	bool m_skipTurn = false;
 	bool m_whiteFlag = false;
+	bool m_telleporter = false;
 	bool m_end;
 	int m_currWormPlayer = 0;
 	sf::Clock m_force; // will handle the force of using weapon - physical element.
@@ -53,7 +54,7 @@ private:
 
 	void checkButtonFeaturesMenu(sf::Vector2f &location);
 	void moveWeaponeFearures();
-	void checkIfEventOccured(sf::Event& event);
+	void checkIfEventOccured();
 	void handleCollision(int wep);
 	void handleTeleporter();
 	void handleFeatureChoosing();

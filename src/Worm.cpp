@@ -26,12 +26,14 @@ b2Vec2 Worm::forc()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		m_sprite.setScale(RIGHT);
+		this->setAnimation({ animation_walk, sf::Vector2u{1,15}, false, 1,sizeOfWalkWorm }, 0.05f);
 		return b2Vec2{ 0.1,0 };
 	}
 
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		m_sprite.setScale(LEFT);
+		this->setAnimation({ animation_walk, sf::Vector2u{1,15}, false, 1,sizeOfWalkWorm }, 0.05f);
 		return b2Vec2{ -0.1,0 };
 	}
 

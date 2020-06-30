@@ -31,6 +31,8 @@ configure_file ("Animation/wormAnimation/wdie.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/wormAnimation/arrowBlue.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/wormAnimation/arrowGreen.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/wormAnimation/telleporter.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Animation/wormAnimation/wwalkd.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
 
 configure_file ("Animation/weaponesAnimation/exGrenade.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Animation/weaponesAnimation/exSheep.png" ${CMAKE_BINARY_DIR} COPYONLY)
@@ -51,6 +53,7 @@ configure_file ("featuresMenu.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("GRENADE1.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("GameMap/wood.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("GameMap/rocks.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
 
 configure_file ("jerusalem/davidTower.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("jerusalem/jeruBack.png" ${CMAKE_BINARY_DIR} COPYONLY)

@@ -5,7 +5,7 @@
 const auto oneRound = 3;
 //============================player enums=======================================
 const auto wormTextBoxCorLeft = sf::Vector2f{ 17, -25 };
-const auto wormTextBoxCorRight = sf::Vector2f{ -17, -25 };
+const auto wormTextBoxCorRight = sf::Vector2f{ 17, -25 };
 
 //===========================time for round data================================
 const auto timeForRoundPosition = sf::Vector2f{ 50, 650 };
@@ -72,13 +72,14 @@ const auto whiteFlagImageCount = sf::Vector2u{ 1,10 };
 const auto stinkyImageCount = sf::Vector2u{ 1,10 };
 const auto GreenGrenadeImageCount = sf::Vector2u{ 1,32 };
 const auto skipImageCount = sf::Vector2u{ 1,9 };
-const auto sheepImageCount = sf::Vector2u{ 1,8 };
+const auto sheepImageCount = sf::Vector2u{ 1,10 };
 const auto teleporterImageCount = sf::Vector2u{ 1,10 };
 const auto wormImageCount = sf::Vector2u{ 1,36 };
 const auto WormDieImageCount = sf::Vector2u{ 1,60 };
 const auto artilaryimagecount= sf::Vector2u{ 1,30 };
 const auto patrol= sf::Vector2u{ 1,20 };
 const auto callartilary= sf::Vector2u{ 1,10	 };
+//const auto walkImageCount = sf::Vector2u{ 1,10 };
 
 const auto dinamitstop= sf::Vector2u{ 1,10	 };
 const auto dinamitbegin= sf::Vector2u{ 1,10	 };
@@ -157,7 +158,6 @@ enum desertMap
 enum featuresWormAnim
 {
 	animation_worm=22,
-
 	animation_artilary,
 	animation_whiteFlag,
 	animation_begin_dinamit,
@@ -166,15 +166,15 @@ enum featuresWormAnim
 	animaiton_sheep,
 	animation_stinky,
 	animation_teleporter,
-
 	animation_die,
 	animation_end_dinamit,
+	animation_walk
 };
 
 
 enum featuresWeaponesAnim
 {
-	sheep=33,
+	sheep=34,
 	grenade,
 	stinky,
 	flik,

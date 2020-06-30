@@ -51,6 +51,7 @@ void Resources::loadPicture()
 	m_picture[animation_end_dinamit].loadFromFile("dinamitsof.png");
 	m_picture[animation_artilary].loadFromFile("callartilery.png");
 	m_picture[animation_teleporter].loadFromFile("telleporter.png");
+	m_picture[animation_walk].loadFromFile("wwalkd.png");
 
 	m_picture[animation_skip].loadFromFile("pass.png");
 
