@@ -13,6 +13,7 @@ public:
 	AnimationSet getAnimationSet() { return m_animationSet; }
 	virtual void update() = 0;
 	virtual bool destroy(int time) { return false; }
+	virtual void runFeature(sf::Event& event, sf::RenderWindow& window) {}
 private:
 	AnimationSet m_animationSet;
 };

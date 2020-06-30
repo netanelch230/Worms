@@ -36,7 +36,7 @@ void Player::run(sf::Event& event,
 	if (count == wormsLimit - 1)
 		count = 0;
 	m_currWormPlayer = count;	//randomize the current worm that will play now
-	// while the turn is not over - keep playing, or while the player didnt picked feature-weapon
+								// while the turn is not over - keep playing, or while the player didnt picked feature-weapon
 	m_arrow.setPosition(m_worms[m_currWormPlayer]->getPosition());
 	Timer::setTime(timeOfRound);			// set time of player's turn.
 	checkHealth();
@@ -110,8 +110,12 @@ void Player::checkIfEventOccured(sf::Event& event)
 					explosion();
 					m_feature->applyFeatures();
 				}
-				if (m_skipTurn)
-					handleSkipTurn();
+				if (m_skipTurn) // in here we'll need to set the worm animation.
+				{
+					m_worms[m_currWormPlayer]->setAnimation({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);
+					m_end = true;
+					m_skipTurn = false;
+				}
 				auto time = m_force.getElapsedTime().asSeconds();
 				m_drawfeatur = true;
 				break;
@@ -186,7 +190,6 @@ void Player::chooseWeapon(std::vector<std::unique_ptr<Player>>& groupPlayers)
 					{
 						checkButtonFeaturesMenu(location);
 					}
-					
 					checkClick(location);
 					handleFeatureChoosing();
 					//m_worms[m_currWormPlayer]->setAnimation(m_feature->getAnimationSet(), 0.05f);
@@ -200,9 +203,8 @@ void Player::chooseWeapon(std::vector<std::unique_ptr<Player>>& groupPlayers)
 
 void Player::handleSkipTurn()
 {
-	m_worms[m_currWormPlayer]->setAnimation({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);
+	//m_worms[m_currWormPlayer]->setAnimation({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);
 	m_end = true;
-	m_skipTurn = false;
 }
 /*this function will check if the player didn't choose a feature from the tool bar
 and if he chosed a feature we'll set the animation of the feature (switch from regular
@@ -216,6 +218,7 @@ if (m_feature == nullptr)
 	if (m_feature->getAnimationSet().photo == animation_skip)
 	{
 		m_skipTurn = true;
+		handleSkipTurn();
 		//in here we'll want to handle skip turn and to wait for space from the user
 	}
 	else if (m_feature->getAnimationSet().photo == animation_whiteFlag)
@@ -242,10 +245,7 @@ void Player::checkClick(sf::Vector2f clickLocation)
 			break;
 		}
 	}
-	
-	
 }
-
 //---------------------------------------------
 //this function will move the worm according to the player action.''
 void Player::wormMove()
@@ -388,7 +388,8 @@ void Player::handleTeleporter()
 				if (event.mouseButton.button == sf::Mouse::Left)
 				{
 					b2Vec2 loc{ locatin(event).x * MPP, locatin(event).y * MPP };
-					m_worms[m_currWormPlayer]->getBody()->SetTransform(loc, m_worms[m_currWormPlayer]->getBody()->GetAngle());
+					m_worms[m_currWormPlayer]->getBody()->SetTransform(loc, 
+						m_worms[m_currWormPlayer]->getBody()->GetAngle());
 				}
 				break;
 			}
@@ -402,18 +403,15 @@ void Player::getFeaturesName(int index)
 	
 	switch (index)
 	{
-	
-	case animation_whiteFlag:
+	case animation_whiteFlag://23
 		m_feature = std::make_unique<WhiteFlag>();
-
 		break;
 	case animation_artilary:
 		m_feature = std::make_unique<Artilary>(m_world, wormPosition);
 		break;
-
 	case animation_grenade:
 		m_feature = std::make_unique<Grenade>(m_world, wormPosition);
-
+		break;
 	case animation_begin_dinamit:
 		m_feature = std::make_unique<Dinamit>(m_world, wormPosition);
 		break;

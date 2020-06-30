@@ -12,6 +12,7 @@ public:
 			artilaryimagecount) {}
 	virtual void applyFeatures();
 	virtual void play() override {};
+	virtual void runFeature(sf::Event& event, sf::RenderWindow& window);
 };
 
 

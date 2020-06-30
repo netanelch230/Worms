@@ -67,7 +67,6 @@ void Resources::loadPicture()
 
 	//load menu headlines and start game button
 	m_picture[playgameButton].loadFromFile("play.png");
-	m_picture[gameFormatHeadline].loadFromFile("gameFormat.png");
 	m_picture[gameMapHeadline].loadFromFile("gameMap.png");
 	m_picture[playersNamesHeadline].loadFromFile("groupName.png");
 	m_picture[groupAmountHeadlines].loadFromFile("playersNum.png");
@@ -76,9 +75,9 @@ void Resources::loadPicture()
 	m_picture[greenArrow].loadFromFile("arrowGreen.png");
 	m_picture[blueArrow].loadFromFile("arrowBlue.png");
 
-	m_picture[axeIconButton].loadFromFile("axeIconButton.png");
+	m_picture[artileryIconButton].loadFromFile("airstrkeButton.png");
+	m_picture[dinamitIconButton].loadFromFile("dynamiteButton.png");
 	m_picture[flagIconButton].loadFromFile("flagIconButton.png");
-	m_picture[flickIconButton].loadFromFile("flickIconButton.png");
 	m_picture[grenadeIconButton].loadFromFile("grenadeIconButton.png");
 	m_picture[passIconButton].loadFromFile("passIconButton.png");
 	m_picture[sheepIconButton].loadFromFile("sheepIconButton.png");
