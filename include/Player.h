@@ -43,6 +43,7 @@ private:
 
 	bool m_skipTurn = false;
 	bool m_whiteFlag = false;
+	bool m_telleporter = false;
 	bool m_featureAlive = false;
 	bool m_end;
 	int m_currWormPlayer = 0;

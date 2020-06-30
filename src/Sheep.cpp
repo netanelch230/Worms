@@ -5,6 +5,7 @@
 void Sheep::applyFeatures()
 {
 	AnimationObject::setAnimation({ exSheep,exSheepImageCount,false,1 }, 0.03);
+
 }
 
 bool Sheep::runFeature(sf::Event& event, sf::RenderWindow& window,

@@ -47,6 +47,7 @@ void Resources::loadPicture()
 	m_picture[animation_end_dinamit].loadFromFile("wormDinamitSof.png");
 	m_picture[animation_artilary].loadFromFile("wormAritilery.png");
 	m_picture[animation_teleporter].loadFromFile("telleporter.png");
+	m_picture[animation_walk].loadFromFile("wwalkd.png");
 	m_picture[animation_skip].loadFromFile("pass.png");
 	m_picture[animation_die].loadFromFile("wdie.png");
 	
