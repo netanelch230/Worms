@@ -36,6 +36,7 @@ protected:
     b2Body* m_body;
     float  m_radius;
     sf::Vector2f m_size;
+    
 
     float getRotation() const;
 

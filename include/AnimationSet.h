@@ -11,3 +11,4 @@ struct AnimationSet
 	sf::Vector2f sizeOfAni;
 	float switchTime;
 };
+

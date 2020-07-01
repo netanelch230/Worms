@@ -13,8 +13,7 @@ world is the physical world of the player
 Player::Player(std::string name, sf::Color color, b2World & world,Board& board, FeaturesToolBar& featuresMenu, sf::RenderWindow &window):
 	m_name(name), m_color(color), m_world(world),m_board(board), m_featuresMenu(featuresMenu), m_window(window),
 	m_feature(nullptr)
-{
-	
+{	
 	creatWorms();
 	loadTimer();
 	definArrow();
@@ -46,17 +45,25 @@ void Player::run(sf::Event& event,
 	{
 		checkIfEventOccured(event);
 		wormMove();
-		drawBoardAndAnimation(groupPlayers);
 		moveWeaponeFearures();
+		if (m_worms[m_currWormPlayer]->stand())
+		{
+			if (m_feature)
+				m_worms[m_currWormPlayer]->setAnimation(m_feature->getAnimationSet(), 0.03f);
+			else
+			m_worms[m_currWormPlayer]->setAnimation({ animation_worm,sf::Vector2u{ 1,36 },
+				true,1,sizeOfWorm }, 0.05f);
+		}
+		drawBoardAndAnimation(groupPlayers);
+		
 		if (m_drawWeaponMenu) // in here we'll call the draw weapon menu and in addition we'll handle the click of menu
 			chooseWeapon(groupPlayers);
 		for(auto&i:m_worms)
 			i->destroy();
 	}
 	m_end = false;
-	m_worms[m_currWormPlayer]->setAnimation({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);
+	m_worms[m_currWormPlayer]->setAnimation({ animation_worm,sf::Vector2u{ 1,36 },true,1,sizeOfWorm }, 0.05f);
 	whiteFlag = m_whiteFlag;
-
 }
 
 void Player::explosion()
@@ -157,18 +164,23 @@ void Player::drawBoardAndAnimation(std::vector<std::unique_ptr<Player>>& groupPl
 		group->update();
 		group->draw();
 	}
-	if (m_feature && m_drawfeatur)
+	if (m_feature)
 	{	
-		m_feature->update();
-		m_feature->draw(m_window);
-
-		if (m_feature->destroy(Timer::getTime()) || !m_featureAlive)
+		if (m_drawfeatur)
+		{
+			m_feature->update();
+			m_feature->draw(m_window);
+		}
+		else if (m_feature->destroy(Timer::getTime()) || !m_featureAlive)
 		{
 			m_feature.reset();
+			m_feature = nullptr;
 			m_drawfeatur = false;
+			m_worms[m_currWormPlayer]->setAnimation
+			({ animation_worm,sf::Vector2u{ 1,36 },true,1,sizeOfWorm }, 0.05f);
 		}
-
 	}
+
 	m_window.draw(m_arrow);
 	/*m_arrow.update(0.03);
 	m_arrow.draw(window);*/

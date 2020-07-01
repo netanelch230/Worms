@@ -2,6 +2,7 @@
 #include"AnimationObject.h"
 #include"Enum.h"
 #include"Resources.h"
+#include"AnimationSet.h"
 
 
 class Worm: public AnimationObject
@@ -16,6 +17,7 @@ public:
 	void checkHealth();
 	sf::Vector2f getScale();
 	~Worm()= default;
+	bool stand();
 
 private:
 	bool m_health = true;
