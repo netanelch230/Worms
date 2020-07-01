@@ -11,6 +11,9 @@ bool Attack::destroy(int time)
 
 void Attack::featureExplosion(b2World& world)
 {
+	m_sound.setBuffer(Resources::instance().getMusic(pain));
+	m_sound.play();
+
 	m_body->SetType(b2_staticBody);
 	float blastRadius = 10.f;
 	float  blastPower = 10.f;
@@ -22,6 +25,8 @@ void Attack::featureExplosion(b2World& world)
 	aabb.upperBound = center + b2Vec2(blastRadius, blastRadius);
     world.QueryAABB(&queryCallback, aabb);
 
+		
+	
 	//check which of these bodies have their center of mass within the blast radius
 	for (auto i : queryCallback.getFoundBodies())
 	{
@@ -35,6 +40,7 @@ void Attack::featureExplosion(b2World& world)
 			continue;
 
 		applyBlastImpulse(body, center, bodyCom, blastPower);
+
 	}
 	m_body->GetWorld()->DestroyBody(m_body);
 }

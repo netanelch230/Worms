@@ -85,4 +85,6 @@ private:
 	
 	std::vector < std::unique_ptr <Button>> m_playersButtons;
 	Input m_menuParameters;
+
+	sf::Sound m_clickSound;
 };

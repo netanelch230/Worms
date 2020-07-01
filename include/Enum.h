@@ -275,6 +275,8 @@ enum sound {
 	explosion2,
 	worm_walk1,
 	worm_walk2,
-	transform
+	transform,
+	wormByeBye,
+	wormjump
 };
 

@@ -24,8 +24,10 @@ void Worm::destroy()
 
 b2Vec2 Worm::forc()
 {
+	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
+		m_wormWalk.play();
 		m_sprite.setScale(RIGHT);
 		this->setAnimation({ animation_walk, sf::Vector2u{1,15}, false, 1,sizeOfWalkWorm }, 0.05f);
 		return b2Vec2{ 0.1,0 };
@@ -33,14 +35,19 @@ b2Vec2 Worm::forc()
 
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
+		m_wormWalk.play();
 		m_sprite.setScale(LEFT);
 		this->setAnimation({ animation_walk, sf::Vector2u{1,15}, false, 1,sizeOfWalkWorm }, 0.05f);
 		return b2Vec2{ -0.1,0 };
 	}
 
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	{
+		
+		m_wormUp.play();
 		return b2Vec2{ 0,-0.1 };
-
+	}
+		
 	else
 		return b2Vec2{ 0,0 };
 }
@@ -65,6 +72,9 @@ Worm::Worm(sf::Vector2f& location, std::string name, sf::Color color,  b2World& 
 	const auto rect = m_textBox.getLocalBounds();
 	m_textBox.setOrigin(rect.width / 2, rect.height / 2);
 	m_textBox.setSize({ rect.width / 2, rect.height / 2 });
+
+	m_wormUp.setBuffer(Resources::instance().getMusic(wormjump));
+	m_wormWalk.setBuffer(Resources::instance().getMusic(worm_walk1));
 }
 
 /*this function will draw each worm on the board and will set it's animatior

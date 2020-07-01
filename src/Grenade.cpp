@@ -54,6 +54,8 @@ bool Grenade::runFeature(sf::Event& event, sf::RenderWindow& window,
 			featureExplosion(*world);
 			m_sound.setBuffer(Resources::instance().getMusic(explosion1));
 			m_sound.play();
+			m_sound.setBuffer(Resources::instance().getMusic(pain));
+			m_sound.play();
 			drawFeatur = false;
 			return false;
 		}
