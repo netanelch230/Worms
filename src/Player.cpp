@@ -32,7 +32,7 @@ void Player::run(sf::Event& event,
 	std::vector<std::unique_ptr<Player>>& groupPlayers,
 	bool &whiteFlag)
 {	
-	static int count = 0;
+	static int count = 3;
 	count++;
 	if (count == wormsLimit - 1)
 		count = 0;
@@ -41,6 +41,7 @@ void Player::run(sf::Event& event,
 	m_arrow.setPosition(m_worms[m_currWormPlayer]->getPosition());
 	Timer::setTime(timeOfRound);			// set time of player's turn.
 	checkHealth();
+
 	while (!timesUp() && !m_end) //needs to be change
 	{
 		checkIfEventOccured(event);
@@ -60,8 +61,8 @@ void Player::run(sf::Event& event,
 
 void Player::explosion()
 {
-	if (auto i = dynamic_cast<MovingAttack*>(m_feature.get()))
-		i->featureExplosion(m_world);
+	//if (auto i = dynamic_cast<MovingAttack*>(m_feature.get()))
+	//	i->featureExplosion(m_world);
 }
 
 void Player::checkButtonFeaturesMenu(sf::Vector2f& location)
@@ -72,9 +73,9 @@ void Player::checkButtonFeaturesMenu(sf::Vector2f& location)
 
 void Player::moveWeaponeFearures()
 {
-	if (m_feature && m_drawfeatur)
+	/*if (m_feature && m_drawfeatur)
 		if (auto i = dynamic_cast<MovingAttack*>(m_feature.get()))
-			i->moveWeapone();
+			i->moveWeapone();*/
 }
 
 /*this function will check if an event has occured from the player and will
@@ -98,11 +99,9 @@ void Player::checkIfEventOccured(sf::Event& event)
 		return;
 	}
 	*/
-	//if (m_window.pollEvent(event))					//wait for event from the player
-	//{
 		if (m_feature)
 			m_featureAlive = m_feature->runFeature(event, m_window, m_drawfeatur,
-				m_worms[m_currWormPlayer]->getPosition());
+				*m_worms[m_currWormPlayer].get());
 
 		if(m_window.pollEvent(event)){
 		if (event.type == sf::Event::Closed)
@@ -174,7 +173,6 @@ void Player::drawBoardAndAnimation(std::vector<std::unique_ptr<Player>>& groupPl
 	/*m_arrow.update(0.03);
 	m_arrow.draw(window);*/
 	m_window.display();
-	//({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);m_worms[m_currWormPlayer]->setAnimation({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);l
 }
 
 /*this function will draw the worms on the board+animations by using polymorphizm

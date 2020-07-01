@@ -19,5 +19,6 @@
 "FeaturesToolBar.cpp"
 "Artilary.cpp"
 "Dinamit.cpp"
-"Stinky.cpp")
+"Stinky.cpp"
+"Transform.cpp")
 

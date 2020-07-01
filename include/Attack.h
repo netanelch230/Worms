@@ -17,10 +17,13 @@ public:
 	bool destroy(int time);
 	void featureExplosion(b2World& world);
 	void update();
+	virtual ~Attack() = default;
+
 
 private:
 
 	void blastPoint(void* data);
 	void applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower);
 	sf::Clock m_timeAnimation;
+
 };

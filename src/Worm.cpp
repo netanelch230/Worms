@@ -95,3 +95,8 @@ void Worm::checkHealth()
 	if (!m_health)
 		takeOffPoints(5);
 }
+
+sf::Vector2f Worm::getScale()
+{
+	return m_sprite.getScale();
+}

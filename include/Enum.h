@@ -41,7 +41,7 @@ const int WIDTH = 1280;
 const int HEIGHT = 720;
 const int amuntOfPicture = 100;
 const int countOfFont = 3;
-const int countOfMusic = 5;
+const int countOfMusic = 40;
 const auto sizeOfIcon = sf::Vector2f{ 20,30 };
 const auto sizeOfWorm = sf::Vector2f { 20,20 };
 const auto sizeOfPassWorm = sf::Vector2f{ 100,100 };
@@ -70,7 +70,7 @@ const int colsInTable = 4;
 //=======================const of image count of features==============================
 const auto whiteFlagImageCount = sf::Vector2u{ 1,10 };
 const auto stinkyImageCount = sf::Vector2u{ 1,10 };
-const auto GreenGrenadeImageCount = sf::Vector2u{ 1,32 };
+const auto GreenGrenadeImageCount = sf::Vector2u{ 1,1 };
 const auto skipImageCount = sf::Vector2u{ 1,9 };
 const auto sheepImageCount = sf::Vector2u{ 1,10 };
 const auto teleporterImageCount = sf::Vector2u{ 1,10 };
@@ -259,6 +259,22 @@ enum menuPress
 };
 
 enum sound {
-	timer
+	timer,
+	explosion1,
+	clap,
+	Coughe,
+	artilary,
+	pain,
+	mourse,
+	buttonClick,
+	skunk_walk,
+	skunk_gas,
+	sheep_baa,
+	explosion2,
+	worm_walk1,
+	worm_walk2,
+	transform,
+	
+
 };
 

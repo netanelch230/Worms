@@ -21,7 +21,7 @@ AbsObject::AbsObject(spriteSetting sset,b2World& world,bool whichtype)
     fixtureDef.shape = &polygonShape;
     fixtureDef.friction = 0.8f;
     fixtureDef.restitution	= 0.1f; 
-    fixtureDef.density	= 0.7f;
+    fixtureDef.density	= 1.f;
 
     m_body->CreateFixture(&fixtureDef);
 	m_body->SetUserData(this);

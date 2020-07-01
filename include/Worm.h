@@ -12,9 +12,10 @@ public:
 	void move(float time);
 	void takeOffPoints(int i);
 	virtual void destroy() override;
-	//~Worm();
 	void setHelth() { m_health = false; }
 	void checkHealth();
+	sf::Vector2f getScale();
+	~Worm()= default;
 
 private:
 	bool m_health = true;
