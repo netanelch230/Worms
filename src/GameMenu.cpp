@@ -36,7 +36,12 @@ bool GameMenu::run(sf::RenderWindow& window)
 			while (!(m_startGame = optionsEvents(window)))
 			{
 				if (window.isOpen())
+				{
+					if (m_openHelp)
+						openHelpText(window);
+					else
 					drawFirstMenu(window);
+				}
 				else
 					return false;
 			}
@@ -99,12 +104,29 @@ bool GameMenu::optionsEvents(sf::RenderWindow& window)
 			case sf::Event::Closed:
 				window.close(); //close the window
 				return false;
+
+			case sf::Event ::KeyReleased:
+				if (event.type == sf::Event::KeyReleased)
+				{
+					if (event.key.code == sf::Keyboard::Escape)
+					{
+						closeHelpText(window);
+						return false;
+					}
+				}
+
 			case sf::Event::MouseButtonPressed:
 				if (event.mouseButton.button == sf::Mouse::Button::Left)	//if we pressed on left mouse
 				{
 					mousePos = window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y }); //the mouse position
 					if (m_playButton->contains(mousePos))	//clicked on play button
 						return true; //close the game menu and start to play
+					else if (m_helpButton->contains(mousePos))
+					{
+						m_openHelp = true;
+						return false;
+					}
+
 					else if (m_exitButton->contains(mousePos))	//clicked on exit button
 					{
 						window.close();
@@ -119,6 +141,12 @@ bool GameMenu::optionsEvents(sf::RenderWindow& window)
 					m_playButton->moveButton(posPlayButton);//bold play button
 				else
 					m_playButton->unMoveButton(posPlayButton);
+
+				if (m_helpButton->contains(mousePos))//mouse on help button place
+					m_helpButton->moveButton(posHelpButton);//bold help button
+				else
+					m_helpButton->unMoveButton(posHelpButton);
+
 				if (m_exitButton->contains(mousePos))//mouse on exit button
 					m_exitButton->moveButton(posExitButton);	//bold  exit button
 				else
@@ -193,7 +221,7 @@ bool GameMenu::checkEvent(sf::RenderWindow& window)
 			case sf::Event::TextEntered:
 				handleKeyPressedEvenet(event);
 				return false;
-
+				
 			case sf::Event::MouseButtonPressed:
 				if (event.mouseButton.button == sf::Mouse::Button::Left)	//if we pressed on left mouse
 				{
@@ -289,12 +317,27 @@ void GameMenu::checkTextFieldClick(sf::Vector2f location)
 	}
 	
 }
+void GameMenu::openHelpText(sf::RenderWindow& window)
+{
+	m_openHelp = true;
+	window.clear();
+	window.draw(m_helpBackgraound);
+	window.display();
+	
+
+}
+void GameMenu::closeHelpText(sf::RenderWindow& window)
+{
+	m_openHelp = false;
+	drawFirstMenu(window);
+}
 void GameMenu::drawFirstMenu(sf::RenderWindow& window) const
 {
 	window.clear();
 	window.draw(m_spriteBackgraound1);
 	m_playButton->draw(window);
 	m_exitButton->draw(window);
+	m_helpButton->draw(window);
 	window.display();
 
 }
@@ -334,6 +377,7 @@ void GameMenu::buildButtons()
 	m_map1 = std::make_unique <Button>(m_spriteMap1, map1Button);
 	m_map2 = std::make_unique <Button>(m_spriteMap2, map2Button);
 	m_playGameButton = std::make_unique <Button>(m_playGame, playButtonPos);
+	m_helpButton = std::make_unique <Button>(m_helpButtonSprite, posHelpButton);
 
 	m_playersButtons.resize(2);
 	for (auto i = 0; i < m_playersSprite.size(); i++)
@@ -418,6 +462,8 @@ void GameMenu::setResources()
 	m_spriteMap1.setTexture(Resources::instance().getTexture(backGround1pic));
 	m_spriteMap2.setTexture(Resources::instance().getTexture(backGround2pic));
 	m_playGame.setTexture(Resources::instance().getTexture(playgameButton));
+	m_helpBackgraound.setTexture(Resources::instance().getTexture(helpPic));
+	m_helpButtonSprite.setTexture(Resources::instance().getTexture(helpButton));
 
 	sf::Sprite s;
 	m_playersSprite.resize(2);

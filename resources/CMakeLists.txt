@@ -9,6 +9,8 @@ configure_file ("Menu/start.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Menu/exit.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Menu/jerusalemButton.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Menu/desertButton.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Menu/help.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Menu/helpButton.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("featuresToolbar/airstrkeButton.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("featuresToolbar/flagIconButton.png" ${CMAKE_BINARY_DIR} COPYONLY)

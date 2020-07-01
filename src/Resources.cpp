@@ -18,6 +18,8 @@ void Resources::loadPicture()
 	m_picture[exitGame].loadFromFile("exit.png");
 	m_picture[playTwo].loadFromFile("p2.png");
 	m_picture[playThree].loadFromFile("p3.png");
+	m_picture[helpButton].loadFromFile("helpButton.png");
+	m_picture[helpPic].loadFromFile("help.png");
 
 	m_picture[featuresMenu].loadFromFile("featuresMenu.png");
 

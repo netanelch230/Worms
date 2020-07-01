@@ -43,12 +43,16 @@ private:
 	void setResources();
 	void setMenuParameters();
 	void checkTextFieldClick(sf::Vector2f location);
+	void openHelpText(sf::RenderWindow& window);
+	void closeHelpText(sf::RenderWindow& window);
 
 	int m_groupAmount = 0; // this variable will handle the amount of groups we currently have
 	int m_currGroup = 0; //this variable will handle the current text field of the current group
 	int m_currentGroupAmount = 0;
 	bool m_textFieldPressed = false; // we'll set this variable to true if player pressed on text field
 	bool m_startGame = false;
+	bool m_openHelp = false;
+
 	bool handleSecondMenu(sf::RenderWindow& window);
 	std::vector<sf::Text> m_playerText;
 	std::vector<sf::String> m_playerInput;
@@ -67,6 +71,8 @@ private:
 	sf::Sprite m_spriteMap1;
 	sf::Sprite m_spriteMap2;
 	sf::Sprite m_playGame;
+	sf::Sprite m_helpButtonSprite;
+	sf::Sprite m_helpBackgraound;
 	std::vector<sf::Sprite> m_playersSprite;
 	std::vector<sf::Sprite> m_hedlinesSprite;
 
@@ -75,6 +81,8 @@ private:
 	std::unique_ptr<Button> m_map1;
 	std::unique_ptr<Button> m_map2;
 	std::unique_ptr<Button> m_playGameButton;
+	std::unique_ptr<Button> m_helpButton;;
+	
 	std::vector < std::unique_ptr <Button>> m_playersButtons;
 	Input m_menuParameters;
 };
