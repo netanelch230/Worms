@@ -10,6 +10,7 @@
 //c-tor of Game menu 
 GameMenu::GameMenu()
 {
+	
 	setPlayerTextField();
 	m_groupColors.resize(colorsOptions); //set the maximum color groups options
 	initializeColors();
@@ -36,7 +37,12 @@ bool GameMenu::run(sf::RenderWindow& window)
 			while (!(m_startGame = optionsEvents(window)))
 			{
 				if (window.isOpen())
+				{
+					if (m_openHelp)
+						openHelpText(window);
+					else
 					drawFirstMenu(window);
+				}
 				else
 					return false;
 			}
@@ -99,14 +105,37 @@ bool GameMenu::optionsEvents(sf::RenderWindow& window)
 			case sf::Event::Closed:
 				window.close(); //close the window
 				return false;
+
+			case sf::Event ::KeyReleased:
+				if (event.type == sf::Event::KeyReleased)
+				{
+					if (event.key.code == sf::Keyboard::Escape)
+					{
+						closeHelpText(window);
+						return false;
+					}
+				}
+
 			case sf::Event::MouseButtonPressed:
 				if (event.mouseButton.button == sf::Mouse::Button::Left)	//if we pressed on left mouse
 				{
+					m_clickSound.setBuffer(Resources::instance().getMusic(buttonClick));
 					mousePos = window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y }); //the mouse position
 					if (m_playButton->contains(mousePos))	//clicked on play button
+					{
+						m_clickSound.play();
 						return true; //close the game menu and start to play
+					}
+					else if (m_helpButton->contains(mousePos))
+					{
+						m_clickSound.play();
+						m_openHelp = true;
+						return false;
+					}
+
 					else if (m_exitButton->contains(mousePos))	//clicked on exit button
 					{
+						m_clickSound.play();
 						window.close();
 						return false;	//close menu window
 					}
@@ -119,6 +148,12 @@ bool GameMenu::optionsEvents(sf::RenderWindow& window)
 					m_playButton->moveButton(posPlayButton);//bold play button
 				else
 					m_playButton->unMoveButton(posPlayButton);
+
+				if (m_helpButton->contains(mousePos))//mouse on help button place
+					m_helpButton->moveButton(posHelpButton);//bold help button
+				else
+					m_helpButton->unMoveButton(posHelpButton);
+
 				if (m_exitButton->contains(mousePos))//mouse on exit button
 					m_exitButton->moveButton(posExitButton);	//bold  exit button
 				else
@@ -134,6 +169,7 @@ bool GameMenu::optionsEvents(sf::RenderWindow& window)
 it will initialize the amount of the players and the amount of text fields that we're asking for.*/
 void GameMenu::handlePlayersAmountClick(sf::Vector2f location)
 {
+	m_clickSound.play();
 	for (auto i = 0; i < m_playersButtons.size(); i++)
 	{
 		if (m_playersButtons[i]->contains(location))
@@ -156,18 +192,26 @@ void GameMenu::handlePlayersAmountClick(sf::Vector2f location)
 //in this function we're checking if we pressed on the players menu
 bool GameMenu::updatePress(sf::Vector2f location)
 {
+	
 	handlePlayersAmountClick(location);
 	checkTextFieldClick(location);
 	if (m_map1->contains(location))
+	{
+		m_clickSound.play();
 		m_menuParameters.m_background = jeruBack;
+	}
 
 	if (m_map2->contains(location))
+	{
+		m_clickSound.play();
 		m_menuParameters.m_background = desertBack;
+	}
 
 	if (m_playGameButton->contains(location))
 	{
 		if (m_groupAmount > 0)
 		{
+			m_clickSound.play();
 			setMenuParameters();
 			return true;
 		}
@@ -193,7 +237,7 @@ bool GameMenu::checkEvent(sf::RenderWindow& window)
 			case sf::Event::TextEntered:
 				handleKeyPressedEvenet(event);
 				return false;
-
+				
 			case sf::Event::MouseButtonPressed:
 				if (event.mouseButton.button == sf::Mouse::Button::Left)	//if we pressed on left mouse
 				{
@@ -280,6 +324,7 @@ void GameMenu::checkTextFieldClick(sf::Vector2f location)
 	{
 		if (m_textFields[i].getGlobalBounds().contains(location))
 		{
+			m_clickSound.play();
 			m_textFieldPressed = true; 
 			m_currentGroupAmount++;
 			m_currGroup = i; // this will handle the curr_text field group!! :)
@@ -289,12 +334,27 @@ void GameMenu::checkTextFieldClick(sf::Vector2f location)
 	}
 	
 }
+void GameMenu::openHelpText(sf::RenderWindow& window)
+{
+	m_openHelp = true;
+	window.clear();
+	window.draw(m_helpBackgraound);
+	window.display();
+	
+
+}
+void GameMenu::closeHelpText(sf::RenderWindow& window)
+{
+	m_openHelp = false;
+	drawFirstMenu(window);
+}
 void GameMenu::drawFirstMenu(sf::RenderWindow& window) const
 {
 	window.clear();
 	window.draw(m_spriteBackgraound1);
 	m_playButton->draw(window);
 	m_exitButton->draw(window);
+	m_helpButton->draw(window);
 	window.display();
 
 }
@@ -334,6 +394,7 @@ void GameMenu::buildButtons()
 	m_map1 = std::make_unique <Button>(m_spriteMap1, map1Button);
 	m_map2 = std::make_unique <Button>(m_spriteMap2, map2Button);
 	m_playGameButton = std::make_unique <Button>(m_playGame, playButtonPos);
+	m_helpButton = std::make_unique <Button>(m_helpButtonSprite, posHelpButton);
 
 	m_playersButtons.resize(2);
 	for (auto i = 0; i < m_playersSprite.size(); i++)
@@ -418,6 +479,8 @@ void GameMenu::setResources()
 	m_spriteMap1.setTexture(Resources::instance().getTexture(backGround1pic));
 	m_spriteMap2.setTexture(Resources::instance().getTexture(backGround2pic));
 	m_playGame.setTexture(Resources::instance().getTexture(playgameButton));
+	m_helpBackgraound.setTexture(Resources::instance().getTexture(helpPic));
+	m_helpButtonSprite.setTexture(Resources::instance().getTexture(helpButton));
 
 	sf::Sprite s;
 	m_playersSprite.resize(2);

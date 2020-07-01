@@ -12,6 +12,7 @@ void AnimationObject::setAnimation(AnimationSet animset, float switchTime)
 	Animation animation(&Resources::instance().getTexture(animset.photo),
 		animset.imageCount, switchTime, animset.distance, animset.restart);
 	m_animation = animation;
+	m_numOfPicture = animset.photo;
 	//m_sprite.resi(animset.sizeOfAni);
 }
 

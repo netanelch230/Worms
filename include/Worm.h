@@ -2,6 +2,7 @@
 #include"AnimationObject.h"
 #include"Enum.h"
 #include"Resources.h"
+#include"AnimationSet.h"
 
 
 class Worm: public AnimationObject
@@ -12,10 +13,13 @@ public:
 	void move(float time);
 	void takeOffPoints(int i);
 	virtual void destroy() override;
-	//~Worm();
 	void setHelth() { m_health = false; }
 	void checkHealth();
 	void setSprite(float x, float y);
+	sf::Vector2f getScale();
+	~Worm()= default;
+	bool stand();
+
 private:
 	bool m_health = true;
 	int m_life= NumOfLife;
@@ -24,6 +28,7 @@ private:
 	sf::Vector2f getCurrentMove();
 	b2Vec2 forc();
 	std::string m_name_string;
-	
+	sf::Sound m_wormUp;
+	sf::Sound m_wormWalk;
 };
 

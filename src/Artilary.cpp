@@ -1,17 +1,17 @@
  #pragma once
 #include "Artilary.h"
+#include <iostream>
 
-void Artilary::applyFeatures() {
-
-	//case sf::Event::MouseButtonPressed:
-	//	case sf::Mouse::Button::
-	//	{
-	//		float MouseX = sf::Mouse::getPosition(m_window).x;
-	//		float MouseY = sf::Mouse::getPosition(m_window).y;
-	//	}
+Artilary::Artilary(b2World& world, sf::Vector2f position) :
+		NonMovingAttack(world,
+			spriteSetting{ position,sf::Vector2f{20,20},Resources::instance().getTexture(artileri) },
+			AnimationSet{ animation_artilary,artilaryimagecount,false,1, {100, 100}, 0.07f },
+			callartilary) 
+{
+	m_sound.setBuffer(Resources::instance().getMusic(artilary));
 }
-
-bool Artilary::runFeature(sf::Event& event, sf::RenderWindow& window, bool& drawFeatur, const sf::Vector2f& wormPosition)
+bool Artilary::runFeature(sf::Event& event, sf::RenderWindow& window, 
+	bool& drawFeatur, Worm& worm)
 {
 	if (!drawFeatur)
 	{
@@ -27,11 +27,17 @@ bool Artilary::runFeature(sf::Event& event, sf::RenderWindow& window, bool& draw
 					setPosition(pos);
 					m_body->SetTransform({ MouseX * MPP,20 * MPP }, m_body->GetAngle());
 					drawFeatur = true;
-				}
-				return true;
+				}	
 				break;
 			}
 		}
 	}
-	
+	/*else if (m_explode)
+	{
+		featureExplosion(*m_body->GetWorld());
+		drawFeatur = false;
+		m_sound.play();
+		return false;
+	}*/
+	return true;
 }

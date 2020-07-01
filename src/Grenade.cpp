@@ -1,4 +1,5 @@
 #include "Grenade.h"
+#include <iostream>
 
 
 Grenade::Grenade(b2World& world, sf::Vector2f position):
@@ -8,29 +9,35 @@ Grenade::Grenade(b2World& world, sf::Vector2f position):
 			GreenGrenadeImageCount,1, { 250.f, 250.f }, { -250.f, 250.f })
 {
     m_body->SetFixedRotation(false);
+	m_sound.setBuffer(Resources::instance().getMusic(timer));
+
 }
 //54*36
-void Grenade::play()
-{
-	
-}
 
 bool Grenade::runFeature(sf::Event& event, sf::RenderWindow& window,
-	bool& drawFeatur, const sf::Vector2f& wormPosition)
+	bool& drawFeatur, Worm& worm)
 {
-	switch (event.type)
+	if (!drawFeatur)
 	{
-	case sf::Event::KeyPressed:
-		if (event.key.code == sf::Keyboard::Space)
+		if (window.pollEvent(event))
 		{
-			drawFeatur = true;
-			setPosition(wormPosition);
-			m_body->ApplyForce(force(), m_body->GetWorldCenter(), true);
-			m_timer.restart();
+			switch (event.type)
+			{
+			case sf::Event::KeyPressed:
+				if (event.key.code == sf::Keyboard::Space)
+				{
+					std::cout << "hey" << std::endl;
+					drawFeatur = true;
+					setPosition(worm.getPosition());
+					m_body->SetTransform({ worm.getPosition().x * MPP,worm.getPosition().y * MPP }, m_body->GetAngle());
+					m_body->ApplyForce(force(), m_body->GetWorldCenter(), true);
+					m_timer.restart();
+				}
+				break;
+			}
 		}
-		break;
 	}
-	if (drawFeatur)
+	else
 	{
 		if (m_second > 0)
 		{
@@ -39,11 +46,16 @@ bool Grenade::runFeature(sf::Event& event, sf::RenderWindow& window,
 			{
 				m_second--;
 				m_timer.restart();
+				m_sound.play();
 			}
 		}
 		else {
 			auto world = getBody()->GetWorld();
 			featureExplosion(*world);
+			m_sound.setBuffer(Resources::instance().getMusic(explosion1));
+			m_sound.play();
+			m_sound.setBuffer(Resources::instance().getMusic(pain));
+			m_sound.play();
 			drawFeatur = false;
 			return false;
 		}

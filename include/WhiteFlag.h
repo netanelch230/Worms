@@ -9,7 +9,7 @@ public:
 	virtual void applyFeatures() {}
 	virtual void draw(sf::RenderWindow& window) { };
 	virtual bool runFeature(sf::Event& event, sf::RenderWindow& window,
-		bool& drawFeatur, const sf::Vector2f& wormPosition) override {return false;}
+	bool& drawFeatur, Worm& worm) override {return false;}
 	virtual void update() override {}
 	
 

@@ -18,6 +18,8 @@ void Resources::loadPicture()
 	m_picture[exitGame].loadFromFile("exit.png");
 	m_picture[playTwo].loadFromFile("p2.png");
 	m_picture[playThree].loadFromFile("p3.png");
+	m_picture[helpButton].loadFromFile("helpButton.png");
+	m_picture[helpPic].loadFromFile("help.png");
 
 	m_picture[featuresMenu].loadFromFile("featuresMenu.png");
 
@@ -57,6 +59,7 @@ void Resources::loadPicture()
 	m_picture[sheep].loadFromFile("sheepWalk.png");
 	m_picture[dinamit].loadFromFile("dynamite.png");
 	m_picture[artileri].loadFromFile("artilary.png");
+	m_picture[stinky].loadFromFile("stinkyWalk.png");
 
 	m_picture[exGrenade].loadFromFile("exGrenade.png");
 	m_picture[exSheep].loadFromFile("exSheep.png");
@@ -94,8 +97,24 @@ void Resources::loadFont()
 void Resources::loadSound()
 {
 	m_sound[timer].loadFromFile("WARNINGBEEP.wav");
-}
+	m_sound[explosion1].loadFromFile("Explosion1.wav");
+	m_sound[clap].loadFromFile("CrowdPart2.wav");
+	m_sound[Coughe].loadFromFile("Cough2.wav");
+	m_sound[artilary].loadFromFile("Airstrike.wav");
+	m_sound[pain].loadFromFile("ow1.wav");
+	m_sound[mourse].loadFromFile("Morse.wav");
+	m_sound[buttonClick].loadFromFile("KEYCLICK.WAV");
+	m_sound[skunk_walk].loadFromFile("SkunkWalkLoop.wav");
+	m_sound[skunk_gas].loadFromFile("SkunkGasLoop.wav");
+	m_sound[sheep_baa].loadFromFile("SHEEPBAA.wav");
+	m_sound[wormByeBye].loadFromFile("BYEBYE.wav");
+	m_sound[explosion2].loadFromFile("PETROL.wav");
+	m_sound[worm_walk1].loadFromFile("Walk-Compress.wav");
+	m_sound[worm_walk2].loadFromFile("Walk-Expand.wav");
+	m_sound[transform].loadFromFile("TELEPORT.wav");
+	m_sound[wormjump].loadFromFile("JUMP1.wav");
 
+}
 sf::Vector2f operator+(sf::Vector2f v1, sf::Vector2f v2)
 {
 	return v1 += v2;

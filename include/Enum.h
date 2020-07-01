@@ -42,7 +42,7 @@ const int WIDTH = 1280;
 const int HEIGHT = 720;
 const int amuntOfPicture = 100;
 const int countOfFont = 3;
-const int countOfMusic = 5;
+const int countOfMusic = 40;
 const auto sizeOfIcon = sf::Vector2f{ 20,30 };
 const auto sizeOfWorm = sf::Vector2f { 20,20 };
 const auto sizeOfPassWorm = sf::Vector2f{ 40,40 };
@@ -71,7 +71,7 @@ const int colsInTable = 4;
 //=======================const of image count of features==============================
 const auto whiteFlagImageCount = sf::Vector2u{ 1,10 };
 const auto stinkyImageCount = sf::Vector2u{ 1,10 };
-const auto GreenGrenadeImageCount = sf::Vector2u{ 1,32 };
+const auto GreenGrenadeImageCount = sf::Vector2u{ 1,1 };
 const auto skipImageCount = sf::Vector2u{ 1,9 };
 const auto sheepImageCount = sf::Vector2u{ 1,10 };
 const auto teleporterImageCount = sf::Vector2u{ 1,10 };
@@ -98,6 +98,7 @@ const auto sizeOfStinky = sf::Vector2f{ 54,36 };
 
 const auto posPlayButton = sf::Vector2f{ 850, 300 };
 const auto posExitButton = sf::Vector2f{ 50, 300 };
+const auto posHelpButton = sf::Vector2f{ 95, 640 };
 const auto posPlayCompButton = sf::Vector2f{ 20, 200 };
 const auto posPlayFriendButton = sf::Vector2f{ 20, 350 };
 const auto map1Button = sf::Vector2f{ 920, 220 };
@@ -122,9 +123,7 @@ const auto maxCount = wormsLimit - 1;
 const int amountOfAnimation = 9;
 
 //==============================distance of animation from the beginning================================
-
-const int featureDistance = 23;
-
+const int featureDistance = 25;
 //==============================features Animation enums!====================================================
 enum menuPictures
 {
@@ -135,12 +134,14 @@ enum menuPictures
 	start,
 	exitGame,
 	playTwo,
-	playThree
+	playThree,
+	helpButton,
+	helpPic
 };
 
 enum jerusalemMap
 {
-	featuresMenu = 8,
+	featuresMenu = 10,
 	jeruland1,
 	westrenWall,
 	lionGate,
@@ -150,7 +151,7 @@ enum jerusalemMap
 
 enum desertMap
 {
-	cactus=14,
+	cactus=16,
 	camel,
 	desertBack,
 	desertLand3,
@@ -164,7 +165,7 @@ enum desertMap
 
 enum featuresWormAnim
 {
-	animation_worm=22,
+	animation_worm=24,
 	animation_artilary,
 	animation_whiteFlag,
 	animation_begin_dinamit,
@@ -178,10 +179,9 @@ enum featuresWormAnim
 	animation_walk
 };
 
-
 enum featuresWeaponesAnim
 {
-	sheep=34,
+	sheep=36,
 	grenade,
 	stinky,
 	dinamit,
@@ -190,28 +190,28 @@ enum featuresWeaponesAnim
 
 enum weaponsEffect
 {
-	exGrenade=39,
+	exGrenade=41,
 	exSheep,
 	exStinky
 };
 
 enum menuHeadlines
 {
-	gameMapHeadline=42,
+	gameMapHeadline=44,
 	playersNamesHeadline,
 	groupAmountHeadlines
 };
 
-enum arrow 
-{
-	greenArrow=45,
+
+enum arrow {
+	greenArrow=47,
 	blueArrow,
 	redArrow
 };
 
-enum featuresToolbar 
-{
-	artileryIconButton= 48,
+
+enum featuresToolbar {
+	artileryIconButton= 50,
 	flagIconButton,
 	dinamitIconButton,
 	grenadeIconButton,
@@ -269,8 +269,24 @@ enum menuPress
 	t_startPlay
 };
 
-enum sound 
-{
-	timer
+
+enum sound {
+	timer,
+	explosion1,
+	clap,
+	Coughe,
+	artilary,
+	pain,
+	mourse,
+	buttonClick,
+	skunk_walk,
+	skunk_gas,
+	sheep_baa,
+	explosion2,
+	worm_walk1,
+	worm_walk2,
+	transform,
+	wormByeBye,
+	wormjump
 };
 

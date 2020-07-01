@@ -10,3 +10,5 @@ struct AnimationSet
 	float distance;//distance of animations 
 	sf::Vector2f sizeOfAni;
 };
+
+

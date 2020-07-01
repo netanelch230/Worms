@@ -8,11 +8,11 @@ NonMovingAttack(world,
 	AnimationSet{ animation_begin_dinamit,sf::Vector2u{1,10},false,0 },
 	sf::Vector2u{ 1,17 }, 0)
 {
-	m_soundTimer.setBuffer(Resources::instance().getMusic(timer));
+	m_sound.setBuffer(Resources::instance().getMusic(timer));
 }
 
 bool Dinamit::runFeature(sf::Event& event, sf::RenderWindow& window,
-	bool& drawFeatur,const sf::Vector2f& wormPosition)
+	bool& drawFeatur,Worm& worm)
 {
 	if (window.pollEvent(event))
 	{
@@ -21,9 +21,8 @@ bool Dinamit::runFeature(sf::Event& event, sf::RenderWindow& window,
 		case sf::Event::KeyPressed:
 			if (event.key.code == sf::Keyboard::Space)
 			{
-				std::cout << "in";
 				drawFeatur = true;
-				setPosition(wormPosition);
+				setPosition(worm.getPosition());
 				m_timer.restart();
 			}
 			break;
@@ -40,12 +39,15 @@ bool Dinamit::runFeature(sf::Event& event, sf::RenderWindow& window,
 			{
 				m_second--;
 				m_timer.restart();
-				m_soundTimer.play();
+				m_sound.play();
 			}
 		}
 		else {
 			auto world = getBody()->GetWorld();
 			featureExplosion(*world);
+			m_sound.setBuffer(Resources::instance().getMusic(explosion2));	
+			m_sound.play();
+			drawFeatur = false; //ask nati- why???
 			return false;
 		}
 	}

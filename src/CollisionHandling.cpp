@@ -18,10 +18,6 @@ namespace {
 
     void grenade_worm(AbsObject& grenade, AbsObject& worm)
     {
-        auto i = static_cast<Grenade&>(grenade);
-        auto j = static_cast<Worm&>(worm);
-        i.play();
-        j.takeOffPoints(150);
     }
 
     void worm_grande(AbsObject& worm, AbsObject& granade)            
@@ -91,18 +87,31 @@ namespace {
         Stinky_staticObject(Stinky, staticObject);
 	}
 //=========================================================================
-    void artilary_AbsObject(AbsObject&  artilary , AbsObject& ALL)
+    void artilary_staticObject(AbsObject&  artilary , AbsObject& ALL)
     {
         auto i = static_cast<Artilary&>(artilary);
-        auto world = i.getBody()->GetWorld();
-        i.featureExplosion(*world);
+        i.setExplode();
 	}
-    void AbsObject_artilary(AbsObject&  ALL , AbsObject& artilary)
+    void staticObject_artilary(AbsObject&  ALL , AbsObject& artilary)
     {
-        artilary_AbsObject(  artilary , ALL);
-
+        artilary_staticObject(artilary, ALL);
 	}
+    
 //=========================================================================
+    void Worm_artilary(AbsObject& worm, AbsObject& artilary)
+    {
+        auto i = static_cast<Artilary&>(artilary);
+        auto j = static_cast<Worm&>(worm);
+        j.takeOffPoints(20);
+        i.setExplode();
+    }
+
+    void artilary_Worm(AbsObject& artilary, AbsObject& worm)
+    {
+        Worm_artilary(worm, artilary);
+    }
+
+ //=======================================================================
     using HitFunctionPtr = void (*)(AbsObject&, AbsObject&);
     using Key = std::pair<std::type_index, std::type_index>;
     using HitMap = std::map<Key, HitFunctionPtr>;
@@ -132,11 +141,12 @@ namespace {
         phm[Key(typeid(Stinky), typeid(staticObject))] = &Stinky_staticObject;
         phm[Key(typeid(staticObject), typeid(Stinky))] = &staticObject_Stinky;
         
+        phm[Key(typeid(staticObject), typeid(Artilary))] = &staticObject_artilary;
+        phm[Key(typeid(Artilary), typeid(staticObject))] = &artilary_staticObject;
 
-        phm[Key(typeid(staticObject), typeid(Artilary))] = &AbsObject_artilary;
-        phm[Key(typeid(Artilary), typeid(staticObject))] = &artilary_AbsObject;
+        phm[Key(typeid(Worm), typeid(Artilary))] = &Worm_artilary;
+        phm[Key(typeid(Artilary), typeid(Worm))] = &artilary_Worm;
 
-        
 
 
         return phm;

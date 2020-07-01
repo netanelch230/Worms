@@ -6,6 +6,7 @@
 void Worm::move(float time)
 {
 	m_body->ApplyForce(forc(), m_body->GetWorldCenter(), true);
+	
 }
 
 void Worm::takeOffPoints(int i)
@@ -23,8 +24,10 @@ void Worm::destroy()
 
 b2Vec2 Worm::forc()
 {
+	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
+		m_wormWalk.play();
 		m_sprite.setScale(RIGHT);
 		this->setAnimation({ animation_walk, sf::Vector2u{1,15}, false, 1,sizeOfWalkWorm }, 0.05f);
 		spriteSetting sset{ this->getPosition(), sf::Vector2f{ 20,20 }, Resources::instance().getTexture(animation_walk) };
@@ -36,6 +39,7 @@ b2Vec2 Worm::forc()
 
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
+		m_wormWalk.play();
 		m_sprite.setScale(LEFT);
 		this->setAnimation({ animation_walk, sf::Vector2u{1,15}, false, 1,sizeOfWalkWorm }, 0.05f);
 		spriteSetting sset{ this->getPosition(), sf::Vector2f{ 20,20 }, Resources::instance().getTexture(animation_walk) };
@@ -45,8 +49,12 @@ b2Vec2 Worm::forc()
 	}
 
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	{
+		
+		m_wormUp.play();
 		return b2Vec2{ 0,-0.1 };
-
+	}
+		
 	else
 		return b2Vec2{ 0,0 };
 }
@@ -73,6 +81,9 @@ Worm::Worm(sf::Vector2f& location, std::string name, sf::Color color,  b2World& 
 	const auto rect = m_textBox.getLocalBounds();
 	m_textBox.setOrigin(rect.width / 2, rect.height / 2);
 	m_textBox.setSize({ rect.width / 2, rect.height / 2 });
+
+	m_wormUp.setBuffer(Resources::instance().getMusic(wormjump));
+	m_wormWalk.setBuffer(Resources::instance().getMusic(worm_walk1));
 }
 
 /*this function will draw each worm on the board and will set it's animatior
@@ -103,4 +114,15 @@ void Worm::checkHealth()
 {
 	if (!m_health)
 		takeOffPoints(5);
+}
+
+sf::Vector2f Worm::getScale()
+{
+	return m_sprite.getScale();
+}
+
+bool Worm::stand()
+{
+	return m_body->GetLinearVelocity() == b2Vec2{ 0,0 }
+	&& m_numOfPicture == animation_walk;
 }
