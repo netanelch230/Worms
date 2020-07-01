@@ -97,6 +97,7 @@ const auto sizeOfStinky = sf::Vector2f{ 54,36 };
 
 const auto posPlayButton = sf::Vector2f{ 850, 300 };
 const auto posExitButton = sf::Vector2f{ 50, 300 };
+const auto posHelpButton = sf::Vector2f{ 95, 640 };
 const auto posPlayCompButton = sf::Vector2f{ 20, 200 };
 const auto posPlayFriendButton = sf::Vector2f{ 20, 350 };
 const auto map1Button = sf::Vector2f{ 920, 220 };
@@ -127,12 +128,14 @@ enum menuPictures
 	start,
 	exitGame,
 	playTwo,
-	playThree
+	playThree,
+	helpButton,
+	helpPic
 };
 
 enum jerusalemMap
 {
-	featuresMenu = 8,
+	featuresMenu = 10,
 	jeruland1,
 	westrenWall,
 	lionGate,
@@ -142,7 +145,7 @@ enum jerusalemMap
 
 enum desertMap
 {
-	cactus=14,
+	cactus=16,
 	camel,
 	desertBack,
 	desertLand3,
@@ -156,7 +159,7 @@ enum desertMap
 
 enum featuresWormAnim
 {
-	animation_worm=22,
+	animation_worm=24,
 	animation_artilary,
 	animation_whiteFlag,
 	animation_begin_dinamit,
@@ -173,7 +176,7 @@ enum featuresWormAnim
 
 enum featuresWeaponesAnim
 {
-	sheep=34,
+	sheep=36,
 	grenade,
 	stinky,
 	dinamit,
@@ -182,26 +185,26 @@ enum featuresWeaponesAnim
 
 enum weaponsEffect
 {
-	exGrenade=39,
+	exGrenade=41,
 	exSheep,
 	exStinky
 };
 
 enum menuHeadlines
 {
-	gameMapHeadline=42,
+	gameMapHeadline=44,
 	playersNamesHeadline,
 	groupAmountHeadlines
 };
 
 enum arrow {
-	greenArrow=45,
+	greenArrow=47,
 	blueArrow,
 	redArrow
 };
 
 enum featuresToolbar {
-	artileryIconButton= 48,
+	artileryIconButton= 50,
 	flagIconButton,
 	dinamitIconButton,
 	grenadeIconButton,
