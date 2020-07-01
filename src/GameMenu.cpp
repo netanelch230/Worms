@@ -10,6 +10,7 @@
 //c-tor of Game menu 
 GameMenu::GameMenu()
 {
+	
 	setPlayerTextField();
 	m_groupColors.resize(colorsOptions); //set the maximum color groups options
 	initializeColors();
@@ -118,17 +119,23 @@ bool GameMenu::optionsEvents(sf::RenderWindow& window)
 			case sf::Event::MouseButtonPressed:
 				if (event.mouseButton.button == sf::Mouse::Button::Left)	//if we pressed on left mouse
 				{
+					m_clickSound.setBuffer(Resources::instance().getMusic(buttonClick));
 					mousePos = window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y }); //the mouse position
 					if (m_playButton->contains(mousePos))	//clicked on play button
+					{
+						m_clickSound.play();
 						return true; //close the game menu and start to play
+					}
 					else if (m_helpButton->contains(mousePos))
 					{
+						m_clickSound.play();
 						m_openHelp = true;
 						return false;
 					}
 
 					else if (m_exitButton->contains(mousePos))	//clicked on exit button
 					{
+						m_clickSound.play();
 						window.close();
 						return false;	//close menu window
 					}
@@ -162,6 +169,7 @@ bool GameMenu::optionsEvents(sf::RenderWindow& window)
 it will initialize the amount of the players and the amount of text fields that we're asking for.*/
 void GameMenu::handlePlayersAmountClick(sf::Vector2f location)
 {
+	m_clickSound.play();
 	for (auto i = 0; i < m_playersButtons.size(); i++)
 	{
 		if (m_playersButtons[i]->contains(location))
@@ -184,18 +192,26 @@ void GameMenu::handlePlayersAmountClick(sf::Vector2f location)
 //in this function we're checking if we pressed on the players menu
 bool GameMenu::updatePress(sf::Vector2f location)
 {
+	
 	handlePlayersAmountClick(location);
 	checkTextFieldClick(location);
 	if (m_map1->contains(location))
+	{
+		m_clickSound.play();
 		m_menuParameters.m_background = jeruBack;
+	}
 
 	if (m_map2->contains(location))
+	{
+		m_clickSound.play();
 		m_menuParameters.m_background = desertBack;
+	}
 
 	if (m_playGameButton->contains(location))
 	{
 		if (m_groupAmount > 0)
 		{
+			m_clickSound.play();
 			setMenuParameters();
 			return true;
 		}
@@ -308,6 +324,7 @@ void GameMenu::checkTextFieldClick(sf::Vector2f location)
 	{
 		if (m_textFields[i].getGlobalBounds().contains(location))
 		{
+			m_clickSound.play();
 			m_textFieldPressed = true; 
 			m_currentGroupAmount++;
 			m_currGroup = i; // this will handle the curr_text field group!! :)

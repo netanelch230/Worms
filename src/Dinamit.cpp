@@ -45,8 +45,9 @@ bool Dinamit::runFeature(sf::Event& event, sf::RenderWindow& window,
 		else {
 			auto world = getBody()->GetWorld();
 			featureExplosion(*world);
-			m_sound.setBuffer(Resources::instance().getMusic(explosion2));
+			m_sound.setBuffer(Resources::instance().getMusic(explosion2));	
 			m_sound.play();
+			drawFeatur = false; //ask nati- why???
 			return false;
 		}
 	}

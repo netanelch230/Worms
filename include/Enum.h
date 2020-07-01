@@ -117,7 +117,7 @@ const auto groupNamePos = sf::Vector2f{ 380, 300 };
 const int amountOfAnimation = 9;
 
 //==============================distance of animation from the beginning================================
-const int featureDistance = 23;
+const int featureDistance = 25;
 //==============================features Animation enums!====================================================
 enum menuPictures
 {
@@ -277,6 +277,8 @@ enum sound {
 	worm_walk1,
 	worm_walk2,
 	transform,
+	wormByeBye,
+	wormjump
 	
 
 };

@@ -25,6 +25,7 @@ private:
 	sf::Vector2f getCurrentMove();
 	b2Vec2 forc();
 	std::string m_name_string;
-	
+	sf::Sound m_wormUp;
+	sf::Sound m_wormWalk;
 };
 
