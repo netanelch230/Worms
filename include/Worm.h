@@ -15,7 +15,7 @@ public:
 	//~Worm();
 	void setHelth() { m_health = false; }
 	void checkHealth();
-
+	void setSprite(float x, float y);
 private:
 	bool m_health = true;
 	int m_life= NumOfLife;

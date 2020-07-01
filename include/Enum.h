@@ -2,35 +2,36 @@
 #include<SFML/Graphics.hpp>
 
 //==============================const timer======================================
-const auto oneRound = 3;
-//============================player enums=======================================
-const auto wormTextBoxCorLeft = sf::Vector2f{ 17, -25 };
-const auto wormTextBoxCorRight = sf::Vector2f{ 17, -25 };
 
-//===========================time for round data================================
+const auto oneRound = 3;
+
+//============================player enums=======================================
+
+const auto wormTextBoxCorLeft = sf::Vector2f{ 17, -25 }; //enum for moving left
+const auto wormTextBoxCorRight = sf::Vector2f{ 17, -25 }; //enum for moving right
+
+//===========================time for round data===============================
+
 const auto timeForRoundPosition = sf::Vector2f{ 50, 650 };
 const auto timeForRoundCharacter = 20;
-//===========================granede angle====================================
+const int timeOfRound = 45;
+
+//===========================granede angle=====================================
+
 const auto RIGHT = sf::Vector2f{ -1,1 };
 const auto LEFT = sf::Vector2f{ 1,1 };
 
-//=====================================animation features==============
-const auto animationSwitchTime = 0.03f;
-//================================================================================
-const int colorAmount = 3;
-const int recSize = 50;
-const int maxTextFields = 3;
-// 3 groups is the maximum
+//=====================================animation features======================
 
-const int minGroupIndex = 0;
-const int maxGroupIndex = 3;
+const auto animationSwitchTime = 0.05f; // this is the default velue for switchTime
 
-const int maxHeadlines = 5;
+//===================================Menu enums================================
+const int colorAmount = 3; //color groups amount
+const int recSize = 50; 
+const int maxTextFields = 3; // 3 groups is the maximum
 const int gameFormatOptions = 2;
-const int colorsOptions = 4;
+const int colorsOptions = 3;
 const int backgroundOptions = 2;
-
-const int timeOfRound = 45;
 //=======================================locations on menu=========================================
 const float playersBottonXRatio = 150;
 const float gameFormatX = 10;
@@ -44,10 +45,10 @@ const int countOfFont = 3;
 const int countOfMusic = 5;
 const auto sizeOfIcon = sf::Vector2f{ 20,30 };
 const auto sizeOfWorm = sf::Vector2f { 20,20 };
-const auto sizeOfPassWorm = sf::Vector2f{ 100,100 };
+const auto sizeOfPassWorm = sf::Vector2f{ 40,40 };
 const auto sizeOfWhiteFlagWorm = sf::Vector2f{ 100,100 };
 const auto sizeOfTelleporterWorm = sf::Vector2f{ 100,100 };
-const auto sizeOfWalkWorm = sf::Vector2f{ 100,100 };
+const auto sizeOfWalkWorm = sf::Vector2f{ 20,20 };
 
 //===========================================location of tool bar==================================
 
@@ -111,12 +112,19 @@ const auto gameFormatPos = sf::Vector2f{ 5, 120 };
 const auto gameMapPos = sf::Vector2f{ 900, 120 };
 const auto playersAmountPos = sf::Vector2f{ 320, 150 };
 const auto groupNamePos = sf::Vector2f{ 380, 300 };
+//========================================
+const auto initCount = 0;
+const auto maxCount = wormsLimit - 1;
+
 
 //========================================amount of animation===============================================
+
 const int amountOfAnimation = 9;
 
 //==============================distance of animation from the beginning================================
+
 const int featureDistance = 23;
+
 //==============================features Animation enums!====================================================
 enum menuPictures
 {
@@ -194,13 +202,15 @@ enum menuHeadlines
 	groupAmountHeadlines
 };
 
-enum arrow {
+enum arrow 
+{
 	greenArrow=45,
 	blueArrow,
 	redArrow
 };
 
-enum featuresToolbar {
+enum featuresToolbar 
+{
 	artileryIconButton= 48,
 	flagIconButton,
 	dinamitIconButton,
@@ -210,6 +220,7 @@ enum featuresToolbar {
 	stinkyIconButton,
 	teleportIconButton
 };
+
 enum sides
 {
 	jump,
@@ -258,7 +269,8 @@ enum menuPress
 	t_startPlay
 };
 
-enum sound {
+enum sound 
+{
 	timer
 };
 

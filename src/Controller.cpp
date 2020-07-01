@@ -25,8 +25,8 @@ void Controller::run()
 		bool whiteFlag = false; //this will handle the case we'll get white flag- we'll delete the current group.
 		for (auto i = 0; i < m_player.size(); i++)
 		{
-			m_player[i]->run(m_event, m_player, whiteFlag);
-			if (whiteFlag)
+			m_player[i]->run(m_event, m_player);
+			if (m_player[i]->isWhiteFlag())
 			{
 				m_player.erase(m_player.begin() + i);//delete current group.
 				whiteFlag = false;

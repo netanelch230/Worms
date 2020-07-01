@@ -20,13 +20,14 @@ public:
 	std::string getName() { return m_name; }
 	~Player() = default;
 	void run(sf::Event& event, 
-		std::vector<std::unique_ptr<Player>>& groupPlayers,
-		 bool& whiteFlag);
+		std::vector<std::unique_ptr<Player>>& groupPlayers);
 	void draw() const;					//draw all the worms
 	//void loadFeatures(const sf::Texture& tex, const sf::Vector2f& pos);
-	
-private:
+	bool isWhiteFlag();
 
+private:
+	void setTurnOfPlayer();
+	void setCurrentPlayer();
 	b2World& m_world;
 	std::vector<std::unique_ptr<Worm>> m_worms; // initialize the size of the vector
 	std::string m_name; // will be read from sfml
