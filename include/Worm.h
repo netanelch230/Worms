@@ -15,6 +15,7 @@ public:
 	virtual void destroy() override;
 	void setHelth() { m_health = false; }
 	void checkHealth();
+	void setSprite(float x, float y);
 	sf::Vector2f getScale();
 	~Worm()= default;
 	bool stand();

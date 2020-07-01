@@ -30,6 +30,10 @@ b2Vec2 Worm::forc()
 		m_wormWalk.play();
 		m_sprite.setScale(RIGHT);
 		this->setAnimation({ animation_walk, sf::Vector2u{1,15}, false, 1,sizeOfWalkWorm }, 0.05f);
+		spriteSetting sset{ this->getPosition(), sf::Vector2f{ 20,20 }, Resources::instance().getTexture(animation_walk) };
+		m_sprite.setOrigin(sset.size.x / 2, sset.size.y / 2);
+		//this->m_sprite.setTexture(sset.picture);
+		//this->m_sprite.setTextureRect();
 		return b2Vec2{ 0.1,0 };
 	}
 
@@ -38,6 +42,9 @@ b2Vec2 Worm::forc()
 		m_wormWalk.play();
 		m_sprite.setScale(LEFT);
 		this->setAnimation({ animation_walk, sf::Vector2u{1,15}, false, 1,sizeOfWalkWorm }, 0.05f);
+		spriteSetting sset{ this->getPosition(), sf::Vector2f{ 20,20 }, Resources::instance().getTexture(animation_walk) };
+		this->m_sprite.setOrigin((sset.size.x / 2), (sset.size.y / 2));
+		//this->m_sprite.setTexture(sset.picture);
 		return b2Vec2{ -0.1,0 };
 	}
 
@@ -52,10 +59,13 @@ b2Vec2 Worm::forc()
 		return b2Vec2{ 0,0 };
 }
 
-
+void Worm::setSprite(float x, float y)
+{
+	this->m_sprite.setOrigin(x,y);
+}
 Worm::Worm(sf::Vector2f& location, std::string name, sf::Color color,  b2World& world) :
 	AnimationObject(spriteSetting{ location,sizeOfWorm,
-			Resources::instance().getTexture(animation_worm) }, sf::Vector2u{ 1,36 },world,true,1),
+			Resources::instance().getTexture(animation_worm) }, sf::Vector2u{ 1,36 },world,true,1, 0.05f),
 	m_name_string(name)
 {
 	m_name.setFont(Resources::instance().getfont(name_font));
@@ -64,7 +74,6 @@ Worm::Worm(sf::Vector2f& location, std::string name, sf::Color color,  b2World& 
 	m_name.setPosition(location + sf::Vector2f{ 10, -15 });
 	m_name.setScale(0.5, 0.5);
 	m_name.setStyle(sf::Text::Bold);
-	
 	m_textBox.setPosition(m_name.getPosition());
 	m_textBox.setFillColor(sf::Color::Black);
 	m_textBox.setOutlineColor(sf::Color::White);

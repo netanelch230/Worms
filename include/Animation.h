@@ -17,6 +17,6 @@ private:
 	sf::Vector2u m_imageCount;
 	sf::Vector2u currentImage;
 	float m_totaltime;
-	float m_switchtime = animationSwitchTime;
+	float m_switchtime;
 	int m_distance;
 };
