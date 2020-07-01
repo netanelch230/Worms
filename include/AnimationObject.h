@@ -19,5 +19,5 @@ protected:
 	Animation m_animation;
 	unsigned int m_row;
 	bool m_is_dead = false;//default value 
-
+	int m_numOfPicture = -1;
 };

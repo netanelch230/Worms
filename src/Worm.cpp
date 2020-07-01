@@ -6,6 +6,7 @@
 void Worm::move(float time)
 {
 	m_body->ApplyForce(forc(), m_body->GetWorldCenter(), true);
+	
 }
 
 void Worm::takeOffPoints(int i)
@@ -109,4 +110,10 @@ void Worm::checkHealth()
 sf::Vector2f Worm::getScale()
 {
 	return m_sprite.getScale();
+}
+
+bool Worm::stand()
+{
+	return m_body->GetLinearVelocity() == b2Vec2{ 0,0 }
+	&& m_numOfPicture == animation_walk;
 }

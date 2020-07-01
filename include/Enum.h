@@ -173,7 +173,6 @@ enum featuresWormAnim
 	animation_walk
 };
 
-
 enum featuresWeaponesAnim
 {
 	sheep=36,
@@ -279,7 +278,5 @@ enum sound {
 	transform,
 	wormByeBye,
 	wormjump
-	
-
 };
 
