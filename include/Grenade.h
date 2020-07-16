@@ -1,6 +1,6 @@
 #pragma once
 #include"MovingAttack.h"
-#include"Resources.h"
+#include"Resource.h"
 
 //--------------const-------------------
 const auto grenadeSize = sf::Vector2f{ 20, 20 };
@@ -11,11 +11,15 @@ class Grenade :public MovingAttack
 {
 public:
 	Grenade(b2World& world, sf::Vector2f position); 
-	bool runFeature(sf::Event& event, sf::RenderWindow& window,
-		bool& drawFeatur, Worm& worm);
+	virtual void aliveFeature(sf::Event &event, sf::RenderWindow &window, Worm &worm,int& drawFeature);
+	virtual void applyFeature(sf::Event &event,int& drawFeature);
+	virtual void attackTakeOfPoints(Worm &worm) override;
+	virtual ~Grenade() = default;
+
 private:
 	sf::Clock m_timer;
 	int m_second = 3;
+	sf::Sound m_painSound;
 	
 
 };

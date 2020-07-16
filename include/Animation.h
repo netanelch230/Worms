@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "AnimationSet.h"
 
+//--------------class--------------
 class Animation 
 {
 public:
@@ -11,12 +12,14 @@ public:
 	sf::IntRect getrect() { return m_rect; };
 	bool isDead();
 	void setSwitchTime(float switchTime) { m_switchtime = switchTime; }
+	~Animation() = default;
+
 private:
 	bool m_restartAnimation = true;
 	sf::IntRect m_rect;
 	sf::Vector2u m_imageCount;
 	sf::Vector2u currentImage;
-	float m_totaltime;
-	float m_switchtime;
-	int m_distance;
+	float m_totaltime=0.f;
+	float m_switchtime = 0.03f;
+	int m_distance=1;
 };

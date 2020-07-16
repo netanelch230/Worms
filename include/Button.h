@@ -1,10 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+//--------------class--------------
 class Button
 {
 public:
-
 	Button(const sf::Sprite& button, const sf::Vector2f& buttonPos);
 	sf::Vector2f getButtonPosition() const; //get position of menu button
 	void draw(sf::RenderWindow& window) const; //draw the window

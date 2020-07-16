@@ -1,9 +1,10 @@
 #pragma once
 #include "staticObject.h"
 #include "Enum.h"
-#include "Resources.h"
+#include "Resource.h"
 #include <memory>
 
+//--------------class--------------
 class Board
 {
 public:

@@ -6,21 +6,23 @@ AnimationObject::AnimationObject(spriteSetting sset, sf::Vector2u imageCount,
 	m_animation(&sset.picture, imageCount, switchTime, distance), m_row(0),
 	AbsObject(sset,world,whichtype){}
 
+//--------------------------------------------------------------
+//set the animation pic of the object
 void AnimationObject::setAnimation(AnimationSet animset, float switchTime)
 {
-	m_sprite.setTexture(Resources::instance().getTexture(animset.photo));
-	Animation animation(&Resources::instance().getTexture(animset.photo),
+	m_sprite.setTexture(image(animset.photo));
+	Animation animation(&image(animset.photo),
 		animset.imageCount, switchTime, animset.distance, animset.restart);
 	m_animation = animation;
+
 	m_numOfPicture = animset.photo;
-	//m_sprite.resi(animset.sizeOfAni);
 }
 
 void AnimationObject::update(float deltaTime)
 {
 	m_animation.update(m_row, deltaTime);
 	m_sprite.setTextureRect(m_animation.getrect());
-	m_is_dead = m_animation.isDead();
+	m_endOfAnimation = m_animation.isDead();
 }
 
 void AnimationObject::setPosition(sf::Vector2f position)
@@ -30,8 +32,5 @@ void AnimationObject::setPosition(sf::Vector2f position)
 
 void AnimationObject::destroy()
 {
-	/*if (!m_is_dead)
-		m_body->GetWorld()->DestroyBody(m_body);
-	*/
-	//m_body->SetGravityScale(10000);
+	
 }

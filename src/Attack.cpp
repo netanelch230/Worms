@@ -1,7 +1,9 @@
 #include "Attack.h"
+
+
 bool Attack::destroy(int time)
 {
-	if (m_is_dead || time == timeOfRound)
+	if (m_endOfAnimation || time == timeOfRound)
 	{
 		m_body->GetWorld()->DestroyBody(m_body);
 		return true;
@@ -11,12 +13,10 @@ bool Attack::destroy(int time)
 
 void Attack::featureExplosion(b2World& world)
 {
-	m_sound.setBuffer(Resources::instance().getMusic(pain));
-	m_sound.play();
 
 	m_body->SetType(b2_staticBody);
-	float blastRadius = 10.f;
-	float  blastPower = 10.f;
+	float blastRadius = 2.f;
+	float  blastPower = 4.f;
 	auto center = getBody()->GetWorldCenter();
 	//find all bodies with fixtures in blast radius AABB
 	MyQueryCallback queryCallback; //see "World querying topic"
@@ -42,7 +42,6 @@ void Attack::featureExplosion(b2World& world)
 		applyBlastImpulse(body, center, bodyCom, blastPower);
 
 	}
-	m_body->GetWorld()->DestroyBody(m_body);
 }
 
 
@@ -53,11 +52,18 @@ void Attack::update()
 	AnimationObject::update(time);
 }
 
+bool Attack::bombAnimationFeature()
+{
+	return isDead();
+}
+
 void Attack::blastPoint(void* data)
 {
 	if (auto k = static_cast<AbsObject*> (data))
 		if (auto z = dynamic_cast<Worm*>(k))
-			z->takeOffPoints(50);
+		{
+			attackTakeOfPoints(*z);
+		}
 }
 
 void Attack::applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower)
@@ -70,4 +76,9 @@ void Attack::applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoi
 	float invDistance = 1 / distance;
 	float impulseMag = blastPower * invDistance * invDistance;
 	body->ApplyLinearImpulse(impulseMag * blastDir, applyPoint, true);
+}
+
+void Attack::endBomb()
+{
+	m_body->GetWorld()->DestroyBody(m_body);
 }

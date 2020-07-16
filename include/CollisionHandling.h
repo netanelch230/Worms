@@ -3,7 +3,7 @@
 #include <typeinfo>
 #include "AbsObject.h"
 
-
+//--------------class--------------
 class CollisionHandling
 {
 public:

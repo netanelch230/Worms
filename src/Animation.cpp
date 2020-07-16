@@ -6,10 +6,11 @@ m_imageCount(imageCount), m_switchtime(switchtime), m_totaltime(0.f),
 m_distance(distance),m_restartAnimation(restart)
 {
 	currentImage.x = 0;
-	m_rect.width = tex->getSize().x / float(m_imageCount.x);
-	m_rect.height = tex->getSize().y / float(m_imageCount.y) + m_distance;
+	m_rect.width = int(tex->getSize().x / float(m_imageCount.x));
+	m_rect.height =int(tex->getSize().y / float(m_imageCount.y) + m_distance);
 }
 
+//update the animation pic of the object
 void Animation::update(int row, float deltaTime)
 {
 	currentImage.x = row;
@@ -32,6 +33,7 @@ void Animation::update(int row, float deltaTime)
 	
 }
 
+//if the worm is dead
 bool Animation::isDead()
 {
 	return currentImage.y == m_imageCount.y && !m_restartAnimation;		

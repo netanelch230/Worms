@@ -3,22 +3,23 @@
 #include <memory>
 #include "Button.h"
 #include "Enum.h"
-#include "Resources.h"
+#include "Resource.h"
 
-class FeaturesToolBar
+//--------------class--------------
+class FeatureToolBar
 {
 public:
-	FeaturesToolBar();
-	void drawFeaturesMenu( sf::RenderWindow &window);
-	std::vector < std::unique_ptr <Button> > &getFeaturesVec();
-	~FeaturesToolBar() = default;
+	FeatureToolBar();
+	void drawFeatureMenu( sf::RenderWindow &window);
+	std::vector < std::unique_ptr <Button> > &getFeatureVec();
+	~FeatureToolBar() = default;
 
 private:
 
 	void setSpriteIcons();
 	void setButtonVector();
 
-	std::vector <std::unique_ptr<Button>> m_featuresButton;
-	std::vector<sf::Sprite> m_featuresSprite;
+	std::vector <std::unique_ptr<Button>> m_FeatureButton;
+	std::vector<sf::Sprite> m_FeatureSprite;
 	
 };

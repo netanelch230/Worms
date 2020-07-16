@@ -1,7 +1,8 @@
 #pragma once
-#include "Resources.h"
+#include "Resource.h"
 #include <SFML/Graphics.hpp>
 
+//------------class-----------
 class Timer
 {
 public:
@@ -9,6 +10,7 @@ public:
 	static void setTime(int time) { m_time = time; };
 	static void decTime() { m_time--; };
 	static int getTime() { return m_time; }
+	virtual ~Timer() = default;
 
 private:
 	static int m_time;

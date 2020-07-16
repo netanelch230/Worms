@@ -2,7 +2,7 @@
 "Controller.cpp"
 "Player.cpp"
 "AbsObject.cpp"
-"Resources.cpp"
+"Resource.cpp"
 "worm.cpp"
 "Attack.cpp"
 "animation.cpp"
@@ -17,8 +17,10 @@
 "sheep.cpp"
 "MovingAttack.cpp"
 "FeaturesToolBar.cpp"
-"Artilary.cpp"
+"Speed.cpp"
 "Dinamit.cpp"
 "Stinky.cpp"
-"Transform.cpp")
+"Transform.cpp"
+"Feature.cpp"
+"pass.cpp")
 

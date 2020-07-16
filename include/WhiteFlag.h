@@ -1,17 +1,16 @@
 #pragma once
-#include "Features.h"
+#include "Feature.h"
 
-
-class WhiteFlag : public Features
+//--------class---------
+class WhiteFlag : public Feature
 {
 public:
-	WhiteFlag() : Features(AnimationSet{ animation_whiteFlag,  whiteFlagImageCount,true,1 , sizeOfWhiteFlagWorm}) {}
-	virtual void applyFeatures() {}
-	virtual void draw(sf::RenderWindow& window) { };
-	virtual bool runFeature(sf::Event& event, sf::RenderWindow& window,
-	bool& drawFeatur, Worm& worm) override {return false;}
+	WhiteFlag() : Feature(AnimationSet{ animation_whiteFlag,  whiteFlagImageCount,true,1 , sizeOfWhiteFlagWorm}) {}
+	virtual void draw(sf::RenderWindow& window) {};
 	virtual void update() override {}
-	
+	virtual void aliveFeature(sf::Event& event, sf::RenderWindow& window,
+		Worm& worm, int& drawFeature) {}
+	virtual void applyFeature(sf::Event& event, int& drawFeature) {}
+	virtual ~WhiteFlag() = default;
 
-private:
 };

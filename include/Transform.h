@@ -1,13 +1,14 @@
 #pragma once
-#include "Features.h"
+#include "Feature.h"
 
-class Transform :public Features {
+//------------class-----------
+class Transform :public Feature {
 
 public:
 	Transform(); 
-	virtual void applyFeatures() {};
 	virtual void draw(sf::RenderWindow& window) {};
 	void update() {}
-	virtual bool runFeature(sf::Event& event, sf::RenderWindow& window,
-		bool& drawFeatur, Worm& worm) { return false; }
+	virtual void aliveFeature(sf::Event& event, sf::RenderWindow& window, Worm& worm, int& drawFeature);
+	virtual void applyFeature(sf::Event& event, int& drawFeature);
+	virtual ~Transform() = default;
 };

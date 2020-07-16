@@ -6,8 +6,8 @@ int main()
 {
 	try
 	{
-		Controller r;
-		r.run();
+		Controller game;
+		game.run();
 	}
 	catch (...)
 	{

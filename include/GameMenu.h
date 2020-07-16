@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <vector>
-#include "Resources.h"
+#include "Resource.h"
 #include "Enum.h"
 #include <string>
 #include "Button.h"
@@ -16,6 +16,7 @@ struct Input
 	std::vector<sf::Color> m_playersColor;
 };
 
+//--------------class--------------
 class GameMenu
 {
 public:
@@ -27,7 +28,8 @@ public:
 	~GameMenu() = default;
 
 private:
-	void setPlayerTextFeatures();
+	void setMusic();
+	void setPlayerTextFeature();
 	void handleKeyPressedEvenet(sf::Event& event);
 	void handlePlayersAmountClick(sf::Vector2f location);
 	void handleMouseMovedEvent(sf::RenderWindow& window, sf::Vector2f mousePos, sf::Event &event);
@@ -45,7 +47,8 @@ private:
 	void checkTextFieldClick(sf::Vector2f location);
 	void openHelpText(sf::RenderWindow& window);
 	void closeHelpText(sf::RenderWindow& window);
-
+	bool secondMenuMouseButtonPressed(sf::RenderWindow& window, sf::Event& event);
+	void secondMenuMouseButtonMoved(sf::RenderWindow& window, sf::Event& event);
 	int m_groupAmount = 0; // this variable will handle the amount of groups we currently have
 	int m_currGroup = 0; //this variable will handle the current text field of the current group
 	int m_currentGroupAmount = 0;
@@ -87,4 +90,6 @@ private:
 	Input m_menuParameters;
 
 	sf::Sound m_clickSound;
+	sf::Sound m_openSong;
+
 };

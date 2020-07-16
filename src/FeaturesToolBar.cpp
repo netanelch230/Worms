@@ -1,48 +1,48 @@
 #pragma once
 #include "FeaturesToolBar.h"
 
-FeaturesToolBar::FeaturesToolBar()
+FeatureToolBar::FeatureToolBar()
 {
-	m_featuresButton.resize(featuresAmount);
-	m_featuresSprite.resize(featuresAmount);
+	m_FeatureButton.resize(FeatureAmount);
+	m_FeatureSprite.resize(FeatureAmount);
 	setSpriteIcons();
 	setButtonVector();
 }
 
-void FeaturesToolBar::drawFeaturesMenu(sf::RenderWindow& window)
+void FeatureToolBar::drawFeatureMenu(sf::RenderWindow& window)
 {
-	for (int i = 0; i < featuresAmount; i++)
-		m_featuresButton[i]->draw(window);
+	for (int i = 0; i < FeatureAmount; i++)
+		m_FeatureButton[i]->draw(window);
 
 }
 
 
-std::vector<std::unique_ptr<Button>> &FeaturesToolBar::getFeaturesVec()
+std::vector<std::unique_ptr<Button>> &FeatureToolBar::getFeatureVec()
 {
-	return m_featuresButton;
+	return m_FeatureButton;
 }
 
 
 
-void FeaturesToolBar::setSpriteIcons()
+void FeatureToolBar::setSpriteIcons()
 {
 	int k = 0;
-	for (auto i = 0; i < featuresAmount / 4; i++)
+	for (auto i = 0; i < FeatureAmount / 4; i++)
 	{
-		for (auto j = 0; j < featuresAmount / 2; j++)
+		for (auto j = 0; j < FeatureAmount / 2; j++)
 		{
-			m_featuresSprite[k].setTexture(Resources::instance().getTexture(k + 50));
-			m_featuresSprite[k].setPosition(feautersX + (j * feauterSize), feautersY+ (i* feauterSize));
+			m_FeatureSprite[k].setTexture(image(k + speedButtonIcon));
+			m_FeatureSprite[k].setPosition(feautersX + (j * feauterSize), feautersY+ (i* feauterSize));
 			k++;
 		}
 		
 	}
 }
 
-void FeaturesToolBar::setButtonVector()
+void FeatureToolBar::setButtonVector()
 {
-	for (auto i = 0; i < m_featuresSprite.size(); i++)
+	for (auto i = 0; i < m_FeatureSprite.size(); i++)
 	{
-		m_featuresButton[i] = std::make_unique <Button>(m_featuresSprite[i], m_featuresSprite[i].getPosition());
+		m_FeatureButton[i] = std::make_unique <Button>(m_FeatureSprite[i], m_FeatureSprite[i].getPosition());
 	}
 }

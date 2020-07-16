@@ -14,12 +14,13 @@ void MovingAttack::moveWeapone()
 //get the direction to move the weapon
 b2Vec2 MovingAttack::force()
 {
-	if (m_sprite.getScale() == RIGHT)
+	if (m_sprite.getScale() == featureRight)
 		return m_rightForce;
-	else if (m_sprite.getScale() == LEFT)
+	else if (m_sprite.getScale() == featureLeft)
 		return m_leftForce;
 	else
-		b2Vec2{ 0,0 };
+		return b2Vec2{ 0,0 };
+	
 }
 
 //if the attack weapon get stack in some thing

@@ -1,8 +1,7 @@
 #pragma once 
 #include <Box2D/Box2D.h>
 
-
-
+//----------class------------
 class MyQueryCallback : public b2QueryCallback {
   public:
       
@@ -12,6 +11,7 @@ class MyQueryCallback : public b2QueryCallback {
           return true;                             
       }
       std::vector<b2Body*> getFoundBodies() { return m_foundBodies; }
+      virtual ~MyQueryCallback() = default;
 private:
       std::vector<b2Body*> m_foundBodies;
 

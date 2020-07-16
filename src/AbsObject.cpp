@@ -19,14 +19,13 @@ AbsObject::AbsObject(spriteSetting sset,b2World& world,bool whichtype)
     polygonShape.SetAsBox( sset.size.x/2 * MPP, sset.size.y/2 * MPP); 
 
     fixtureDef.shape = &polygonShape;
-    fixtureDef.friction = 0.8f;
-    fixtureDef.restitution	= 0.1f; 
+    fixtureDef.friction = 0.5f;
+    fixtureDef.restitution	= 0.4f; 
     fixtureDef.density	= 1.f;
 
     m_body->CreateFixture(&fixtureDef);
 	m_body->SetUserData(this);
 	m_sprite.setTexture(sset.picture);
-    //m_sprite.setSize(sset.size);
     m_sprite.setOrigin(sset.size.x/2, sset.size.y / 2);
 }
 
@@ -35,11 +34,6 @@ void AbsObject::draw(sf::RenderWindow& window)
     m_sprite.setPosition(getPosition());
     m_sprite.setRotation(getRotation());
     window.draw(m_sprite);
-}
-
-bool AbsObject::touch(sf::Vector2f location) const
-{
-	return m_sprite.getGlobalBounds().contains(location);
 }
 
 sf::Vector2f AbsObject::getPosition() const
@@ -51,5 +45,5 @@ sf::Vector2f AbsObject::getPosition() const
 float AbsObject::getRotation() const
 {
     float angle = m_body->GetAngle();
-    return ((angle * 180.f) / 3.14);
+    return float ((angle * 180.f) / 3.14f);
 }

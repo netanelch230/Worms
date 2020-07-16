@@ -3,10 +3,9 @@
 #include <memory>
 
 
-
 void Board::createBord(b2World& world, int type)
 {
-	m_backGround.setTexture(&Resources::instance().getTexture(type));
+	m_backGround.setTexture(&image(type));
 	m_backGround.setSize({ WIDTH, HEIGHT });
 
 	loadBorders(world);
@@ -34,50 +33,50 @@ void Board::loadBorders(b2World& world)
 {
 
 	m_staticMapObject.emplace_back(std::make_unique<staticObject>(spriteSetting{ {650,700},{1280,70},
-		Resources::instance().getTexture(jeruland1) },world));
+		image(jeruLand) },world));
 	m_staticMapObject[0]->setTranspert();
 	m_staticMapObject.emplace_back(std::make_unique<staticObject>(spriteSetting{ {650,0},{3000,70},
-		Resources::instance().getTexture(jeruland1) },world));
+		image(jeruLand) },world));
 	m_staticMapObject[1]->setTranspert();
 	m_staticMapObject.push_back(std::make_unique<staticObject>(spriteSetting{ {7,350},{70,2000},
-		Resources::instance().getTexture(jeruland1) },world));
+		image(jeruLand) },world));
 	m_staticMapObject[2]->setTranspert();
 	m_staticMapObject.push_back(std::make_unique<staticObject>(spriteSetting{ {1280,350},{70,2000},
-		Resources::instance().getTexture(jeruland1) },world));
+		image(jeruLand) },world));
 	m_staticMapObject[3]->setTranspert();
 
 }
 
 void Board::loadJerusalem(b2World& world)
 {
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{1000,250},jeruland1),world));
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{1071,250},jeruland1),world));
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{800,500},jeruland1),world));
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{50,300},jeruland1),world));
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{300,400},jeruland1),world));
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{150,650},westrenWall),world));
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{500,600},lionGate),world));
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{1000,600},daviaTower),world));
+	
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{1130,250},jeruLand),world));
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{750,320},jeruLand),world));
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{130,300},jeruLand),world));
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{400,400},jeruLand),world));
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{500,620},kneset),world));
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{1000,590},jaffaGate),world));
+	
 	
 }
 void Board::loadDesert(b2World& world)
 {
 
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{ 10,200 }, desertLand3),world));
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{ 700,250 }, desertLand3),world));
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{ 1000,300 }, desertLand7),world));
-	/*m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{ 100,550 }, camel), *world.get()));
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{ 750,600 }, cactus), *world.get()));
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{ 500,450 }, tent), *world.get()));
-	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{ 1000,550 }, waterWall), *world.get()));*/
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{ 100,400 }, desertLand),world));
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{ 350,350 }, desertLand),world));
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{ 1150,480 }, desertLand),world));
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{ 600,280 }, desertLand),world));
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{ 600,600 }, camel), world));
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{ 900,500 }, desertHome), world));
+	m_staticMapObject.emplace_back(std::make_unique<staticObject>(getSpriteSetting(sf::Vector2f{ 350,600 }, waterWall), world));
 
 }
 
 spriteSetting Board::getSpriteSetting(sf::Vector2f position, int pic) const
 {
-	auto tempSize = Resources::instance().getTexture(pic).getSize();
+	auto tempSize = image(pic).getSize();
 	auto size = sf::Vector2f {(float)tempSize.x,(float) tempSize.y };
-	auto s = spriteSetting {position,size, Resources::instance().getTexture(pic)};
+	auto s = spriteSetting {position,size, image(pic)};
 	return s;
 }
 

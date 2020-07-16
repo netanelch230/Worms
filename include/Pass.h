@@ -1,14 +1,15 @@
 
 #pragma once
-#include"Features.h"
+#include"Feature.h"
 
-
-class Pass :public Features {
+//----------class-----------
+class Pass :public Feature {
 public:
-	Pass() :Features(AnimationSet{ animation_skip, skipImageCount,true,1, sizeOfPassWorm }) {}
-		virtual void applyFeatures() {}
-		virtual void draw(sf::RenderWindow& window) {}
-		void update() {};
-		virtual bool runFeature(sf::Event& event, sf::RenderWindow& window, 
-			bool& drawFeatur, Worm& worm) { return false; }
+	Pass() :Feature(AnimationSet{ animation_skip, skipImageCount,true,1, sizeOfPassWorm }) {}
+	virtual void draw(sf::RenderWindow& window) {}
+	void update() {};
+	virtual void aliveFeature(sf::Event& event, sf::RenderWindow& window,
+		Worm& worm, int& drawFeature);
+	virtual void applyFeature(sf::Event& event, int& drawFeature);
+	virtual ~Pass() = default;
 };

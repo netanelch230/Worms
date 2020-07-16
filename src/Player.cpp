@@ -1,17 +1,13 @@
 #include "Player.h"
 #include <iostream>
 #include "MyQueryCallback.h"
-
-//---------------------------------------------
-//========================changes for c-tor
-//=========================remove background from here and move it to board class!!!!==========================
 //---------------------------------------------
 /*the c-tor of player will get the group name of the current player
 and the color of the group,
 world is the physical world of the player
 */
-Player::Player(std::string name, sf::Color color, b2World& world, Board& board, FeaturesToolBar& featuresMenu, sf::RenderWindow& window) :
-	m_name(name), m_color(color), m_world(world), m_board(board), m_featuresMenu(featuresMenu), m_window(window),
+Player::Player(std::string name, sf::Color color, b2World& world, Board& board, FeatureToolBar& FeatureMenu, sf::RenderWindow& window) :
+	m_name(name), m_color(color), m_world(world), m_board(board), m_FeatureMenu(FeatureMenu), m_window(window),
 	m_feature(nullptr)
 {
 	creatWorms();
@@ -27,52 +23,105 @@ displaying their animation, and in each turn were giving to different worm
 of the group the oppurtunity to play by randomizing the current worm
 that will play out of the worms vector.
 */
-void Player::run(sf::Event& event,
-std::vector<std::unique_ptr<Player>>& groupPlayers)
-{	
+void Player::run(std::vector<std::unique_ptr<Player>>& groupPlayers)
+{
+	auto event = sf::Event{};
 	setCurrentPlayer();
-	Timer::setTime(timeOfRound); // set time of player's turn.
+	if (m_die)  // if the worms dosent excist.
+		return;
+	
+	Timer::setTime(timeOfRound);			// set time of player's turn.
+	if (m_win)
+	{
+		Timer::setTime(5);
+	}
 	checkHealth();
-
-	while (!timesUp() && !m_end) 	// while the turn is not over - keep playing, or while the player didnt picked feature-weapon
+	while (!timesUp() && !m_end) //needs to be change
 	{
 		checkIfEventOccured(event);
 		wormMove();
-    if (m_worms[m_currWormPlayer]->stand())
-		{
-			if (m_feature)
-				m_worms[m_currWormPlayer]->setAnimation(m_feature->getAnimationSet(), 0.03f);
-			else
-			m_worms[m_currWormPlayer]->setAnimation({ animation_worm,sf::Vector2u{ 1,36 },
-				true,1,sizeOfWorm }, 0.05f);
-		}
+		restartAnimation();
 		drawBoardAndAnimation(groupPlayers);
+
 		if (m_drawWeaponMenu) // in here we'll call the draw weapon menu and in addition we'll handle the click of menu
 			chooseWeapon(groupPlayers);
-		for(auto&i:m_worms)//checking if the worm's life is over.
-			i->destroy();
+		
 	}
-	setTurnOfPlayer(); //when turn is over we'll set the player's turn
+	setTurnOfPlayer();
+	//setOtherWormsFromTurn(groupPlayers); //stack the turn - why?
+
 }
 
-bool Player::isWhiteFlag()
+
+void Player::handleDie()
 {
-	return m_whiteFlag;
+	for (auto& iter : m_worms)
+	{
+		if (iter->getLife() <= 0)
+		{
+			if (iter->getNumOfPicture() != animation_grave3)
+			{
+				iter->setAnimation({ animation_die, WormDieImageCount, false, 0,sizeOfWorm }, 0.05f);
+				m_numOfWorms--;
+			}
+
+			if (m_numOfWorms == 0)
+			{
+				m_die = true;
+				break;
+			}
+		}
+	}
+}
+//------------------before
+void Player::setWin()
+{
+	if (m_win)
+	{
+		for (auto& i : m_worms)
+		{
+			if (i->getLife() > 0)
+			{
+				i->setAnimation({ animation_win, winImageCount , true, 0, sizeOfWinAnimation }, 0.07f);
+				i->initializeWormSpriteSetting(sf::Vector2f{ 20,20 }, Resource::instance().getTexture(animation_win));
+				i->setSprite(20, 40);
+			}
+		}
+	}
+	m_win = true;
+	Timer::setTime(5);
+}
+
+void Player::setWinGroup()
+{
+	if(m_numOfWorms>0 && !m_die)
+		m_win = true;
 }
 
 void Player::setTurnOfPlayer()
 {
 	m_end = false;
-	m_worms[m_currWormPlayer]->setAnimation({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);
+	m_worms[m_currWormPlayer]->setRegularAnimation();
+	m_worms[m_currWormPlayer]->setStandOrigin();
 }
 
 void Player::setCurrentPlayer()
 {
-	static int count = initCount;
-	count++;
-	if (count == maxCount)
-		count = initCount;
-	m_currWormPlayer = count;	//randomize the current worm that will play now
+	
+	if (m_numOfWorms == 0)
+	{
+		m_die = true;
+		return;
+	}
+	while (m_numOfWorms > 0)
+	{
+		m_count++;
+		if (m_count >= wormsLimit)
+			m_count = initCount;
+		if (m_worms[m_count]->getLife() > 0)
+			break;
+	}
+	m_currWormPlayer = m_count;	//randomize the current worm that will play now
 	m_arrow.setPosition(m_worms[m_currWormPlayer]->getPosition());
 }
 
@@ -84,13 +133,17 @@ space click - this means he's wants to exert power and shoot or
 throw grenade (one of the options).*/
 void Player::checkIfEventOccured(sf::Event& event)
 {
+
 	if (m_feature)
 	{
-		m_featureAlive = m_feature->runFeature(event, m_window, m_drawfeatur,
+		m_feature->runFeature(event, m_window, m_drawFeature,
 			*m_worms[m_currWormPlayer].get());
+		if (auto i = dynamic_cast<WhiteFlag*>(m_feature.get()) && m_drawFeature==1)
+			handleWhiteFlag();
 	}
 
-	if (m_window.pollEvent(event)) {
+	if (m_window.pollEvent(event)) 
+	{
 		if (event.type == sf::Event::Closed)
 		{
 			m_window.close();
@@ -102,24 +155,7 @@ void Player::checkIfEventOccured(sf::Event& event)
 			if (event.key.code == sf::Mouse::Button::Right)
 				m_drawWeaponMenu = true; // set to true so we'll draw the weapon menu after the case!
 			break;
-			/*case sf::Mouse::Button::Left:
-				if (m_telleporter)
-				{
-					handleTeleporter();
-					m_telleporter = false;
-					break;
-				}*/
 
-		case sf::Event::KeyPressed:
-			if (event.key.code == sf::Keyboard::Space)
-			{
-				if (m_skipTurn) // in here we'll need to set the worm animation.
-				{
-					handleSkipTurn();
-					break;
-				}
-				break;
-			}
 		}
 	}
 }
@@ -130,42 +166,36 @@ and objects+all the of the physical elements.*/
 void Player::drawBoardAndAnimation(std::vector<std::unique_ptr<Player>>& groupPlayers)
 {
 	m_window.clear();
-
-	//auto view = sf::View(sf::FloatRect(sf::Vector2f{ m_worms[m_currWormPlayer]->getPosition().x+100,  m_worms[m_currWormPlayer]->getPosition().y+100}, sf::Vector2f{ 1280, 720 }));
-	//m_window.setView(view);
-
 	m_world.Step(TIMESTEP, VELITER, POSITER);
 	m_board.draw(m_window);
 	if (m_drawWeaponMenu)
-		m_featuresMenu.drawFeaturesMenu(m_window);
+		m_FeatureMenu.drawFeatureMenu(m_window);
 
 	m_window.draw(m_timeForRound);
+
 	for (auto& group : groupPlayers)
 	{
 		group->update();
 		group->draw();
 	}
-	
+
 	if (m_feature)
-	{	
-		if (m_drawfeatur)
+	{
+		if (m_drawFeature > 1 && m_drawFeature < 4)
 		{
 			m_feature->update();
 			m_feature->draw(m_window);
 		}
-		else if (m_feature->destroy(Timer::getTime()) || !m_featureAlive)
+		else if (m_feature->destroy(Timer::getTime()) || m_drawFeature==endFeatur)
 		{
 			m_feature.reset();
-			m_feature = nullptr;
-			m_drawfeatur = false;
-			m_worms[m_currWormPlayer]->setAnimation
-			({ animation_worm,sf::Vector2u{ 1,36 },true,1,sizeOfWorm }, 0.05f);
+			m_worms[m_currWormPlayer]->setRegularAnimation();
+			m_worms[m_currWormPlayer]->setStandOrigin();
+			m_end = true;
+			m_drawFeature = startAnimation;
 		}
 	}
-
 	m_window.draw(m_arrow);
-	/*m_arrow.update(0.03);
-	m_arrow.draw(window);*/
 	m_window.display();
 }
 
@@ -194,55 +224,13 @@ void Player::chooseWeapon(std::vector<std::unique_ptr<Player>>& groupPlayers)
 				else if (event.mouseButton.button == sf::Mouse::Left)
 				{
 					auto location = locatin(event); //will return where pressed on board
-					if (event.mouseButton.button == sf::Event::MouseMoved)
-					{
-						checkButtonFeaturesMenu(location);
-					}
 					checkClick(location);
-					handleFeatureChoosing();
 				}
 				m_drawWeaponMenu = false;
 				break;
 			}
 		}
 	}
-}
-
-void Player::handleSkipTurn()
-{
-	m_worms[m_currWormPlayer]->setAnimation({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);
-	m_end = true;
-	m_skipTurn = false;
-}
-/*this function will check if the player didn't choose a feature from the tool bar
-and if he chosed a feature we'll set the animation of the feature (switch from regular
-worm to worm with feature)*/
-void Player::handleFeatureChoosing()
-{
-	if (m_feature == nullptr)
-		return;
-	//in any other case we need to set the animation to the feature's choosing.
-	m_worms[m_currWormPlayer]->setAnimation(m_feature->getAnimationSet(), 0.05f);
-	m_worms[m_currWormPlayer]->setSprite(m_feature->getAnimationSet().sizeOfAni.x / 2, m_feature->getAnimationSet().sizeOfAni.y / 2);
-
-	if (m_feature->getAnimationSet().photo == animation_skip)
-	{
-		m_skipTurn = true;
-		//in here we'll want to handle skip turn and to wait for space from the user
-	}
-	else if (m_feature->getAnimationSet().photo == animation_whiteFlag)
-		handleWhiteFlag();
-
-	else if (m_feature->getAnimationSet().photo == animation_teleporter)
-	{
-		//m_worms[m_currWormPlayer]->setAnimation({ animation_teleporter, sf::Vector2u{ 1,10 }, true, 1, sizeOfWorm }, 0.05f);
-		m_telleporter = true;
-		//m_worms[m_currWormPlayer]->setAnimation(m_feature->getAnimationSet(), 0.05f);
-		handleTeleporter();
-		/*we won't do a thing, cause we'll wait for mouse button press and then we'll move it.
-		the only thing we'll do is to move the worm.*/
-	}
-
 }
 
 /*
@@ -252,13 +240,13 @@ the Object for the rellevant feature.
 */
 void Player::checkClick(sf::Vector2f clickLocation)
 {
-	std::vector < std::unique_ptr <Button>>& m_featuresVec = m_featuresMenu.getFeaturesVec();
+	std::vector < std::unique_ptr <Button>>& m_FeatureVec = m_FeatureMenu.getFeatureVec();
 
-	for (int i = 0; i < featuresAmount; i++)
+	for (int i = 0; i < FeatureAmount; i++)
 	{
-		if (m_featuresVec[i]->contains(clickLocation))
+		if (m_FeatureVec[i]->contains(clickLocation) && !m_feature)
 		{
-			getFeaturesName(i + featureDistance);
+			getFeatureName(i + featureDistance);
 			break;
 		}
 	}
@@ -267,10 +255,8 @@ void Player::checkClick(sf::Vector2f clickLocation)
 //this function will move the worm according to the player action.''
 void Player::wormMove()
 {
-	float time = m_wormsTime.restart().asSeconds();
-	m_worms[m_currWormPlayer]->move(time);
-	m_arrow.setPosition(m_worms[m_currWormPlayer]->getPosition() + sf::Vector2f{ -20,-60 });
-	//m_worms[m_currWormPlayer]->setAnimation();
+	m_worms[m_currWormPlayer]->move();
+	m_arrow.setPosition(m_worms[m_currWormPlayer]->getPosition() + sf::Vector2f{ -20,-90 });
 }
 
 //---------------------------------------------
@@ -278,8 +264,7 @@ void Player::wormMove()
 //this function will convert the location we got on the board to vector 2f
 sf::Vector2f Player::locatin(sf::Event& event) const
 {
-	return m_window.mapPixelToCoords(
-		{ event.mouseButton.x, event.mouseButton.y });
+	return m_window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
 }
 
 //---------------------------------------------
@@ -293,12 +278,10 @@ void Player::update()
 }
 
 //---------------------------------------------
-
-//---------------------------------------------
 //this function will return 
 bool Player::timesUp()
 {
-	if (Timer::getTime() != -1)
+	if (Timer::getTime() != timesUP)
 	{
 		if (m_roundTimer.getElapsedTime().asSeconds() >= 1.f)
 		{
@@ -311,7 +294,7 @@ bool Player::timesUp()
 	}
 	return false;
 }
-
+//---------------------------------------------
 int Player::getColorArrow()
 {
 	if (m_color == sf::Color::Red)
@@ -321,16 +304,12 @@ int Player::getColorArrow()
 	else if (m_color == sf::Color::Green)
 		return greenArrow;
 }
-
+//---------------------------------------------
 void Player::definArrow()
 {
-	//AnimationObject d(spriteSetting{ m_worms[m_currWormPlayer]->getPosition() ,sf::Vector2f{1,1},
-	//	Resources::instance().getTexture(getColorArrow()) }, arrowImageCount, m_world, true);
-	//m_arrow = d;
-	//m_world.DestroyBody(m_arrow.getBody());
-	m_arrow.setTexture(Resources::instance().getTexture(blueArrow));
+	m_arrow.setTexture(Resource::instance().getTexture(blueArrow));
 }
-
+//---------------------------------------------
 /*
 this function will load the timer of the Player's turn.
 time for round will describe the time of the player's turn, current time till
@@ -338,8 +317,9 @@ the turn of the player is Over.
 */
 void Player::loadTimer()
 {
-	m_timeForRound.setFont(Resources::instance().getfont(font::name_font));
-	m_timeForRound.setColor(sf::Color::Yellow);
+	m_timeForRound.setFont(Resource::instance().getfont(font::name_font));
+	m_timeForRound.setColor(sf::Color::Black);
+	m_timeForRound.setStyle(sf::Text::Bold);
 	m_timeForRound.setPosition(timeForRoundPosition);
 	m_timeForRound.setCharacterSize(timeForRoundCharacter);
 	m_roundTimer.restart();//restart player turn timer
@@ -357,81 +337,37 @@ void Player::creatWorms()
 	m_worms.resize(wormsLimit);
 	for (auto& it : m_worms)
 	{
-		auto loc = randomLocation(WIDTH - 10, HEIGHT - 10);
+		auto loc = randomLocation(randomWidth, randomHight);
 		auto i = std::make_unique<Worm>(loc, m_name, m_color, m_world);
 		it.swap(i);
 	}
 }
 
 //-----------------------------------------------------------------
-
 void Player::handleWhiteFlag()
 {
 	for (auto& i : m_worms)
 	{
-		i->setAnimation({ animation_whiteFlag, sf::Vector2u{ 1,10 }, true, 1, sizeOfWhiteFlagWorm }, 0.05f);
+		i->setAnimation({ animation_whiteFlag,WormWhiteFlagImageCount, true, 1, sizeOfWhiteFlagWorm }, 0.05f);
+		i->initializeWormSpriteSetting(sizeOfWhiteFlag, Resource::instance().getTexture(animation_whiteFlag));
+		i->setSprite(20, 40);
 	}
-	m_whiteFlag = true;
+	m_drawFeature = 2;
+	m_whiteflag = true;
 	Timer::setTime(oneRound);
 }
-
-void Player::handleSkip()
+//---------------------------------------------
+void Player::getFeatureName(int index)
 {
-	while (m_roundTimer.getElapsedTime().asSeconds() > 1.f)
-	{
-		if (auto event = sf::Event{}; m_window.pollEvent(event))
-		{
-			if (sf::Keyboard::isKeyPressed)
-			{
-				switch (event.type)
-				{
-				case sf::Event::KeyPressed:
-				case sf::Keyboard::Space:
-					break;
-					break;
-				}
-			}
-		}
-	}
-}
-void Player::handleTeleporter()
-{
-	sf::Sound sound;
-	sound.setBuffer(Resources::instance().getMusic(transform));
-	sound.play();
-
-	while (true)
-	{
-		//in here we'll wait for mouse button press- so we'll move the worm to the wanted location
-		if (auto event = sf::Event{}; m_window.pollEvent(event))
-		{
-			if (event.type == sf::Event::MouseButtonPressed)
-			{
-				if (event.mouseButton.button == sf::Mouse::Left)
-				{
-					b2Vec2 loc{ locatin(event).x * MPP, locatin(event).y * MPP };
-					m_worms[m_currWormPlayer]->getBody()->SetTransform(loc,
-						m_worms[m_currWormPlayer]->getBody()->GetAngle());
-					//m_worms[m_currWormPlayer]->setAnimation({ animation_worm, sf::Vector2u{ 1,36 }, true, 1, sizeOfWorm }, 0.05f);
-					break;
-				}
-			}
-		}
-	}
-	Timer::setTime(oneRound);
-}
-
-void Player::getFeaturesName(int index)
-{
-	auto wormPosition = m_worms[m_currWormPlayer]->getPosition() + sf::Vector2f{ 0,5 };
+	auto wormPosition = m_worms[m_currWormPlayer]->getPosition() + sf::Vector2f{ 0,100 };
 
 	switch (index)
 	{
-	case animation_whiteFlag://23
+	case animation_whiteFlag:
 		m_feature = std::make_unique<WhiteFlag>();
 		break;
-	case animation_artilary:
-		m_feature = std::make_unique<Artilary>(m_world, sf::Vector2f{ 60,60 });
+	case animation_walk:
+		m_feature = std::make_unique<Speed>();
 		break;
 	case animation_grenade:
 		m_feature = std::make_unique<Grenade>(m_world, wormPosition);
@@ -459,4 +395,23 @@ void Player::checkHealth()
 {
 	for (auto& j : m_worms)
 		j->checkHealth();
+}
+
+void Player::restartAnimation()
+{
+	if (m_worms[m_currWormPlayer]->stand())
+	{
+		m_worms[m_currWormPlayer]->setStandOrigin();
+		if (m_feature)
+			m_worms[m_currWormPlayer]->setAnimation(m_feature->getAnimationSet(), 0.03f);
+		else
+			m_worms[m_currWormPlayer]->setRegularAnimation();
+	}
+
+}
+
+std::string Player::getWinningGroupName()
+{
+	if (m_worms.size() != empty)
+		return m_worms[startIndex]->getGroupName();
 }
